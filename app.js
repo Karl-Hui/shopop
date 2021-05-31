@@ -1,7 +1,8 @@
 const express = require("express"),
-      session = require('express-session');
+      session = require('express-session'),
+      handlebars = require('express-handlebars');
+
 const app = express();
-const port = 8000
 // middleware
 app.use(express.json());
 
@@ -9,11 +10,35 @@ app.use(express.urlencoded({
     extended: true
 }));
 
+app.engine(
+    'handlebars',
+    handlebars({
+        defaultLayout: 'main'
+    })
+);
+
+app.set('view engine', 'handlebars');
+
 
 app.get("/", (req,res) => {
     res.send("Hello World")
 })
 
-app.listen(port, () => {
-    console.log(`🚀 app listening on ${port}`)
+// Sign up 
+app.post(
+    '/customer-signup',
+    passportFunctions.authenticate('local-signup', {
+        successRedirect: '/login',
+        failureRedirect: '/error',
+        cookie: {
+            secure: true
+        }
+    })
+);
+
+app.get('/customer-signup', (req, res) => {
+    res.render('user-signup')
 })
+
+// Exporting module to server js
+module.exports = app;
