@@ -62,5 +62,9 @@ app.get("/customer-signup", (req, res) => {
   res.render("user-signup");
 });
 
+app.get('/select', (req, res) => {
+    res.render('select')
+})
+
 // Exporting module to server js
 module.exports = app;
