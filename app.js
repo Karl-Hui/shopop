@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
+app.use(express.static(__dirname + '/public'));
 
 app.engine(
     'handlebars',
@@ -25,16 +26,16 @@ app.get("/", (req,res) => {
 })
 
 // Sign up 
-app.post(
-    '/customer-signup',
-    passportFunctions.authenticate('local-signup', {
-        successRedirect: '/login',
-        failureRedirect: '/error',
-        cookie: {
-            secure: true
-        }
-    })
-);
+// app.post(
+//     '/customer-signup',
+//     passportFunctions.authenticate('local-signup', {
+//         successRedirect: '/login',
+//         failureRedirect: '/error',
+//         cookie: {
+//             secure: true
+//         }
+//     })
+// );
 
 app.get('/customer-signup', (req, res) => {
     res.render('user-signup')
