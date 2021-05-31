@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body>
+    <div class="signup-form">
+     <form action="/signup" method="post">
+		<h2>Register to shop</h2>
+		<p class="hint-text">Create your account. It's free and only takes a minute.</p>
+        <div class="form-group">
+        	<input type="text" name="username" class="form-control mb-2" placeholder="Enter Email" required>
+        </div>
+		<div class="form-group">
+               <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+        </div>
+		<div class="form-group">
+            <button type="submit" class="btn btn-dark mt-2">Register Now</button>
+        </div>
+    </form>
+	<div class="text-center">Already have an account? <a href="/Login" id="signup-text">Login</a></div>
+</div>
+</body>
+</html>
