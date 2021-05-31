@@ -48,7 +48,7 @@ app.get("/", (req, res) => {
 
 // Sign up
 app.post(
-  "/signup",
+  "/customer-signup",
   passportFunctions.authenticate("local-customerSignup", {
     successRedirect: "/login",
     failureRedirect: "/error",
