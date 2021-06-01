@@ -5,9 +5,13 @@ const cookieParser = require("cookie-parser");
 const database = require("./knexfile").development;
 const knex = require("knex")(database);
 
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+
 const express = require("express"),
   session = require("express-session"),
   handlebars = require("express-handlebars");
+const multer = require("multer");
 
 const app = express();
 // middleware
