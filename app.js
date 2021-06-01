@@ -5,6 +5,9 @@ const cookieParser = require("cookie-parser");
 const database = require("./knexfile").development;
 const knex = require("knex")(database);
 
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+
 const express = require("express"),
   session = require("express-session"),
   handlebars = require("express-handlebars");
@@ -43,12 +46,14 @@ app.use(passportFunctions.session());
 app.set("view engine", "handlebars");
 
 app.get("/", (req, res) => {
+  console.log("++++++++++++++++++++++", req.file);
   res.send("Hello World");
 });
 
 // Sign up for customers
 app.post(
   "/customer-signup",
+  upload.single("customerImage"),
   passportFunctions.authenticate("local-customerSignup", {
     successRedirect: "/customer-login",
     failureRedirect: "/error",
@@ -70,11 +75,10 @@ app.get("/merchant-signup", (req, res) => {
   res.render("merchant-signup");
 });
 
-
 app.post(
   "/customer-login",
   passportFunctions.authenticate("local-customerLogin", {
-    successRedirect: "/customer-signup",
+    successRedirect: "/",
     failureRedirect: "/error",
     cookie: {
       secure: true,
