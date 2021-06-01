@@ -102,6 +102,18 @@ app.get("/merchant-login", (req, res) => {
   res.render("merchant-login");
 });
 
+app.post(
+  "/merchant-login",
+  passportFunctions.authenticate("local-merchantLogin", {
+    successRedirect: "/",
+    failureRedirect: "/error",
+    cookie: {
+      secure: true,
+    },
+  })
+);
+
+
 app.get("/select", (req, res) => {
   res.render("select");
 });
