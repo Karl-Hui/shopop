@@ -1,4 +1,4 @@
-const hashFunction = require("./hashFunction");
+const hashFunction = require("../passport_merchant/hashFunction");
 
 const database = require("../knexfile").development;
 const knex = require("knex")(database);

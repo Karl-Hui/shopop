@@ -1,6 +1,7 @@
 require("dotenv").config();
 
-const passportFunctions = require("./passport");
+const passportMerchant = require("./passport_merchant");
+const passportCustomer = require('./passport_customer')
 const cookieParser = require("cookie-parser");
 const database = require("./knexfile").development;
 const knex = require("knex")(database);
@@ -40,8 +41,13 @@ app.use(
   })
 );
 
-app.use(passportFunctions.initialize());
-app.use(passportFunctions.session());
+// merchant
+app.use(passportMerchant.initialize());
+app.use(passportMerchant.session());
+
+// customers
+app.use(passportCustomer.initialize());
+app.use(passportCustomer.session());
 
 app.set("view engine", "handlebars");
 
@@ -54,7 +60,7 @@ app.get("/", (req, res) => {
 app.post(
   "/customer-signup",
   upload.single("customerImage"),
-  passportFunctions.authenticate("local-customerSignup", {
+  passportCustomer.authenticate("local-customerSignup", {
     successRedirect: "/customer-login",
     failureRedirect: "/error",
     cookie: {
@@ -73,7 +79,7 @@ app.get("/customer-login", (req, res) => {
 
 app.post(
   "/customer-login",
-  passportFunctions.authenticate("local-customerLogin", {
+  passportCustomer.authenticate("local-customerLogin", {
     successRedirect: "/",
     failureRedirect: "/error",
     cookie: {
@@ -85,7 +91,7 @@ app.post(
 // merchant signup
 app.post(
   "/merchant-signup",
-  passportFunctions.authenticate("local-merchantSignup", {
+  passportMerchant.authenticate("local-merchantSignup", {
     successRedirect: "/merchant-login",
     failureRedirect: "/error",
     cookie: {
@@ -104,8 +110,8 @@ app.get("/merchant-login", (req, res) => {
 
 app.post(
   "/merchant-login",
-  passportFunctions.authenticate("local-merchantLogin", {
-    successRedirect: "/",
+  passportMerchant.authenticate("local-merchantLogin", {
+    successRedirect: "/merchant-signup",
     failureRedirect: "/error",
     cookie: {
       secure: true,
