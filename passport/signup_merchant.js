@@ -1,5 +1,4 @@
 const hashFunction = require("./hashFunction");
-
 const database = require("../knexfile").development;
 const knex = require("knex")(database);
 
@@ -12,30 +11,30 @@ module.exports = new LocalStrategy(
   
       try {
         let username = await knex("merchant").where({
-          username: req.body.username,
+            merchantName: req.body.username,
         });
         if (username.length > 0) {
           return done(null, false, {
             message: "user name already exists",
           });
         }
-        let shop = await knex("merchant").where({
+        let shopEmail = await knex("merchant").where({
           email: req.body.email,
         });
-        if (shop.length > 0) {
+        if (shopEmail.length > 0) {
           return done(null, false, {
             message: "user already exists",
           });
         }
         let hashPassword = await hashFunction.hashPassword(req.body.password);
-        // assign value to customer table
+        // assign value to merchant table
         const newMerchant = {
           merchantName: req.body.username,
           email: req.body.email,
           hash: hashPassword,
         };
         // inserting into table
-        let merchantId = await knex("customer").insert(merchant).returning("id");
+        let merchantId = await knex("merchant").insert(newMerchant).returning("id");
         newMerchant.id = merchantId[0]
         console.log("New merchant", newMerchant)
         done(null, newMerchant);
