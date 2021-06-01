@@ -70,10 +70,6 @@ app.get("/customer-login", (req, res) => {
   res.render("customer-login");
 });
 
-app.get("/merchant-signup", (req, res) => {
-  res.render("merchant-signup");
-});
-
 app.post(
   "/customer-login",
   passportFunctions.authenticate("local-customerLogin", {
@@ -84,6 +80,26 @@ app.post(
     },
   })
 );
+
+// merchant signup
+app.post(
+  "/merchant-signup",
+  passportFunctions.authenticate("local-merchantSignup", {
+    successRedirect: "/merchant-login",
+    failureRedirect: "/error",
+    cookie: {
+      secure: true,
+    },
+  })
+);
+
+app.get("/merchant-signup", (req, res) => {
+  res.render("merchant-signup");
+});
+
+app.get("/merchant-login", (req, res) => {
+  res.render("merchant-login");
+});
 
 app.get("/select", (req, res) => {
   res.render("select");
