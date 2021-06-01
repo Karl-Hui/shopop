@@ -46,11 +46,11 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-// Sign up
+// Sign up for customers
 app.post(
   "/customer-signup",
   passportFunctions.authenticate("local-customerSignup", {
-    successRedirect: "/login",
+    successRedirect: "/customer-login",
     failureRedirect: "/error",
     cookie: {
       secure: true,
@@ -62,9 +62,24 @@ app.get("/customer-signup", (req, res) => {
   res.render("user-signup");
 });
 
-app.get('/select', (req, res) => {
-    res.render('select')
-})
+app.get("/customer-login", (req, res) => {
+  res.render("customer-login");
+});
+
+app.post(
+  "/customer-login",
+  passportFunctions.authenticate("local-customerLogin", {
+    successRedirect: "/customer-signup",
+    failureRedirect: "/error",
+    cookie: {
+      secure: true,
+    },
+  })
+);
+
+app.get("/select", (req, res) => {
+  res.render("select");
+});
 
 // Exporting module to server js
 module.exports = app;

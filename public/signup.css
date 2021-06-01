@@ -1,14 +1,17 @@
 body {
-  background-color: black;
+  background-image: url("./images/willspirit-l-n-9MRRM_hV4qA-unsplash.jpg") !important;
+  background-repeat: no-repeat;
+  background-size:cover
 }
 
 .signup-form {
-  width: 550px;
-  margin: 0 auto;
-  padding: 30px 100px;
+  width: 50%;
+  margin: 3rem auto;
+  padding: 30px 8rem;
   font-size: 15px;
-  background-color: rgba(107, 107, 107, 0.13);
+  background-color: rgb(230, 230, 230);
 }
+
 .form-label {
   font-style: normal;
   font-weight: 300;
@@ -32,4 +35,23 @@ body {
   border: 0;
   cursor: pointer;
   outline: 0;
+}
+
+/* footer */
+
+.footer-background {
+  background-color: #000;
+  height: 4rem;
+}
+
+#footer-text {
+  color: white;
+  padding: 1rem 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .signup-form {
+    width: 100%;
+    padding: 1.2rem 1.3rem;
+  }
 }
