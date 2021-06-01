@@ -53,7 +53,6 @@ app.get("/", (req, res) => {
 // Sign up for customers
 app.post(
   "/customer-signup",
-  upload.single("customerImage"),
   passportFunctions.authenticate("local-customerSignup", {
     successRedirect: "/customer-login",
     failureRedirect: "/error",
