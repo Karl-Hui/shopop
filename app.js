@@ -12,6 +12,14 @@ const CustomerServices = require("./services/customerServices")
 
 let customerService = new CustomerServices(knex);
 let customerRoute = new CustomerRouters(customerService);
+
+// merchant import files
+const MerchantRouters = require("./routes/merchantRouter");
+const MerchantService = require('./services/merchantService')
+
+let merchantService = new MerchantService(knex)
+let merchantRoute = new MerchantRouters(merchantService)
+
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
@@ -117,7 +125,7 @@ app.get("/merchant-login", (req, res) => {
 app.post(
   "/merchant-login",
   passportMerchant.authenticate("local-merchantLogin", {
-    successRedirect: "/merchant-signup",
+    successRedirect: "/shop/merchant-homepage",
     failureRedirect: "/error",
     cookie: {
       secure: true,
@@ -131,6 +139,7 @@ app.get("/select", (req, res) => {
 });
 
 app.use("/", customerRoute.router());
+app.use("/shop", merchantRoute.router());
 //user homepage
 app.get("/CustomerHomepage", (req, res) =>{
   res.render("customer-homepage")

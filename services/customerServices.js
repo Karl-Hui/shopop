@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: "../.env" });
 const database = require("../knexfile").development;
 const knex = require("knex")(database);
 
