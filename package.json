@@ -17,11 +17,6 @@
     "knex": "^0.95.6",
     "nodemon": "^2.0.7",
     "passport": "^0.4.1",
-<<<<<<< HEAD
-    "passport-local": "^1.0.0",
-=======
-
->>>>>>> dd765e2c2599ef93faf4d583f875815e807ce8d3
     "pg": "^8.6.0"
   },
   "repository": {
