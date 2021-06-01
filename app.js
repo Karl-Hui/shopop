@@ -66,6 +66,11 @@ app.get("/customer-login", (req, res) => {
   res.render("customer-login");
 });
 
+app.get("/merchant-signup", (req, res) => {
+  res.render("merchant-signup");
+});
+
+
 app.post(
   "/customer-login",
   passportFunctions.authenticate("local-customerLogin", {
