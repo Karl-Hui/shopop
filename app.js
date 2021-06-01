@@ -86,7 +86,7 @@ app.get("/customer-login", (req, res) => {
 app.post(
   "/customer-login",
   passportCustomer.authenticate("local-customerLogin", {
-    successRedirect: "/",
+    successRedirect: "/customer-homepage",
     failureRedirect: "/error",
     cookie: {
       secure: true,
