@@ -5,6 +5,13 @@ const cookieParser = require("cookie-parser");
 const database = require("./knexfile").development;
 const knex = require("knex")(database);
 
+//imported files
+const CustomerRouters = require("./routes/customerRouter")
+const CustomerServices = require("./services/customerServices")
+
+let customerService = new CustomerServices(knex);
+let customerRoute = new CustomerRouters(customerService);
+
 const express = require("express"),
   session = require("express-session"),
   handlebars = require("express-handlebars");
@@ -69,7 +76,7 @@ app.get("/customer-login", (req, res) => {
 app.post(
   "/customer-login",
   passportFunctions.authenticate("local-customerLogin", {
-    successRedirect: "/customer-signup",
+    successRedirect: "/customer-homepage",
     failureRedirect: "/error",
     cookie: {
       secure: true,
@@ -77,9 +84,19 @@ app.post(
   })
 );
 
+//select route for either customer or buyer
 app.get("/select", (req, res) => {
   res.render("select");
 });
+
+app.use("/", customerRoute.router());
+//user homepage
+app.get("/CustomerHomepage", (req, res) =>{
+  res.render("customer-homepage")
+})
+
+
+
 
 // Exporting module to server js
 module.exports = app;
