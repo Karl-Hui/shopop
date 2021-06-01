@@ -1,0 +1,57 @@
+body {
+  background-image: url("./images/merchant-signin-bg.jpg") !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.signup-form {
+  width: 50%;
+  margin: 3rem auto;
+  padding: 30px 8rem;
+  font-size: 15px;
+  background-color: rgb(230, 230, 230);
+}
+
+.form-label {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.button {
+  background-color: #000;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: block;
+  color: #fff;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+}
+
+/* footer */
+
+.footer-background {
+  background-color: #000;
+  height: 4rem;
+}
+
+#footer-text {
+  color: white;
+  padding: 1rem 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .signup-form {
+    width: 100%;
+    padding: 1.2rem 1.3rem;
+  }
+}

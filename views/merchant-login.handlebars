@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Role</title>
-    <link rel="stylesheet" href="selection.css">
+    <title>User Login</title>
+    <link rel="stylesheet" href="customer-login.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
 <body>
-   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-sm">
             <a class="navbar-brand" href="#">Shopop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,32 +33,27 @@
         </div>
     </nav>
     <div class="container">
-       <br>
-       <br>
-            <div class="selection-form">
-		    <div class="row">
-		    <div class=" col-6 borderLine">
-                <br>
-                <h2>BUYER</h2>
-                <div class="pic_background">
-                <img class="pic_size" src="media/customerSelect.png" alt="Customer Selection" style="width:100%">
-                </div>
-                <div class="buttonContainer">
-                <a href="/customer-signup"><button type="submit" class="button mt-3 buttonSignupBuyer">Sign Up</button></a>
-                </div>
+            <div class="col form-div">
+            <h3 class="mt-5 align-self-center">Log in</h3>
+            <h6>Continue to your store</h6>
+            <form action="/merchant-login" method="POST">
+            <label for="email" class="form-label">Email Address</label>
+            <input name="username" type="text" class="form-control" placeholder="Enter your email address">
+            <label for="password" class="form-label mt-3">Password</label>
+            <input type="password" class="form-control" placeholder="Enter your password" name="password">
+            <button type="submit" class="btn btn-dark mt-5">Login</button>
+            </form>
+            <div class="col">
+                <a href="/auth/facebook" class="fb-btn">
+                <center>Login with Facebook</center>
+                </a>
             </div>
-            <div class=" col-6 ">
-                <br>
-                <h2>SELLER</h2>
-                <div class="pic_background">
-                <img class="pic_size" src="media/shopSelect.png" alt="Shop selection" style="width:100%">
-                </div>
-
-                 <div class="buttonContainer">
-               <a href="/merchant-signup"><button type="submit" class="button mt-3 buttonSignupSeller">Sign Up</button></a>
-                </div>
+            <div class="col">
+                <a href="/auth/google" class="google-btn">
+                <center>Login with Google</center>
+                </a>
             </div>
-            </div>	
-</div>
+            </div>
+        </div>
 </body>
 </html>
