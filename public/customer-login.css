@@ -1,0 +1,75 @@
+input,
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 0px;
+  margin: 5px 0;
+  display: inline-block;
+  font-size: 17px;
+  line-height: 20px;
+}
+
+.fb-btn {
+  background-color: #3b5998;
+  color: white;
+  width: 100%;
+  padding: 9px;
+  border: none;
+  border-radius: 4px;
+  margin: 5px 0;
+  display: inline-block;
+  font-size: 17px;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.fb-btn:hover {
+  background-color: #2b457e;
+  color: white;
+}
+
+.google-btn {
+  background-color: #de5246;
+  color: white;
+  width: 100%;
+  padding: 9px;
+  border: none;
+  border-radius: 4px;
+  margin: 5px 0;
+  display: inline-block;
+  font-size: 17px;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.google-btn:hover {
+  background-color: #c54135;
+  color: white;
+}
+
+/* form css */
+.form-div {
+  width: 50%;
+  margin: 3rem auto;
+  padding: 3rem 2rem 5rem;
+  font-size: 16px;
+  background-color: rgb(230, 230, 230);
+}
+
+.form-label {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+@media only screen and (max-width: 600px) {
+  .form-div {
+    width: 100%;
+    padding: 1.2rem 1.3rem;
+  }
+}

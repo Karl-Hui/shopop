@@ -46,7 +46,7 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-// Sign up
+// Sign up for customers
 app.post(
   "/customer-signup",
   passportFunctions.authenticate("local-customerSignup", {
@@ -60,6 +60,10 @@ app.post(
 
 app.get("/customer-signup", (req, res) => {
   res.render("user-signup");
+});
+
+app.get("/customer-login", (req, res) => {
+  res.render("customer-login");
 });
 
 app.get('/select', (req, res) => {
