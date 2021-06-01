@@ -20,8 +20,8 @@ getMerchantInfo(merchantId){
         id: merchantId
     })
     .then((data) =>{
-    console.log("this is merchant data:", data)
-    return data
+    console.log("this is merchant data:", data[0])
+    return data[0].merchantName
     })
     .catch((error) => {
     console.log("error", error);
