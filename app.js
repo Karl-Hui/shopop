@@ -50,7 +50,7 @@ app.get("/", (req, res) => {
 app.post(
   "/customer-signup",
   passportFunctions.authenticate("local-customerSignup", {
-    successRedirect: "/login",
+    successRedirect: "/customer-login",
     failureRedirect: "/error",
     cookie: {
       secure: true,
@@ -66,9 +66,20 @@ app.get("/customer-login", (req, res) => {
   res.render("customer-login");
 });
 
-app.get('/select', (req, res) => {
-    res.render('select')
-})
+app.post(
+  "/customer-login",
+  passportFunctions.authenticate("local-customerLogin", {
+    successRedirect: "/customer-signup",
+    failureRedirect: "/error",
+    cookie: {
+      secure: true,
+    },
+  })
+);
+
+app.get("/select", (req, res) => {
+  res.render("select");
+});
 
 // Exporting module to server js
 module.exports = app;
