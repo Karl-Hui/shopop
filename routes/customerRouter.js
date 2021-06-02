@@ -13,7 +13,7 @@ function isLoggedIn(req, res, next) {
   res.redirect("/login");
 }
 
-class customerRouter {
+class CustomerRouter {
   constructor(customerServices) {
     this.customerServices = customerServices;
   }
