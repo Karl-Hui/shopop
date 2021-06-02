@@ -73,7 +73,14 @@ stripeRouter.get('/token', isLoggedIn, async (req, res, next) => {
     // this Stripe account ID will be used to issue payouts to the pilot
     req.user.stripeAccountId = expressAuthorized.stripe_user_id;
     console.log("req.user is this:",req.user)
-    
+    let stripeId = req.user.stripeAccountId
+    await knex("merchant")
+    .update("stripeAccountId", stripeId)
+    .where({
+      id: req.user.id
+    }).then(() => {
+      console.log("inserted:", stripeId)
+    })
 
     // Redirect to the merchant home page
     res.redirect('/shop/merchant-homepage');

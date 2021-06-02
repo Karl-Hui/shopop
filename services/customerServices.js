@@ -14,7 +14,7 @@ class CustomerServices {
       .select()
       .where({ id: customerId })
       .then((data) => {
-        console.log("this is customer data:", data[0].username);
+        // console.log("this is customer data:", data[0].username);
         return data[0].username;
       })
       .catch((error) => {
@@ -38,8 +38,8 @@ class CustomerServices {
   }
 }
 //test
-let service = new CustomerServices(knex);
-service.getCustomerName(1);
+// let service = new CustomerServices(knex);
+// service.getCustomerName(1);
 // console.log("hi");
 
 module.exports = CustomerServices;

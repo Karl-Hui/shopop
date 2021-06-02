@@ -6,6 +6,7 @@ exports.up = function (knex) {
     table.string("hash");
     table.string("facebook_id");
     table.string("gmail_id");
+    table.string("stripeAccountId");
     table.timestamps(false, true);
   });
 };
