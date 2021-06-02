@@ -1,5 +1,7 @@
 const express = require("express");
-
+const multer = require("multer");
+const { storage } = require("../cloudinary");
+const upload = multer({ storage });
 // let currentCustomer;
 let customer_id;
 
@@ -13,7 +15,7 @@ function isLoggedIn(req, res, next) {
   res.redirect("/login");
 }
 
-class customerRouter {
+class CustomerRouter {
   constructor(customerServices) {
     this.customerServices = customerServices;
   }
@@ -24,6 +26,12 @@ class customerRouter {
       "/customer-homepage",
       isLoggedIn,
       this.customer_homepage.bind(this)
+    );
+    router.post(
+      "/customer-homepage",
+      isLoggedIn,
+      upload.single("customer-image"),
+      this.post_image.bind(this)
     );
     return router;
   }
@@ -36,6 +44,9 @@ class customerRouter {
         customerName: customerName,
       });
     });
+  }
+  post_image(req, res) {
+    console.log("req.file", req.file);
   }
 }
 
