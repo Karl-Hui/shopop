@@ -13,7 +13,7 @@ function isLoggedIn(req, res, next) {
     res.redirect('/login');
 }
 
-class customerRouter {
+class CustomerRouter {
     constructor(customerServices) {
         this.customerServices = customerServices;
     }
@@ -28,6 +28,7 @@ class customerRouter {
         this.customerServices.getCustomerName(customer_id)
         .then((customerName) => {
             console.log(customerName)
+            console.log("this is a sesssion",req.session)
             res.render("customer-homepage", {
                 layout: "customerLoggedIn",
                 customerName: customerName,
@@ -37,4 +38,4 @@ class customerRouter {
 
 }
 
-module.exports = customerRouter;
+module.exports = CustomerRouter;

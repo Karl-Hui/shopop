@@ -1,9 +1,11 @@
 <link rel="stylesheet" href="catagoryBar.css">
 
 <div class="catagoryBarContainer">
-<ul class="nav justify-content-center">
+
+<ul class="nav justify-content-center nav-fill ">
+
   <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">TOPS</a>
+    <a class="nav-link" aria-current="page" href="#">TOPS</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#"> BOTTOMS</a>
@@ -26,3 +28,13 @@
   
 </ul>
 </div>
+
+  <script
+  src="https://code.jquery.com/jquery-3.6.0.js"integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="crossorigin="anonymous"></script>
+  {{!-- function that controls the toggling of active class --}}
+  <script type="text/javascript">
+  $(document.getElementsByClassName("catagoryBarContainer")).on('click', 'ul li', function(){
+    $(this).addClass('active').siblings().removeClass('active')
+  })
+  
+  </script>
