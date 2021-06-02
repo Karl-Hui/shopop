@@ -21,6 +21,21 @@ class CustomerServices {
         console.log("error", error);
       });
   }
+
+  postImage(user_id, imageURL) {
+    const newImage = {
+      profilePicture: imageURL,
+    };
+    return knex("customer_info")
+      .update("profilePicture", newImage)
+      .where({ customer_id: user_id })
+      .then(() => {
+        console.log("added profile Pic!");
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }
 }
 //test
 let service = new CustomerServices(knex);
