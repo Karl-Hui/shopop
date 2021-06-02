@@ -1,23 +1,23 @@
-ul li a {
-    color: black !important;
-    font-size: 15px;
-    font-weight:500;
+.mainNavContainer {
+    padding: 20px;
 }
 
-ul li.active a {
-    background-color:rgb(0, 0, 0) !important;
-    border-radius: 0.25rem;
-    color:  white !important;
-        
+div ul li a {
+    font-weight:bolder;
+    font-size: 18px;
 }
 
-.nav-link {
-    padding: 0.5rem 3rem !important;
+.dropDownMenuFont {
+    font-weight:bolder!important;
+    font-size: 18px !important;
+    text-align: center !important;
+    text-transform: uppercase;
 }
 
-.catagoryBarContainer {
-background-color: #E0DFDF;
-color: #E0DFDF;
-padding: 10px;
-border-top: 2px solid black;
+.logoutButton {
+   margin: 0px 40px 0px 40px;
+}
+
+.buttonBG{
+    background-color: white !important;
 }

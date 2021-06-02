@@ -1,49 +1,26 @@
 <link rel="stylesheet" href="mainNavBar.css">
  <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-{{!-- <div >
 
-<ul class="nav justify-content-center nav-fill ">
+<div class="mainNavContainer">
 
-  <li class="nav-item">
-    <a class="nav-link" aria-current="page" href="#">LOGO</a>
-  </li>
-
-  <li class="nav-item dropdown">
-    <a class="nav-link" href="#">ACCOUNT</a>
-       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">ACCOUNT</a>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Separated link</a>
-    </div>
-  </li>
-  
-</ul>
-</div> --}}
 
 <ul class="nav nav-pills">
   <li class="nav-item">
-    <a class="nav-link" href="#">lOGO</a>
+    <a class="nav-link" href="#">SHOPOP</a>
   </li>
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">USERNAME</a>
-      <a class="dropdown-item" href="#">SETTINGS</a>
-      <button type="submit" class="btn btn-danger mt-5">Logout</button>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Separated link</a>
-    </div>
+  <li class="nav-item dropdown ml-auto">
+    <a class="nav-link dropdown-toggle buttonBG" data-toggle="dropdown" href="/logout" role="button" aria-haspopup="true" aria-expanded="false">ACCOUNT</a>
+    <div class="dropdown-menu ">
+      <a class="dropdown-item dropDownMenuFont" href="#">{{this.customerName}}</a>
+      <a class="dropdown-item dropDownMenuFont" href="#">SETTINGS</a>
+      <a role="button"type="submit" class="btn btn-danger logoutButton" href="/logout">Logout</a>
+     
   </li>
 </ul>
 
-<script>
-  $('.dropdown-toggle').dropdown()
-</script>
-<script>$('.dropdown-toggle').dropdown('toggle')</script>
+</div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
