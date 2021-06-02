@@ -39,4 +39,4 @@ class customerRouter {
   }
 }
 
-module.exports = customerRouter;
+module.exports = CustomerRouter;
