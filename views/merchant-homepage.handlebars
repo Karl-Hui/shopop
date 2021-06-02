@@ -1,2 +1,7 @@
 <h1>Merchant page</h1>
 <h3>{{this.merchantName}}</h3>
+
+<form action="/shop/merchant-homepage" method="post" enctype="multipart/form-data">
+  <input type="file" name="merchant-image" />
+        <button type="submit" class="btn btn-dark mt-5">submit</button>
+</form>
