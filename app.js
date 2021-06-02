@@ -140,6 +140,11 @@ app.post(
 app.get("/select", (req, res) => {
   res.render("select");
 });
+// logout route
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/customer-signup');
+});
 
 app.use("/", customerRoute.router());
 app.use("/shop", merchantRoute.router());

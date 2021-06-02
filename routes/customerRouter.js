@@ -45,6 +45,7 @@ class CustomerRouter {
       });
     });
   }
+
   post_image(req, res) {
     console.log("req.file", req.file);
   }
