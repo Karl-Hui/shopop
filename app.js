@@ -1,27 +1,27 @@
 require("dotenv").config();
 
 const passportMerchant = require("./passport_merchant");
-const passportCustomer = require('./passport_customer')
+const passportCustomer = require("./passport_customer");
 const cookieParser = require("cookie-parser");
 const database = require("./knexfile").development;
 const knex = require("knex")(database);
 
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+
 //imported files
-const CustomerRouters = require("./routes/customerRouter")
-const CustomerServices = require("./services/customerServices")
+const CustomerRouters = require("./routes/customerRouter");
+const CustomerServices = require("./services/customerServices");
 
 let customerService = new CustomerServices(knex);
 let customerRoute = new CustomerRouters(customerService);
 
 // merchant import files
 const MerchantRouters = require("./routes/merchantRouter");
-const MerchantService = require('./services/merchantService')
+const MerchantService = require("./services/merchantService");
 
-let merchantService = new MerchantService(knex)
-let merchantRoute = new MerchantRouters(merchantService)
-
-const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+let merchantService = new MerchantService(knex);
+let merchantRoute = new MerchantRouters(merchantService);
 
 const express = require("express"),
   session = require("express-session"),
@@ -91,6 +91,10 @@ app.get("/customer-login", (req, res) => {
   res.render("customer-login");
 });
 
+app.get("/merchant-signup", (req, res) => {
+  res.render("merchant-signup");
+});
+
 app.post(
   "/customer-login",
   passportCustomer.authenticate("local-customerLogin", {
@@ -133,7 +137,6 @@ app.post(
   })
 );
 
-
 app.get("/select", (req, res) => {
   res.render("select");
 });
@@ -141,12 +144,9 @@ app.get("/select", (req, res) => {
 app.use("/", customerRoute.router());
 app.use("/shop", merchantRoute.router());
 //user homepage
-app.get("/CustomerHomepage", (req, res) =>{
-  res.render("customer-homepage")
-})
-
-
-
+app.get("/CustomerHomepage", (req, res) => {
+  res.render("customer-homepage");
+});
 
 // Exporting module to server js
 module.exports = app;
