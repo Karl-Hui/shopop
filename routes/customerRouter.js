@@ -47,7 +47,16 @@ class CustomerRouter {
   }
 
   post_image(req, res) {
-    console.log("req.file", req.file);
+    console.log("req.file", req.file.path);
+    let profilePictureURL = req.file.path;
+    this.customerServices
+      .postImage(customer_id, profilePictureURL)
+      .then(() => {
+        console.log("done");
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
   }
 }
 
