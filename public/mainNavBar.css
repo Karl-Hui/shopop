@@ -1,10 +1,13 @@
 .mainNavContainer {
-    padding: 20px;
+    padding: 15px;
 }
 
 div ul li a {
     font-weight:bolder;
     font-size: 18px;
+}
+.accountButton{
+margin: auto !important;
 }
 
 .dropDownMenuFont {
@@ -20,4 +23,37 @@ div ul li a {
 
 .buttonBG{
     background-color: white !important;
+}
+
+.shoppingIcon{
+    padding: 11px;
+}
+
+@media (max-width: 500px){
+    .mainNavContainer {
+        padding: 2px;
+        margin: 0% auto !important;
+    }
+   .accountButton {
+        padding: 0% !important;
+        margin: 0% !important;
+   }
+   .shoppingIcon{
+         padding: auto;
+         margin: auto;
+    
+    }
+    .ml-auto{
+         position: absolute;
+    }
+    .iconContainer {
+        display: flex;
+        justify-content: middle;
+    }
+
+   .title {
+        padding: 0% !important;
+        margin: 0% !important;
+    }
+
 }
