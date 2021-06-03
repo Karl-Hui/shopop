@@ -23,7 +23,6 @@ const MerchantService = require("./services/merchantService");
 let merchantService = new MerchantService(knex);
 let merchantRoute = new MerchantRouters(merchantService);
 
-
 const express = require("express"),
   session = require("express-session"),
   handlebars = require("express-handlebars");
@@ -61,13 +60,13 @@ app.use(passportMerchant.initialize());
 app.use(passportMerchant.session());
 
 // customers
-app.use(passportCustomer.initialize());
-app.use(passportCustomer.session());
+// app.use(passportCustomer.initialize());
+// app.use(passportCustomer.session());
 
 app.set("view engine", "handlebars");
 
 // Stripe route
-app.use('/merchant/stripe', require('./routes/stripe_route/stripe'));
+app.use("/merchant/stripe", require("./routes/stripe_route/stripe"));
 
 app.get("/", (req, res) => {
   console.log("++++++++++++++++++++++", req.file);
@@ -149,9 +148,9 @@ app.get("/select", (req, res) => {
   res.render("select");
 });
 // logout route
-app.get('/logout', (req, res) => {
+app.get("/logout", (req, res) => {
   req.logout();
-  res.redirect('/customer-signup');
+  res.redirect("/customer-signup");
 });
 
 app.use("/", customerRoute.router());
