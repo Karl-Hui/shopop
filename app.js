@@ -93,9 +93,7 @@ app.get("/customer-signup", (req, res) => {
 app.get("/customer-login", (req, res) => {
   res.render("customer-login");
 });
-app.get("/customer-settings", (req, res) => {
-  res.render("customer-settings-info");
-});
+
 
 app.get("/merchant-signup", (req, res) => {
   res.render("merchant-signup");
