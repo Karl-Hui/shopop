@@ -70,7 +70,7 @@ app.set("view engine", "handlebars");
 app.use('/merchant/stripe', require('./routes/stripe_route/stripe'));
 
 app.get("/", (req, res) => {
-  console.log("++++++++++++++++++++++", req.file);
+  // console.log("++++++++++++++++++++++", req.file);
   res.send("Hello World");
 });
 
