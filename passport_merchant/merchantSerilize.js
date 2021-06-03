@@ -7,13 +7,22 @@ function serializeUser(user, done) {
   // } else {
   // console.log("serializeUser user: ", user);
   // console.log("Has merchant name", user[0].merchantName);
-  console.log("useruseruseruseruser", user);
-  let obj = {
-    userId: user[0].id,
-    isMerchantName: user[0].merchantName,
-  };
-  console.log("objobjobjobjobj", obj);
-  done(null, obj);
+  // console.log("useruseruseruseruser", user);
+  if(Array.isArray(user)){
+    let obj = {
+      userId: user[0].id,
+      isMerchantName: user[0].merchantName,
+    };
+    console.log("objobjobjobjobj", obj);
+    done(null, obj);
+  } else {
+    let obj = {
+      userId: user.id,
+      isMerchantName: user.merchantName,
+    };
+    console.log("objobjobjobjobj", obj);
+    done(null, obj);
+  }
   // }
 }
 
