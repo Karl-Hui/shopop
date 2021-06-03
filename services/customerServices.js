@@ -24,7 +24,7 @@ class CustomerServices {
   getCustomerInfo(customerId) {
     return this.knex("customer_info")
     .select()
-    .where({id: customerId})
+    .where({customer_id: customerId})
     .then((data)=>{
       console.log("This data belongs to customer:",data)
       return data[0];
@@ -32,6 +32,21 @@ class CustomerServices {
     .catch((error) =>{
       console.log("error", error);
     })
+  }
+
+  getAllCustomerInfo(customerId) {
+    return this.knex("customer")
+    .join('customer_info','customer.id','customer_id')
+    .select()
+    .where({customer_id:customerId})
+    .then((data) => {
+      console.log("customerInfo here blach", data)
+      return data[0];
+    })
+    .catch((error) => {
+      console.log("error", error)
+    })
+    
   }
 
   postImage(user_id, imageURL) {
@@ -51,7 +66,7 @@ class CustomerServices {
 }
 //test
 // let service = new CustomerServices(knex);
-// service.getCustomerName(1);
+// service.getCustomerInfo(1);
 // console.log("hi");
 
 module.exports = CustomerServices;

@@ -32,7 +32,7 @@ class CustomerRouter {
     router.get(
         "/customer-settings",
         isLoggedIn,
-        this.customer_settings.bind(this)
+        this.getAllCustomerData.bind(this)
       );
 
     router.post(
@@ -54,13 +54,24 @@ class CustomerRouter {
     });
   }
   customer_settings(req, res) {
-    this.customerServices.getCustomerinfo(customer_id).then((data) => {
-      console.log("customersettings",data);
-      res.render("customer-homepage", {
-        layout: "customerLoggedIn",
-        customerName: data,
+    console.log("kjasdhfkasdhfksahfdsah")
+    this.customerServices.getCustomerInfo(customer_id).then((data) => {
+      console.log("customersettings-info",data);
+      res.render("customer-settings-info", {
+        layout: "customer-settings",
+        data: data,
       });
     });
+  }
+  getAllCustomerData(req,res) {
+    console.log("this is all the cusomters data")
+    this.customerServices.getAllCustomerInfo(customer_id).then((data) => {
+      console.log("data for customer settings", data);
+      res.render("customer-settings-info", {
+        layout: "customer-settings",
+        data: data,
+      });
+    })
   }
 
   post_image(req, res) {
