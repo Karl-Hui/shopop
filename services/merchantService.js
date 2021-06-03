@@ -37,24 +37,28 @@ class MerchantService {
                 }));
             // console.log(displayProduct)  
              return displayProduct;  
-              
+        }).catch((error) => {
+            console.log(error, "error")
         })
     }
 
-    // get all merchant information
+    
+    // Get all merchant information
 
-    getMerchantInfo(merchantId){
-        return knex("merchant")
-        .select()
-        .where({
-            id: merchantId
-        })
-        .then((data) =>{
-        console.log("this is merchant data:", data[0])
-        return data[0].merchantName
-        })
-        .catch((error) => {
-        console.log("error", error);
+    getMerchantInfo(id){
+        return knex.select("*").from("merchant").join("merchant_info", "merchant.id", "merchant_info.merchant_id")
+        .where(`merchant.id`, id)
+        .then((merchantInfo) => {
+            let merchant_Information = merchantInfo.map((info) => ({
+                merchantName: info.merchantName,
+                profilePic: info.profilePic,
+                shopDescription: info.shopDescription,
+                socialHandle: info.socialHandle
+            }));
+            // console.log(merchant_Information)
+            return merchant_Information;
+        }).catch((error) => {
+            console.log(error, "error")
         })
     }
 
@@ -133,9 +137,10 @@ class MerchantService {
 module.exports = MerchantService
 
 // let test = new MerchantService
+// test.getMerchantInfo(2)
 // // test.getMerchantInfo(1)
 // // test.getAll()
 // test.createProduct('https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=649&q=80','new top', 'new top from hk', '1', '200', '5', 'XS', 'Brand New', 'Top', 'unsold', '2')
 // test.deleteProduct(3)
 // test.updateProduct(4, 'https://images.unsplash.com/photo-1497339100210-9e87df79c218?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80','Blazer', 'new blazer 9/10 condition', '1', '120', '10', 'L', 'Used', 'Top', 'unsold')
-// test.getMerchantProducts(1)
+// test.getMerchantProducts(1)cd

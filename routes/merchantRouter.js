@@ -40,14 +40,28 @@ class MerchantRouter {
     return router;
   }
 
+  // merchant_homepage(req, res) {
+  //   this.merchantService.getMerchantInfo(merchant_id).then((merchantName) => {
+  //     this.merchantService.getMerchantProducts(merchant_id).then((product) => {
+  //       console.log("Fuck", merchantName[0]);
+  //       // console.log("this is product:",product)
+  //       res.render("merchant-homepage", {
+  //         layout: "merchantLoggedIn",
+  //         merchantName: merchantName[0],
+  //         product: product
+  //       });
+  //     })
+  //   });
+  // }
+
   merchant_homepage(req, res) {
-    this.merchantService.getMerchantInfo(merchant_id).then((merchantName) => {
+    this.merchantService.getMerchantInfo(merchant_id).then((merchantInfo) => {
       this.merchantService.getMerchantProducts(merchant_id).then((product) => {
-        // console.log(merchantName);
-        console.log("asdasdasadsdas",product)
+        console.log("merchantInfo", merchantInfo);
+        // console.log("this is product:",product)
         res.render("merchant-homepage", {
           layout: "merchantLoggedIn",
-          merchantName: merchantName,
+          merchantInfo: merchantInfo,
           product: product
         });
       })

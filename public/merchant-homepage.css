@@ -1,0 +1,61 @@
+.section-title {
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  margin: 2rem 0;
+}
+
+.shop-container {
+  margin: 5rem 0;
+}
+
+.flex-box {
+  display: flex;
+}
+
+/* shop Information */
+.shop-profile-pic {
+  border-radius: 50%;
+}
+
+.shopname {
+  text-transform: capitalize;
+  margin: 1.5rem 2rem;
+}
+
+/* create product button */
+.create-product-btn a {
+  text-decoration: none;
+}
+
+.create-product-btn {
+  background-color: #5a4ff3;
+  border-radius: 0;
+  border: none;
+  padding: 5px 12px;
+}
+
+.create-product-btn:hover {
+  background-color: #4e44db;
+  border-radius: 0;
+  border: none;
+  padding: 5px 12px;
+}
+
+.shopDescription {
+  margin: 2rem 0;
+}
+
+/* card css */
+
+.productPhoto {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card {
+  border: none !important;
+}
+
+.product-container {
+  margin: 8rem 0 15rem 0;
+}
