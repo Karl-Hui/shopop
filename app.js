@@ -93,6 +93,9 @@ app.get("/customer-signup", (req, res) => {
 app.get("/customer-login", (req, res) => {
   res.render("customer-login");
 });
+app.get("/customer-settings", (req, res) => {
+  res.render("customer-settings-info");
+});
 
 app.get("/merchant-signup", (req, res) => {
   res.render("merchant-signup");
@@ -147,6 +150,7 @@ app.post(
 app.get("/select", (req, res) => {
   res.render("select");
 });
+
 // logout route
 app.get("/logout", (req, res) => {
   req.logout();
