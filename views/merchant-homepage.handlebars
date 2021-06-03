@@ -1,7 +1,15 @@
-<h1>Merchant page</h1>
-<h3>{{this.merchantName}}</h3>
-
-<form action="/shop/merchant-homepage" method="post" enctype="multipart/form-data">
+<div class="container">
+  <div>
+    <h3>{{this.merchantName}}</h3>
+  </div>
+  <div class="create-product">
+    <button class="btn btn-danger create-product-button "><a class="text-light" href="#">Create Product</a></button>
+  </div>
+{{#each product}}
+<h1>{{this.productName}}</h1>
+{{/each}}
+</div>
+{{!-- <form action="/shop/merchant-homepage" method="post" enctype="multipart/form-data">
   <input type="file" name="merchant-image" />
         <button type="submit" class="btn btn-dark mt-5">submit</button>
-</form>
+</form> --}}
