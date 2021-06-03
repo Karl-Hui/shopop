@@ -1,33 +1,35 @@
-<link rel="stylesheet" href="catagoryBar.css">
+<link rel="stylesheet" href="NavBars.css">
 
 <div class="catagoryBarContainer">
 
-<ul class="nav justify-content-center nav-fill ">
+<ul class="nav justify-content-center nav-fill">
 
   <li class="nav-item">
-    <a class="nav-link" aria-current="page" href="#">TOPS</a>
+    <a class="nav-link catagory" aria-current="page" href="#">TOPS</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#"> BOTTOMS</a>
+    <a class="nav-link catagory" href="#">BOTTOMS</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">DRESSES</a>
+    <a class="nav-link catagory" href="#">DRESSES</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">OUTERWEAR</a>
+    <a class="nav-link catagory" href="#">OUTERWEAR</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">SHOES</a>
+    <a class="nav-link catagory" href="#">SHOES</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">ACCESSORIES</a>
+    <a class="nav-link catagory" href="#">ACCESSORIES</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">OTHERS</a>
+    <a class="nav-link catagory" href="#">OTHERS</a>
   </li>
   
 </ul>
 </div>
+
+
 
   <script
   src="https://code.jquery.com/jquery-3.6.0.js"integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="crossorigin="anonymous"></script>
@@ -36,5 +38,4 @@
   $(document.getElementsByClassName("catagoryBarContainer")).on('click', 'ul li', function(){
     $(this).addClass('active').siblings().removeClass('active')
   })
-  
   </script>

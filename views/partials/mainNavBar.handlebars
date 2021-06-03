@@ -1,22 +1,32 @@
-<link rel="stylesheet" href="mainNavBar.css">
+
  <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
+
+    <link rel="stylesheet" href="NavBars.css">
+    
 <div class="mainNavContainer">
-
 
 <ul class="nav nav-pills">
   <li class="nav-item">
-    <a class="nav-link" href="#">SHOPOP</a>
+    <a class="nav-link title" href="#">SHOPOP</a>
   </li>
-  <li class="nav-item dropdown ml-auto">
-    <a class="nav-link dropdown-toggle buttonBG" data-toggle="dropdown" href="/logout" role="button" aria-haspopup="true" aria-expanded="false">ACCOUNT</a>
-    <div class="dropdown-menu ">
+  <div class="nav ml-auto">
+   
+  <li class="nav-item"><i class="fas fa-shopping-bag shoppingIcon"></i>
+  </div>
+
+</li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle buttonBG accountButton" data-toggle="dropdown" href="/logout" role="button" aria-haspopup="true" aria-expanded="false">ACCOUNT</a>
+    <div class="dropdown-menu accountdropDownBox ">
       <a class="dropdown-item dropDownMenuFont" href="#">{{this.customerName}}</a>
-      <a class="dropdown-item dropDownMenuFont" href="#">SETTINGS</a>
+      <a class="dropdown-item dropDownMenuFont" href="/customer-settings">SETTINGS</a>
       <a role="button"type="submit" class="btn btn-danger logoutButton" href="/logout">Logout</a>
      
   </li>
+  </div>
 </ul>
 
 </div>

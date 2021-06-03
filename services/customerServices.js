@@ -2,8 +2,6 @@ require("dotenv").config({ path: "../.env" });
 const database = require("../knexfile").development;
 const knex = require("knex")(database);
 
-const Table_Name = "customer";
-
 class CustomerServices {
   constructor(knex) {
     this.knex = knex;
@@ -14,12 +12,26 @@ class CustomerServices {
       .select()
       .where({ id: customerId })
       .then((data) => {
-        // console.log("this is customer data:", data[0].username);
+        console.log("this is customer data:", data[0].username);
         return data[0].username;
       })
       .catch((error) => {
         console.log("error", error);
       });
+  }
+  
+
+  getCustomerInfo(customerId) {
+    return this.knex("customer_info")
+    .select()
+    .where({id: customerId})
+    .then((data)=>{
+      console.log("This data belongs to customer:",data)
+      return data[0];
+    })
+    .catch((error) =>{
+      console.log("error", error);
+    })
   }
 
   postImage(user_id, imageURL) {

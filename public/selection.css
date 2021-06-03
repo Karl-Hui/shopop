@@ -52,3 +52,26 @@
    .borderLine{
     border-right: 3px solid #8D8D8D;
    }
+   @media (max-width: 600px){
+    .borderLine{
+      border-right:rgba(196, 196, 196, 0.51) ;
+   
+     }
+     .selection-form {
+      margin: 0 auto;
+      padding: 0px;
+      font-size: 15px;
+      background-color: rgba(107, 107, 107, 0.13);
+    }
+    .pic_background {
+      background-color: rgba(196, 196, 196, 0.51);
+      padding:2%;
+      margin: 0% 25% 0%;
+    }
+
+
+
+
+
+
+   }

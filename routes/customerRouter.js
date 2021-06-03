@@ -22,11 +22,19 @@ class CustomerRouter {
 
   router() {
     const router = express.Router();
+
     router.get(
       "/customer-homepage",
       isLoggedIn,
       this.customer_homepage.bind(this)
     );
+    
+    router.get(
+        "/customer-settings",
+        isLoggedIn,
+        this.customer_settings.bind(this)
+      );
+
     router.post(
       "/customer-homepage",
       isLoggedIn,
@@ -42,6 +50,15 @@ class CustomerRouter {
       res.render("customer-homepage", {
         layout: "customerLoggedIn",
         customerName: customerName,
+      });
+    });
+  }
+  customer_settings(req, res) {
+    this.customerServices.getCustomerinfo(customer_id).then((data) => {
+      console.log("customersettings",data);
+      res.render("customer-homepage", {
+        layout: "customerLoggedIn",
+        customerName: data,
       });
     });
   }

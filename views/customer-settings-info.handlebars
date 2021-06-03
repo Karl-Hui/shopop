@@ -1,0 +1,20 @@
+
+ 
+ {{> mainNavBar}}
+ <h1> {{this.customerName}}</h1>
+
+
+ <h2>You and shopop</h2>
+ <div>
+  <form>
+        {{#each this.customerName}}
+        <li>{{this}}</li>
+        {{/each}}
+     </form>
+   <h2>Personal info</h2>
+   <p>change profile picture</p>
+   <p>change user name</p>
+   <p>change address</p>
+
+<button>save changes</button>
+<a role="button"type="submit" class="btn btn-danger logoutButton" href="/customer-hompage">BACK</a>
