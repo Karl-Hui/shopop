@@ -170,5 +170,4 @@ app.get("/CustomerHomepage", (req, res) => {
   res.render("customer-homepage");
 });
 
-// Exporting module to server js
 module.exports = app;
