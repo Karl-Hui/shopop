@@ -1,7 +1,47 @@
-<h1>Merchant page</h1>
-<h3>{{this.merchantName}}</h3>
+<div class="container shop-container">
+  <div id="merchantInfo">
+    {{#each merchantInfo}}
+    <div class="flex-box">
+      <div class="flex-child"><img class="shop-profile-pic" src="{{profilePic}}" alt="profile pic"></div>
+      <div class="flex-child"><h3 class="shopname">{{merchantName}}</h3></div>
+    </div>
+    <div class="shopDescription">
+      <p>{{shopDescription}}</p>
+    </div>
+    <a href="{{socialHandle}}">Social media</a>
+    {{/each}}
+  </div>
+  <div class="create-product">
+    <button class="create-product-btn "><a class="text-light" href="/create-product">Add Product</a></button>
+  </div>
+</div>
 
-<form action="/shop/merchant-homepage" method="post" enctype="multipart/form-data">
+<section>
+  <div class="container product-container"> 
+  <h4 class="section-title">products</h4>
+  <div class="row">
+    {{#each product}}
+    <div class="col-3">
+      <div class="card">
+        <img
+          src="{{productPhoto}}"
+          class="card-img-top productPhoto"
+          alt="{{productName}}"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{this.productName}}</h5>
+          <p class="card-text">
+            ${{this.price}}
+          </p>
+          <a href="#!" class="btn btn-primary">Button</a>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  </div>
+</section>
+{{!-- <form action="/shop/merchant-homepage" method="post" enctype="multipart/form-data">
   <input type="file" name="merchant-image" />
         <button type="submit" class="btn btn-dark mt-5">submit</button>
-</form>
+</form> --}}

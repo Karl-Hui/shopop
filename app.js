@@ -125,6 +125,11 @@ app.get("/stripe-form", (req, res) => {
   res.render("stripe-form");
 });
 
+app.get("/create-product", (req, res) => {
+  res.render("create-product");
+});
+
+
 app.get("/merchant-signup", (req, res) => {
   res.render("merchant-signup");
 });
