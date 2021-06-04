@@ -64,14 +64,14 @@ class CustomerServices {
 
   getCart(user_id) {
     return knex
-      .from("checkout_cart")
+      .from("product_info")
       .innerJoin(
-        "product_info",
+        "checkout_cart",
         "checkout_cart.product_info_id",
         "product_info.id"
       )
       .select()
-      .where({ product_info_id: user_id })
+      .where({ customer_info: user_id })
       .then((data) => {
         console.log("the getCart", data);
         return data;
@@ -87,8 +87,8 @@ class CustomerServices {
 let service = new CustomerServices(knex);
 // service.getCustomerInfo(1);
 // console.log("hi");
-// service.getCart(1).then(() => {
-//   console.log("cart get");
-// });
+service.getCart(1).then(() => {
+  console.log("cart get");
+});
 
 module.exports = CustomerServices;

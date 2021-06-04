@@ -56,6 +56,7 @@ class CustomerRouter {
       });
     });
   }
+
   customer_settings(req, res) {
     console.log("kjasdhfkasdhfksahfdsah");
     this.customerServices.getCustomerInfo(customer_id).then((data) => {
@@ -96,6 +97,7 @@ class CustomerRouter {
       .then((data) => {
         console.log("checkout page");
         res.render("cart", {
+          layout: "customerLoggedIn",
           data: data,
         });
       })
