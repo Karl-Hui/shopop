@@ -105,8 +105,8 @@ class CustomerServices {
   }
 }
 // test
-let service = new CustomerServices(knex);
-service.getCustomerProfilePicture(1);
-console.log("fap fap fap");
+// let service = new CustomerServices(knex);
+// service.getCustomerProfilePicture(1);
+// console.log("fap fap fap");
 
 module.exports = CustomerServices;

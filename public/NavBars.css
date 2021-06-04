@@ -20,8 +20,10 @@ margin: auto !important;
 }
 
 .logoutButton {
-   margin: 0px 40px 0px 40px;
+    margin-left: auto;
+    margin-right: auto;
    font-weight: 500;
+   padding: .25rem 1.5rem;
 }
 
 .buttonBG{
