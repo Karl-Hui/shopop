@@ -12,7 +12,7 @@ function isLoggedIn(req, res, next) {
     console.log("logged in as id:", req.user.id);
     return next();
   }
-  res.redirect("/login");
+  res.redirect("/customer-login");
 }
 
 class CustomerRouter {
@@ -28,12 +28,12 @@ class CustomerRouter {
       isLoggedIn,
       this.customer_homepage.bind(this)
     );
-    
+
     router.get(
-        "/customer-settings",
-        isLoggedIn,
-        this.getAllCustomerData.bind(this)
-      );
+      "/customer-settings",
+      isLoggedIn,
+      this.getAllCustomerData.bind(this)
+    );
 
     router.post(
       "/customer-homepage",
@@ -41,6 +41,9 @@ class CustomerRouter {
       upload.single("customer-image"),
       this.post_image.bind(this)
     );
+
+    router.get("/cart", isLoggedIn, this.checkOutPage.bind(this));
+
     return router;
   }
 
@@ -53,25 +56,26 @@ class CustomerRouter {
       });
     });
   }
+
   customer_settings(req, res) {
-    console.log("kjasdhfkasdhfksahfdsah")
+    console.log("kjasdhfkasdhfksahfdsah");
     this.customerServices.getCustomerInfo(customer_id).then((data) => {
-      console.log("customersettings-info",data);
+      console.log("customersettings-info", data);
       res.render("customer-settings-info", {
         layout: "customer-settings",
         data: data,
       });
     });
   }
-  getAllCustomerData(req,res) {
-    console.log("this is all the cusomters data")
+  getAllCustomerData(req, res) {
+    console.log("this is all the cusomters data");
     this.customerServices.getAllCustomerInfo(customer_id).then((data) => {
       console.log("data for customer settings", data);
       res.render("customer-settings-info", {
         layout: "customer-settings",
         data: data,
       });
-    })
+    });
   }
 
   post_image(req, res) {
@@ -81,6 +85,21 @@ class CustomerRouter {
       .postImage(customer_id, profilePictureURL)
       .then(() => {
         console.log("done");
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }
+
+  checkOutPage(req, res) {
+    this.customerServices
+      .getCart(customer_id)
+      .then((data) => {
+        console.log("checkout page");
+        res.render("cart", {
+          layout: "customerLoggedIn",
+          data: data,
+        });
       })
       .catch((err) => {
         console.log("err", err);
