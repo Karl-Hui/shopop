@@ -35,6 +35,22 @@ class CustomerRouter {
       this.getAllCustomerData.bind(this)
     );
 
+    router.get(
+      "/customer-settings",
+      isLoggedIn,
+      this.editPic.bind(this)
+    )
+    router.put(
+      "/customer-settings",
+      isLoggedIn,
+      this.editUsername.bind(this)
+    )
+    router.put(
+      "/customer-address",
+      isLoggedIn,
+      this.editAddress.bind(this)
+    )
+
     router.post(
       "/customer-homepage",
       isLoggedIn,
@@ -77,6 +93,50 @@ class CustomerRouter {
       });
     });
   }
+//edit customer info
+  editUsername(req,res) {
+    let newInfo = req.body.username;
+    // console.log("SADSADASDASDSADSADSAD",newInfo);
+    this.customerServices.editCustomerUsername(customer_id,newInfo)
+    .then(() => {
+      res.redirect("customer-settings");
+    })
+    .catch((err) => {
+      console.log("err", err);
+    });
+
+  }
+  editAddress(req,res) {
+    let NewBuildingName = req.body.buildingAddress;
+    let NewStreetName = req.body.streetAddress;
+    let NewCountryName = req.body.countryAddress;
+    console.log("asddddddddddddddddddddddddddddddd",req.body);
+    console.log("new address",NewBuildingName, NewStreetName, NewCountryName );
+    this.customerServices.editCustomerAddress(customer_id,NewBuildingName,NewStreetName,NewCountryName)
+    .then(()=> {
+      res.redirect("customer-settings")
+    })
+    .catch((err) => {
+      console.log("err", err);
+    });
+  }
+
+  
+  editPic(req,res){
+    console.log("changing customer pic")
+    this.customerServices.getCustomerProfilePicture(customerId)
+    .then((pic) => {
+      console.log("pic data", pic);
+      res.render("customer-settings-info", {
+        layout: "customer-settings",
+        pic: pic,
+      })
+    })
+    .catch((err) => {
+      console.log("err", err);
+    });
+  }
+
 
   post_image(req, res) {
     console.log("req.file", req.file.path);
