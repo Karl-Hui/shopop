@@ -51,12 +51,12 @@ class CustomerServices {
     .select()
       .where({ id: customerId })
     .update({username: newUsername})
-    .then(()=> {
-      console.log("updated username");
-    })
-    .catch((error) => {
-      console.log("error", error);
-    })
+    // .then(()=> {
+    //   // console.log("updated username");
+    // })
+    // .catch((error) => {
+    //   console.log("error", error);
+    // })
     
   }
   editCustomerAddress(customerId,newBuildingAddress,newStreetAddress,newCountryAddress){
@@ -76,11 +76,9 @@ class CustomerServices {
   }
 
   postImage(user_id, imageURL) {
-    const newImage = {
-      profilePicture: imageURL,
-    };
+
     return knex("customer_info")
-      .update("profilePicture", newImage)
+      .update("profilePicture", imageURL)
       .where({ customer_id: user_id })
       .then(() => {
         console.log("added profile Pic!");
