@@ -16,6 +16,7 @@ function ready() {
     input.addEventListener("change", quantityChanged);
   }
   updateCarTotal();
+  theEmptyCart();
 }
 
 function removeCartItem(event) {
@@ -60,4 +61,19 @@ function updateCarTotal() {
     "$ " + total;
   document.getElementsByClassName("total-price")[0].innerText =
     "$ " + (total + 5);
+  theEmptyCart();
+}
+
+function theEmptyCart() {
+  let cartItem = document.getElementsByClassName("cart-row")[0];
+
+  // document.getElementsByClassName("emptyCart")
+  // console.log(cartItem);
+  if (cartItem === undefined) {
+    var para = document.createElement("p");
+    var node = document.createTextNode("The cart is empty.");
+    para.appendChild(node);
+    var element = document.getElementById("div1");
+    element.appendChild(para);
+  }
 }
