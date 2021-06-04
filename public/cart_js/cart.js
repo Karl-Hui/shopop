@@ -70,10 +70,10 @@ function theEmptyCart() {
   // document.getElementsByClassName("emptyCart")
   // console.log(cartItem);
   if (cartItem === undefined) {
-    var para = document.createElement("p");
-    var node = document.createTextNode("The cart is empty.");
+    let para = document.createElement("p");
+    let node = document.createTextNode("The cart is empty.");
     para.appendChild(node);
-    var element = document.getElementById("div1");
+    let element = document.getElementById("div1");
     element.appendChild(para);
   }
 }
