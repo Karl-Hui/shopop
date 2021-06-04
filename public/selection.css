@@ -52,6 +52,7 @@
    .borderLine{
     border-right: 3px solid #8D8D8D;
    }
+   
    @media (max-width: 600px){
     .borderLine{
       border-right:rgba(196, 196, 196, 0.51) ;
@@ -68,10 +69,5 @@
       padding:2%;
       margin: 0% 25% 0%;
     }
-
-
-
-
-
 
    }
