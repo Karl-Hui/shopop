@@ -1,7 +1,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("customer_info", (table) => {
     table.increments().primary();
-    table.string("profilePicture");
+    table.json("profilePicture");
     table.text("building_address");
     table.text("street_address");
     table.text("country_address");

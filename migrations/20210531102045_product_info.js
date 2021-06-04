@@ -1,7 +1,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("product_info", (table) => {
     table.increments().primary();
-    table.string("productPhoto");
+    table.json("productPhoto");
     table.string("productName");
     table.text("productDescription");
     table.integer("stock");

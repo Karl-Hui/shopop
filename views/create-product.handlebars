@@ -1,0 +1,97 @@
+<link rel="stylesheet" href="create-product.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <div class="container">
+    <div class="button-container">
+        <a class="back-btn" href="/shop/merchant-homepage"> <i class="fas fa-chevron-left"></i> Back</a>
+    </div>    
+    <div class="form-container">    
+    <form action="/shop/api/create-product" method="post" enctype="multipart/form-data">
+    <div class="form-controls">
+        <h1>Add product</h1>
+        <div class="row">
+            <div class="form-group"> <label for="form_name">Product Name *</label> <input id="form_name" type="text" name="productName" class="form-control" placeholder="Product name *" required="required" data-error="Product name."> </div>
+            <div class="col-md-6">
+                <div class="form-group"> <label for="form_name">Price *</label> <input id="form_name" type="text" name="price" class="form-control" placeholder="Please enter price *" required="required" data-error="Price require"> </div>
+            </div>
+                <div class="col-md-6">
+                <div class="form-group"> <label for="form_lastname">Shipping Price *</label> <input id="form_lastname" type="text" name="shippingPrice" class="form-control" placeholder="Shipping price "  data-error="shipping price"> </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group"> <label for="form_message">Product Description *</label> <textarea id="form_description" name="productDescription" class="form-control" placeholder="Write your description here." rows="4" required="required"></textarea> </div>
+            </div>
+            <div class="col-md-6">
+                 <div class="form-group"> <label for="form_need">Size *</label> <select id="form_size" name="Size" class="form-control" required="required" data-error="Size">
+                        <option value="" selected disabled>--Select Size--</option>
+                        <option>XS</option>
+                        <option>S</option>
+                        <option>M</option>
+                        <option>L</option>
+                        <option>XL</option>
+                        <option>XXL</option>
+                        <option>4</option>
+                        <option>6</option>
+                        <option>8</option>
+                        <option>10</option>
+                        <option>12</option>
+                        <option>14</option>
+                        <option>16</option>
+                        <option>18</option>
+                        <option>20</option>
+                        <option>22</option>
+                        <option>24</option>
+                        <option>26</option>
+                        <option>28</option>
+                        <option>30</option>
+                        <option>32</option>
+                        <option>32</option>
+                        <option>UK 6</option>
+                        <option>UK 6.5</option>
+                        <option>UK 7</option>
+                        <option>UK 8</option>
+                        <option>UK 8.5</option>
+                        <option>UK 9</option>
+                        <option>UK 9.5</option>
+                        <option>UK 10</option>
+                        <option>UK 10.5</option>
+                        <option>UK 11</option>
+                        <option>UK 11.5</option>
+                        <option>UK 12</option>
+                        <option>UK 12.5</option>
+                        <option>UK 13</option>
+                        <option>UK 14</option>
+                        </select>
+                        </div>
+            </div>
+            <div class="col-md-6">
+                 <div class="form-group"> <label for="form_condition">Condition *</label> <select id="form_condition" name="productCondition" class="form-control" required="required" data-error="productCondition">
+                        <option value="" selected disabled>--Select Condition--</option>
+                        <option>Used</option>
+                        <option>Brand new</option>
+                        </select>
+                        </div>
+            </div>
+                   
+            <div class="form-group col-md-6"> <label for="form_condition">Category *</label> <select id="form_condition" name="productCategory" class="form-control" required="required" data-error="productCondition">
+                        <option value="" selected disabled>--Select Condition--</option>
+                        <option>Top</option>
+                        <option>Bottom</option>
+                        <option>Dresses</option>
+                        <option>Outerwear</option>
+                        <option>Shoes</option>
+                        <option>Accessories</option>
+                        <option>Others</option>
+                        </select>
+                        </div>
+            </div> 
+            <div class="form-group col-md-6"> <label for="form_condition">Stock *</label>
+                <input type="number" id="tentacles" name="stock"
+                    min="1" max="10">
+            </div>               
+    </div>
+    <input type="file" name="productPhoto" multiple/>
+    <button type="submit" class="btn btn-dark submit-btn">submit</button>
+    </form>
+</div>
+</div>  
+</div>
