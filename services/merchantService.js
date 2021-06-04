@@ -4,7 +4,6 @@ require("dotenv").config({
 const database = require("../knexfile").development;
 const knex = require("knex")(database);
 
-
 class MerchantService {
     constructor(knex) {
         this.knex = knex;
@@ -136,7 +135,7 @@ class MerchantService {
     }
 }
 
-module.exports = MerchantService
+module.exports = MerchantService;
 
 // let test = new MerchantService
 // test.getMerchantInfo(2)

@@ -19,19 +19,32 @@ class CustomerServices {
         console.log("error", error);
       });
   }
-  
 
   getCustomerInfo(customerId) {
     return this.knex("customer_info")
-    .select()
-    .where({id: customerId})
-    .then((data)=>{
-      console.log("This data belongs to customer:",data)
-      return data[0];
-    })
-    .catch((error) =>{
-      console.log("error", error);
-    })
+      .select()
+      .where({ customer_id: customerId })
+      .then((data) => {
+        console.log("This data belongs to customer:", data);
+        return data[0];
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }
+
+  getAllCustomerInfo(customerId) {
+    return this.knex("customer")
+      .join("customer_info", "customer.id", "customer_id")
+      .select()
+      .where({ customer_id: customerId })
+      .then((data) => {
+        console.log("customerInfo here blach", data);
+        return data[0];
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   }
 
   postImage(user_id, imageURL) {
@@ -48,10 +61,34 @@ class CustomerServices {
         console.log("err", err);
       });
   }
+
+  getCart(user_id) {
+    return knex
+      .from("product_info")
+      .innerJoin(
+        "checkout_cart",
+        "checkout_cart.product_info_id",
+        "product_info.id"
+      )
+      .select()
+      .where({ customer_info: user_id })
+      .then((data) => {
+        console.log("the getCart", data);
+        return data;
+      });
+    // knex("checkout_cart")
+    //   .where({ customer_info: user_id })
+    //   .then((data) => {
+    //     console.log("the getCart", data);
+    //   });
+  }
 }
 //test
-// let service = new CustomerServices(knex);
-// service.getCustomerName(1);
+let service = new CustomerServices(knex);
+// service.getCustomerInfo(1);
 // console.log("hi");
+service.getCart(1).then(() => {
+  console.log("cart get");
+});
 
 module.exports = CustomerServices;
