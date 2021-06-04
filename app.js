@@ -94,7 +94,6 @@ app.get("/customer-login", (req, res) => {
   res.render("customer-login");
 });
 
-
 app.get("/merchant-signup", (req, res) => {
   res.render("merchant-signup");
 });
@@ -126,6 +125,11 @@ app.get("/stripe-form", (req, res) => {
   res.render("stripe-form");
 });
 
+app.get("/create-product", (req, res) => {
+  res.render("create-product");
+});
+
+
 app.get("/merchant-signup", (req, res) => {
   res.render("merchant-signup");
 });
@@ -144,6 +148,10 @@ app.post(
     },
   })
 );
+
+// app.get("/cart", (req, res) => {
+//   res.render("cart");
+// });
 
 app.get("/select", (req, res) => {
   res.render("select");

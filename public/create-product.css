@@ -1,0 +1,44 @@
+.form-container{
+    background: #ededed;
+    margin: 3rem 0;
+    padding: 4rem 5rem;
+}
+
+.form-group{
+    margin: 0.7rem 0;
+}
+
+label {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.4);
+    padding: 10px 0;
+  }
+
+.submit-btn{
+    margin: 4rem 0;
+}
+
+.button-container{
+    margin: 2rem 0;
+}
+
+.back-btn{
+    color: black;
+    font-weight: 700;
+    margin: 4rem 0;
+    font-size: 1.3rem;
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .form-container{
+        background: #ededed;
+        margin: 3rem 0;
+        padding: 4rem 1rem;
+    }
+  }
