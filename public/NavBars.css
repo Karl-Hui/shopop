@@ -1,5 +1,6 @@
 .mainNavContainer {
     padding: 15px;
+    border-bottom: 2px solid black;
 }
 
 div ul li a {
@@ -57,7 +58,7 @@ ul li.active a {
     background-color: #E0DFDF;
     color: #E0DFDF;
     padding: 10px;
-    border-top: 2px solid black;
+    /* border-top: 2px solid black; */
 }
 
 @media (max-width: 600px){
@@ -90,9 +91,9 @@ ul li.active a {
         margin-left: auto!important;
         margin: auto;
     }
-
-    .accountdropDownBox {
-        transform: translate3d(-52px, 27px, 0px) !important;
+  
+    .dropdown-menu {
+        transform: translate3d(-60px, 27px, 0px) !important;
     }
 
     /************* catagory nav bar **********/

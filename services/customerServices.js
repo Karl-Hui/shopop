@@ -20,6 +20,18 @@ class CustomerServices {
       });
   }
   
+  getCustomerProfilePicture(customerId){
+    return this.knex("customer_info")
+    .select()
+    .where({customer_id: customerId})
+    .then((data)=>{
+      console.log("profilePic data:",data[0].profilePicture )
+      return data[0];
+    })
+    .catch((error) =>{
+      console.log("error", error);
+    })
+  }
 
   getCustomerInfo(customerId) {
     return this.knex("customer_info")
@@ -48,6 +60,34 @@ class CustomerServices {
     })
     
   }
+  editCustomerUsername(customerId,newUsername){
+    return this.knex("customer")
+    .select()
+      .where({ id: customerId })
+    .update({username: newUsername})
+    .then(()=> {
+      console.log("updated username");
+    })
+    .catch((error) => {
+      console.log("error", error);
+    })
+    
+  }
+  editCustomerAddress(customerId,newBuildingAddress,newStreetAddress,newCountryAddress){
+    return this.knex("customer_info")
+    .select()
+      .where({customer_id: customerId })
+    .update({building_address: newBuildingAddress,
+             street_address: newStreetAddress,
+             country_address: newCountryAddress
+            })
+    .then(()=> {
+      console.log("updated address");
+    })
+    .catch((error) => {
+      console.log("error", error);
+    })
+  }
 
   postImage(user_id, imageURL) {
     const newImage = {
@@ -64,9 +104,9 @@ class CustomerServices {
       });
   }
 }
-//test
-// let service = new CustomerServices(knex);
-// service.getCustomerInfo(1);
-// console.log("hi");
+// test
+let service = new CustomerServices(knex);
+service.getCustomerProfilePicture(1);
+console.log("fap fap fap");
 
 module.exports = CustomerServices;
