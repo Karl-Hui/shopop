@@ -1,5 +1,5 @@
-console.log("linked to script axios");
-//button to update customer username
+// console.log("linked to script axios");
+//button to update username
 let editbtn = document.querySelector("#updateUser")
 
 editbtn.addEventListener('click',() => {

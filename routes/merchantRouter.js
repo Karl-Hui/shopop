@@ -6,6 +6,7 @@ const {
 const upload = multer({
   storage
 });
+
 // let currentCustomer;
 let merchant_id;
 
@@ -27,9 +28,9 @@ class MerchantRouter {
   router() {
     const router = express.Router();
     router.get("/merchant-homepage", isLoggedIn, this.merchant_homepage.bind(this));
-    router.get("/merchant-settings", isLoggedIn, this.merchant_settings.bind(this));
-    // router.put("/merchant-settings", isLoggedIn, this. editMerchant_username(this));
+    router.get("/product/:productId", isLoggedIn, this.productPage.bind(this))
     router.post("/api/create-product", isLoggedIn, upload.array("productPhoto", 10), this.createProduct.bind(this));
+    router.delete("/api/delete/product/:id", isLoggedIn, this.delete.bind(this))
     return router;
   }
 
@@ -37,7 +38,7 @@ class MerchantRouter {
     this.merchantService.getMerchantInfo(merchant_id).then((merchantInfo) => {
       this.merchantService.getMerchantProducts(merchant_id).then((product) => {
         // console.log("merchantInfo", merchantInfo);
-        console.log("this is product:", product[0])
+        // console.log("this is product:", product)
         res.render("merchant-homepage", {
           layout: "merchantLoggedIn",
           merchantInfo: merchantInfo,
@@ -69,44 +70,31 @@ class MerchantRouter {
         console.log(error, "error creating product")
       })
   }
-    //merchant settings
-    merchant_settings(req, res) {
-      this.merchantService.getMerchantInfo(merchant_id)
-      .then((merchantInfo) => {
-        res.render("merchant-settings-info", {
-          layout: "merchant-settings",
-          data: merchantInfo,
-        });
-      });
-    }
 
-  // editMerchant_username(req, res) {
-  //   let newName = req.body.merchantName;
-  //   this.merchantService.editMerchantUsername
-  //   (merchant_id,newName)
-  //   .then(()=> {
-  //     res.redirect("merchant-settings");
-  //   })
-  //   .catch((err) => {
-  //     console.log("err", err);
-  //   });
-  // }
+  productPage(req, res) {
+    let productId = req.params.productId
+    // console.log("this is product id", typeof productId)
+    // console.log(productId)
+    this.merchantService.getMerchantInfo(merchant_id).then((merchantInfo) => {
+      this.merchantService.getIndividualProduct(productId, merchant_id).then((product) => {
+        // console.log("this is product", product)
+        // console.log(merchantInfo)
+        res.render("product-page", {
+          layout: "merchantLoggedIn",
+          merchantInfo: merchantInfo,
+          product: product
+        })
+      })
+    })
+  }
 
-  // editMerchant_address(req, res) {
-  //   let NewMerchantBuildingName = req.body.buildingAddress;
-  //   let NewMerchantStreetName = req.body.streetAddress;
-  //   let NewMerchantCountryName = req.body.countryAddress;
-  //   this.merchantService.editMerchantAddress
-  //   (merchant_id,NewMerchantBuildingName,NewMerchantStreetName,NewMerchantCountryName)
-  //   .then(()=> {
-  //     res.redirect("merchant-settings")
-  //   })
-  //   .catch((err)=> {
-  //     console.log("err",err)
-  //   });
-  //}
-  
-
+  delete(req, res) {
+    let id = req.params.id
+    this.merchantService.deleteProduct(id)
+      .then(() => {
+        res.redirect("/shop/merchant-homepage")
+      })
+  }
 }
 
 module.exports = MerchantRouter;
