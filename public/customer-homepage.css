@@ -1,0 +1,30 @@
+.image {
+    margin-top:20px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    align-items: flex-start;
+}
+.customerName{
+    align-self: center;
+}
+
+
+/* merchant css */
+
+  /* card css */
+  
+  .productPhoto {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .card {
+    border: none !important;
+  }
+  
+  .product-container {
+    margin: 2rem 0 15rem 0;
+  }
+  

@@ -7,18 +7,18 @@ class CustomerServices {
     this.knex = knex;
   }
 
-  getCustomerName(customerId) {
-    return this.knex("customer")
-      .select()
-      .where({ id: customerId })
-      .then((data) => {
-        console.log("this is customer data:", data[0].username);
-        return data[0].username;
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  }
+  // getCustomerName(customerId) {
+  //   return this.knex("customer")
+  //     .select()
+  //     .where({ id: customerId })
+  //     .then((data) => {
+  //       console.log("this is customer data:", data[0].username);
+  //       return data[0].username;
+  //     })
+  //     .catch((error) => {
+  //       console.log("error", error);
+  //     });
+  // }
 
   getCustomerInfo(customerId) {
     return this.knex("customer_info")
@@ -26,7 +26,7 @@ class CustomerServices {
       .where({ customer_id: customerId })
       .then((data) => {
         console.log("This data belongs to customer:", data);
-        return data[0];
+        return data;
       })
       .catch((error) => {
         console.log("error", error);
@@ -39,7 +39,7 @@ class CustomerServices {
       .select()
       .where({ customer_id: customerId })
       .then((data) => {
-        console.log("customerInfo here blach", data);
+        // console.log("customerInfo here blach", data);
         return data[0];
       })
       .catch((error) => {
@@ -50,13 +50,13 @@ class CustomerServices {
     return this.knex("customer")
       .select()
       .where({ id: customerId })
-      .update({ username: newUsername })
-      .then(() => {
-        console.log("updated username");
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
+      .update({ username: newUsername });
+    // .then(()=> {
+    //   // console.log("updated username");
+    // })
+    // .catch((error) => {
+    //   console.log("error", error);
+    // })
   }
   editCustomerAddress(
     customerId,
@@ -81,11 +81,8 @@ class CustomerServices {
   }
 
   postImage(user_id, imageURL) {
-    const newImage = {
-      profilePicture: imageURL,
-    };
-    return this.knex("customer_info")
-      .update("profilePicture", newImage)
+    return knex("customer_info")
+      .update("profilePicture", imageURL)
       .where({ customer_id: user_id })
       .then(() => {
         console.log("added profile Pic!");
@@ -115,6 +112,18 @@ class CustomerServices {
     //     console.log("the getCart", data);
     //   });
   }
+  getMerchantProducts() {
+    return this.knex("product_info")
+      .select("*")
+      .table("product_info")
+      .then((productData) => {
+        console.log("data from products table:", productData);
+        return productData;
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }
 
   gerAllProduct() {
     return this.knex("product_info")
@@ -126,7 +135,7 @@ class CustomerServices {
 }
 // test
 // let service = new CustomerServices(knex);
-// service.gerAllProduct();
-// console.log("fap fap fap");
+// service.getMerchantProducts();
+// console.log("got the data from the database");
 
 module.exports = CustomerServices;
