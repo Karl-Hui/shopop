@@ -9,7 +9,7 @@ function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     customer_id = req.user.id;
     // console.log(req.user.id)
-    console.log("logged in as id:", req.user.id);
+    // console.log("logged in as id:", req.user.id);
     return next();
   }
   res.redirect("/customer-login");
@@ -20,6 +20,7 @@ class CustomerRouter {
     this.customerServices = customerServices;
   }
 
+
   router() {
     const router = express.Router();
 
@@ -29,17 +30,17 @@ class CustomerRouter {
       this.customer_homepage.bind(this)
     );
 
+    // router.get(
+    //   "/customer-display-products", isLoggedIn, 
+    // this.CustomerDisplayProducts.bind(this)
+    // );
+    
     router.get(
       "/customer-settings",
       isLoggedIn,
       this.getAllCustomerData.bind(this)
     );
 
-    router.get(
-      "/customer-settings",
-      isLoggedIn,
-      this.editPic.bind(this)
-    )
     router.put(
       "/customer-settings",
       isLoggedIn,
@@ -52,7 +53,7 @@ class CustomerRouter {
     )
 
     router.post(
-      "/customer-homepage",
+      "/customer-settings",
       isLoggedIn,
       upload.single("customer-image"),
       this.post_image.bind(this)
@@ -64,19 +65,33 @@ class CustomerRouter {
   }
 
   customer_homepage(req, res) {
-    this.customerServices.getCustomerName(customer_id).then((customerName) => {
-      console.log(customerName);
+    this.customerServices.getAllCustomerInfo(customer_id)
+    .then((customerName) => {
+      // CustomerDisplayProducts(req, res) {
+    // console.log("display products", products)
+    this.customerServices.getMerchantProducts()
+    .then((products) => {
+      console.log("display products", products)
       res.render("customer-homepage", {
         layout: "customerLoggedIn",
+        products: products,
         customerName: customerName,
+      // console.log(customerName);
+      // res.render("customer-homepage", {
+        // layout: "customerLoggedIn",
+        
+        
       });
     });
+  })
   }
+  
+ 
 
   customer_settings(req, res) {
     console.log("kjasdhfkasdhfksahfdsah");
     this.customerServices.getCustomerInfo(customer_id).then((data) => {
-      console.log("customersettings-info", data);
+      // console.log("customersettings-info", data);
       res.render("customer-settings-info", {
         layout: "customer-settings",
         data: data,
@@ -84,9 +99,10 @@ class CustomerRouter {
     });
   }
   getAllCustomerData(req, res) {
-    console.log("this is all the cusomters data");
-    this.customerServices.getAllCustomerInfo(customer_id).then((data) => {
-      console.log("data for customer settings", data);
+    // console.log("this is all the cusomters data");
+    this.customerServices.getAllCustomerInfo(customer_id)
+    .then((data) => {
+      // console.log("data for customer settings", data);
       res.render("customer-settings-info", {
         layout: "customer-settings",
         data: data,
@@ -110,8 +126,8 @@ class CustomerRouter {
     let NewBuildingName = req.body.buildingAddress;
     let NewStreetName = req.body.streetAddress;
     let NewCountryName = req.body.countryAddress;
-    console.log("asddddddddddddddddddddddddddddddd",req.body);
-    console.log("new address",NewBuildingName, NewStreetName, NewCountryName );
+    // console.log("asddddddddddddddddddddddddddddddd",req.body);
+    // console.log("new address",NewBuildingName, NewStreetName, NewCountryName );
     this.customerServices.editCustomerAddress(customer_id,NewBuildingName,NewStreetName,NewCountryName)
     .then(()=> {
       res.redirect("customer-settings")
@@ -121,30 +137,31 @@ class CustomerRouter {
     });
   }
 
-  
-  editPic(req,res){
-    console.log("changing customer pic")
-    this.customerServices.getCustomerProfilePicture(customerId)
-    .then((pic) => {
-      console.log("pic data", pic);
-      res.render("customer-settings-info", {
-        layout: "customer-settings",
-        pic: pic,
-      })
-    })
-    .catch((err) => {
-      console.log("err", err);
-    });
-  }
+  // merchant products data
+  // CustomerDisplayProducts(req, res) {
+  //   console.log("display products", products)
+  //   this.customerServices.getMerchantProducts()
+  //   .then((products) => {
+  //     console.log("display products", products)
+  //     res.render("customer-homepage", {
+  //       layout: "customerLoggedIn",
+  //       products: products,
+  //     })
+  //   })
+  // }
+
+
+
 
 
   post_image(req, res) {
     console.log("req.file", req.file.path);
-    let profilePictureURL = req.file.path;
+    let profilePictureURL =JSON.stringify( req.file.path);
     this.customerServices
       .postImage(customer_id, profilePictureURL)
       .then(() => {
         console.log("done");
+        res.redirect("/customer-settings")
       })
       .catch((err) => {
         console.log("err", err);
