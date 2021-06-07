@@ -46,40 +46,45 @@ class CustomerServices {
         console.log("error", error);
       });
   }
-  editCustomerUsername(customerId,newUsername){
+  editCustomerUsername(customerId, newUsername) {
     return this.knex("customer")
-    .select()
+      .select()
       .where({ id: customerId })
-    .update({username: newUsername})
-    .then(()=> {
-      console.log("updated username");
-    })
-    .catch((error) => {
-      console.log("error", error);
-    })
-    
+      .update({ username: newUsername })
+      .then(() => {
+        console.log("updated username");
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   }
-  editCustomerAddress(customerId,newBuildingAddress,newStreetAddress,newCountryAddress){
+  editCustomerAddress(
+    customerId,
+    newBuildingAddress,
+    newStreetAddress,
+    newCountryAddress
+  ) {
     return this.knex("customer_info")
-    .select()
-      .where({customer_id: customerId })
-    .update({building_address: newBuildingAddress,
-             street_address: newStreetAddress,
-             country_address: newCountryAddress
-            })
-    .then(()=> {
-      console.log("updated address");
-    })
-    .catch((error) => {
-      console.log("error", error);
-    })
+      .select()
+      .where({ customer_id: customerId })
+      .update({
+        building_address: newBuildingAddress,
+        street_address: newStreetAddress,
+        country_address: newCountryAddress,
+      })
+      .then(() => {
+        console.log("updated address");
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   }
 
   postImage(user_id, imageURL) {
     const newImage = {
       profilePicture: imageURL,
     };
-    return knex("customer_info")
+    return this.knex("customer_info")
       .update("profilePicture", newImage)
       .where({ customer_id: user_id })
       .then(() => {
@@ -91,7 +96,7 @@ class CustomerServices {
   }
 
   getCart(user_id) {
-    return knex
+    return this.knex
       .from("product_info")
       .innerJoin(
         "checkout_cart",
@@ -110,10 +115,18 @@ class CustomerServices {
     //     console.log("the getCart", data);
     //   });
   }
+
+  gerAllProduct() {
+    return this.knex("product_info")
+      .select()
+      .then((data) => {
+        return data;
+      });
+  }
 }
 // test
 // let service = new CustomerServices(knex);
-// service.getCustomerProfilePicture(1);
+// service.gerAllProduct();
 // console.log("fap fap fap");
 
 module.exports = CustomerServices;
