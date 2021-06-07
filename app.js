@@ -7,7 +7,9 @@ const database = require("./knexfile").development;
 const knex = require("knex")(database);
 
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const upload = multer({
+  dest: "uploads/"
+});
 
 //imported files
 const CustomerRouters = require("./routes/customerRouter");
