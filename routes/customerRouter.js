@@ -24,23 +24,23 @@ class CustomerRouter {
   router() {
     const router = express.Router();
 
-      //photorouter
-  // router.post("/api/create-product", isLoggedIn, upload.single("productPhoto"), this.createProduct.bind(this));
-
     router.get(
       "/customer-homepage",
       isLoggedIn,
       this.customer_homepage.bind(this)
     );
 
+    // router.get(
+    //   "/customer-display-products", isLoggedIn, 
+    // this.CustomerDisplayProducts.bind(this)
+    // );
+    
     router.get(
       "/customer-settings",
       isLoggedIn,
       this.getAllCustomerData.bind(this)
     );
 
-   
-    
     router.put(
       "/customer-settings",
       isLoggedIn,
@@ -65,14 +65,28 @@ class CustomerRouter {
   }
 
   customer_homepage(req, res) {
-    this.customerServices.getCustomerName(customer_id).then((customerName) => {
-      // console.log(customerName);
+    this.customerServices.getAllCustomerInfo(customer_id)
+    .then((customerName) => {
+      // CustomerDisplayProducts(req, res) {
+    // console.log("display products", products)
+    this.customerServices.getMerchantProducts()
+    .then((products) => {
+      console.log("display products", products)
       res.render("customer-homepage", {
         layout: "customerLoggedIn",
+        products: products,
         customerName: customerName,
+      // console.log(customerName);
+      // res.render("customer-homepage", {
+        // layout: "customerLoggedIn",
+        
+        
       });
     });
+  })
   }
+  
+ 
 
   customer_settings(req, res) {
     console.log("kjasdhfkasdhfksahfdsah");
@@ -86,7 +100,8 @@ class CustomerRouter {
   }
   getAllCustomerData(req, res) {
     // console.log("this is all the cusomters data");
-    this.customerServices.getAllCustomerInfo(customer_id).then((data) => {
+    this.customerServices.getAllCustomerInfo(customer_id)
+    .then((data) => {
       // console.log("data for customer settings", data);
       res.render("customer-settings-info", {
         layout: "customer-settings",
@@ -122,21 +137,21 @@ class CustomerRouter {
     });
   }
 
-  
-  // displayPic(req,res){
-  //   console.log("changing customer pic")
-  //   this.customerServices.getCustomerProfilePicture(customerId)
-  //   .then((pic) => {
-  //     console.log("pic data", pic);
-  //     res.render("customer-settings-info", {
-  //       layout: "customer-settings",
-  //       pic: pic,
+  // merchant products data
+  // CustomerDisplayProducts(req, res) {
+  //   console.log("display products", products)
+  //   this.customerServices.getMerchantProducts()
+  //   .then((products) => {
+  //     console.log("display products", products)
+  //     res.render("customer-homepage", {
+  //       layout: "customerLoggedIn",
+  //       products: products,
   //     })
   //   })
-  //   .catch((err) => {
-  //     console.log("err", err);
-  //   });
   // }
+
+
+
 
 
   post_image(req, res) {
