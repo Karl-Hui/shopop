@@ -8,7 +8,6 @@
     <div class="shopDescription">
       <p>{{shopDescription}}</p>
     </div>
-    <a href="{{socialHandle}}">Social media</a>
     {{/each}}
   </div>
   <div class="create-product">
@@ -33,7 +32,7 @@
           <p class="card-text">
             ${{this.price}}
           </p>
-          <a href="#!" class="btn btn-primary">Button</a>
+          <a href="/shop/product/{{id}}" class="">view more</a>
         </div>
       </div>
     </div>
@@ -41,7 +40,3 @@
   </div>
   </div>
 </section>
-{{!-- <form action="/shop/merchant-homepage" method="post" enctype="multipart/form-data">
-  <input type="file" name="merchant-image" />
-        <button type="submit" class="btn btn-dark mt-5">submit</button>
-</form> --}}
