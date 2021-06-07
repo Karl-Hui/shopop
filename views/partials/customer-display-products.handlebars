@@ -1,0 +1,28 @@
+
+
+
+<section>
+  <div class="container product-container"> 
+  <h4 class="section-title">products</h4>
+  <div class="row">
+    {{#each products}}
+    <div class="col-3">
+      <div class="card">
+        <img
+          src="{{productPhoto}}"
+          class="card-img-top productPhoto"
+          alt="{{productName}}"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{this.productName}}</h5>
+          <p class="card-text">
+            ${{this.price}}
+          </p>
+          <a href="#!" class="btn btn-primary">Button</a>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  </div>
+</section>

@@ -16,7 +16,7 @@ function ready() {
     input.addEventListener("change", quantityChanged);
   }
   updateCarTotal();
-  theEmptyCart();
+  // theEmptyCart();
 }
 
 function removeCartItem(event) {
