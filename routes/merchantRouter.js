@@ -29,8 +29,9 @@ class MerchantRouter {
     const router = express.Router();
     router.get("/merchant-homepage", isLoggedIn, this.merchant_homepage.bind(this));
     router.get("/product/:productId", isLoggedIn, this.productPage.bind(this))
-    router.post("/api/create-product", isLoggedIn, upload.array("productPhoto", 10), this.createProduct.bind(this));
+    router.post("/api/create-product", isLoggedIn, upload.array("productPhoto", 2), this.createProduct.bind(this));
     router.delete("/api/delete/product/:id", isLoggedIn, this.delete.bind(this))
+    router.post("/api/product/edit/:id", isLoggedIn, upload.array("productPhoto", 2), this.update.bind(this))
     return router;
   }
 
@@ -49,7 +50,7 @@ class MerchantRouter {
   }
 
   createProduct(req, res) {
-    console.log("req.file", req.files);
+    // console.log("req.file", req.files);
     let productName = req.body.productName;
     let productPhoto = [];
     for (let i of req.files) {
@@ -91,10 +92,41 @@ class MerchantRouter {
   delete(req, res) {
     let id = req.params.id
     this.merchantService.deleteProduct(id)
-      .then(() => {
-        res.redirect("/shop/merchant-homepage")
+      .then((deletedString) => {
+        console.log(deletedString)
+
+      }).then(() => {
+        res.redirect("/")
       })
   }
+
+  update(req, res) {
+    let id = req.params.id
+    let productName = req.body.productName;
+    let productPhoto = [];
+    for (let i of req.files) {
+      productPhoto.push(i.path)
+    }
+    console.log(req.files)
+    console.log(productPhoto)
+    let price = req.body.price;
+    let productDescription = req.body.productDescription;
+    let stock = req.body.stock;
+    let shippingPrice = req.body.shippingPrice;
+    let Size = req.body.Size;
+    let productCategory = req.body.productCategory;
+    let productCondtion = req.body.productCondition;
+    let productStatus = "unsold"
+    // console.log("sup bro", id, productPhoto, productName, productDescription, stock, price, shippingPrice, Size, productCondtion, productCategory, productStatus, merchant_id)
+    this.merchantService.updateProduct(id, productPhoto, productName, productDescription, stock, price, shippingPrice, Size, productCondtion, productCategory, productStatus, merchant_id)
+      .then(() => {
+        res.redirect('/shop/merchant-homepage')
+        console.log("updated")
+      }).catch((error) => {
+        console.log(error, "error creating product")
+      })
+  }
+
 }
 
 module.exports = MerchantRouter;

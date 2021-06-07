@@ -45,13 +45,13 @@ h6 {
     padding: 10px 15px;
 }
 
-.editBtn{
+.edit{
     background-color: #5A4FF3;
     border: none;
     color: white;
 }
 
-.editBtn:hover{
+.edit:hover{
     background-color: #493ee0;
     border: none;
     color: white;
@@ -69,3 +69,12 @@ h6 {
     color: white;
 }
 
+@media only screen and (max-width: 600px) {
+    .row{
+        flex-direction: column;
+    }
+
+    .col-6 {
+        max-width: 100%;
+    }
+  }

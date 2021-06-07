@@ -10,15 +10,15 @@ class MerchantService {
     }
 
     // render product details
-    getAll() {
-        return knex.select('*').from('product_info')
-            .then((productData) => {
-                console.log(productData);
-                return productData;
-            }).catch((error) => {
-                console.log("error", error);
-            })
-    }
+    // getAll() {
+    //     return knex.select('*').from('product_info')
+    //         .then((productData) => {
+    //             console.log(productData);
+    //             return productData;
+    //         }).catch((error) => {
+    //             console.log("error", error);
+    //         })
+    // }
 
     getIndividualProduct(id, merchant_id) {
         // get single product based on the shop's id
@@ -50,7 +50,7 @@ class MerchantService {
                     productCategory: product.productCategory,
                     productDescription: product.productDescription,
                 }));
-                console.log("display product!!!!", products)
+                // console.log("display product!!!!", products)
                 return displayProduct;
             }).catch((error) => {
                 console.log(error, "error")
@@ -118,20 +118,21 @@ class MerchantService {
             })
             .del()
             .then(() => {
-                console.log("deleted item")
+                console.log("deleted from backend")
             }).catch((error) => {
                 console.log('error', error)
             })
     }
 
     updateProduct(id, productPhoto, productName, productDescription, stock, price, shippingPrice, Size, productCondtion, productCategory, productStatus) {
-        console.log("updating product")
+        console.log("------------updating product---------------")
         return knex("product_info")
             .where({
                 id: id
             })
             .update({
-                productPhoto: productPhoto,
+                id: id,
+                productPhoto: JSON.stringify(productPhoto),
                 productName: productName,
                 productDescription: productDescription,
                 stock: stock,
@@ -157,5 +158,5 @@ module.exports = MerchantService;
 // // // test.getAll()
 // test.createProduct('https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=649&q=80','new top', 'new top from hk', '1', '48', '10', 'M', 'Brand New', 'Top', 'unsold', '1')
 // // test.deleteProduct(3)
-// test.updateProduct(4, 'https://images.unsplash.com/photo-1497339100210-9e87df79c218?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80','Blazer', 'new blazer 9/10 condition', '1', '120', '10', 'L', 'Used', 'Top', 'unsold')
+// test.updateProduct(6,'', 'Testing on99', 'testing', '1', '2000', '100', 'L', 'Used', 'Shoes', 'unsold')
 // test.getMerchantProducts(1)
