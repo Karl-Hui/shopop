@@ -1,5 +1,5 @@
 console.log("linked to script axios");
-//button to update username
+//button to update customer username
 let editbtn = document.querySelector("#updateUser")
 
 editbtn.addEventListener('click',() => {
@@ -17,7 +17,7 @@ editbtn.addEventListener('click',() => {
     })
 });
 
-//button to update address
+//button to update customer address
 let editbtnAddress = document.querySelector("#updateAddress")
 
 editbtnAddress.addEventListener('click',() => {
@@ -36,3 +36,21 @@ editbtnAddress.addEventListener('click',() => {
       console.log("error", error);
     })
   });
+
+//button to update merchant username
+  let editMerchantbtn = document.querySelector("#updateMerchantName")
+
+editMerchantbtn.addEventListener('click',() => {
+    console.log("hello you clicked me")
+    let edit = {
+        merchantName:document.querySelector("#merchantName").value
+    }
+    console.log("this is edit", edit);
+    axios.put('/merchant-settings',edit)
+    .then(()=> {
+        console.log("edit from axios username")
+    })
+    .catch((error)=> {
+        console.log("error", error);
+    })
+});

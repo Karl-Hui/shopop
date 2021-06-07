@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="Customer-settings.css" />
+<link rel="stylesheet" href="/Customer-settings.css" />
 <div class="container">
   <div class="row gutters">
     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
@@ -23,7 +23,7 @@
                     image</label>
 					
                   <div ><img class="image" src="{{data.profilePicture}}" alt="profilePic"></div>
-                  <button type="submit" class="btn btn-dark mt-5">change image</button>
+                  <button type="submit" class="btn btn-dark mt-5">save changes</button>
                 </form>
 
               </div>
@@ -52,14 +52,14 @@
                 <label for="fullName"class="form-label">change username:</label>
                 <input
                   class="form-control"
-                  value="{{data.username}}"
+                  value="{{merchantInfo}}"
                   type="text"
-                  id="username"
+                  id="merchantName"
                   placeholder="Enter username"
                   required
                 />
                 <button
-                  id="updateUser"
+                  id="updateMerchantName"
                   type="submit"
                   method="post"
                   class="btn btn-dark mt-2"
