@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="/productPage.css">
 <div class="container button-container">
-        <a class="back-btn" href="/shop/merchant-homepage"> <i class="fas fa-chevron-left"></i> Back</a>
+        <a class="back-btn" href="/customer-homepage"> <i class="fas fa-chevron-left"></i> Back</a>
 </div>
 
 <section id="product-section">
@@ -66,8 +66,7 @@
                         <div class="flex-child"><p>{{productCondition}}</p></div>
                     </div>
                     <div class="button-container">
-                    <button class="flex-child product-btn editBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" data-target="{{id}}">Edit product</button>
-                     <button class="flex-child product-btn deleteBtn" data-target="{{id}}" data-value="{{id}}">Delete product</button>
+                    <button class="flex-child product-btn addBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-target="{{id}}" data-value="{{id}}">Add To Cart</button>
                 </div>
             {{/each}}
             </div>
@@ -80,28 +79,18 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="productModalLabel">Edit product</h5>
+                <h5 class="modal-title" id="productModalLabel">Add product</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
-                <div class="mb-3">
-                    <label for="productName" class="col-form-label">Product name:</label>
-                    <input type="text" class="form-control" id="product-name" value="{{productName}}">
-                </div>
-                <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Description:</label>
-                    <textarea class="form-control" id="message-text">{{productDescription}}</textarea>
-                </div>
+                    <h2>Product added to cart</h2>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Edit product</button>
-            </div>
+
             </div>
         </div>
         </div>
          {{/each}}
 </section>
-<script src="/axios/shop-script.js"></script>
+<script src="/axios/customer-product-script.js"></script>

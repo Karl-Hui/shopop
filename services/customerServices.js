@@ -223,9 +223,9 @@ class CustomerServices {
       .then((data) => {
         console.log("have item?", data);
         if (data.length > 0) {
-          const quantity = data[0].purchaseQuantity + 1;
+          // const quantity = data[0].purchaseQuantity + 1;
           return this.knex("checkout_cart")
-            .update("purchaseQuantity", quantity)
+            .update("purchaseQuantity", 1)
             .where({ customer_info: customer_id, product_info_id: product_id });
         } else {
           return this.knex("checkout_cart")
@@ -288,7 +288,7 @@ class CustomerServices {
 }
 // test
 // let service = new CustomerServices(knex);
-// service.addToCart(8, 1);
+// service.addToCart(18, 2);
 // service.addToCart(13, 2);
 // service.checkMerchantIdInCart(8, 11);
 // service.checkProductId(11, 1);
