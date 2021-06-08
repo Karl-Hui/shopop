@@ -116,9 +116,11 @@ class CustomerServices {
     //   .where({ customer_info: user_id })
     //   .then((data) => {
     //     console.log("the getCart", data);
-    //   });
+    //   }); 
   }
-  getMerchantProducts() {
+
+//run this to get all products
+  getMerchantProducts(category) {
     return this.knex("product_info")
       .select("*")
       .table("product_info")
@@ -180,6 +182,30 @@ class CustomerServices {
     });
   }
 
+  // getMerchantProducts(category) {
+  //   return this.knex("product_info")
+  //   .select("*")
+  //   .table('product_info')
+  //   .then((productData)=> {
+  //     console.log(productData)
+      
+  //     return productData
+  //   })
+  //   .catch((error)=> {
+  //     console.log("error", error)
+  //   });
+  // }
+  //else then run this depending of filter selection
+  
+  getSelectedMerhcantProduct(category){
+    return this.knex("product_info")
+    .select("*")
+    .where('productCategory', category)
+    .then((data)=> {
+      console.log(data[1]['productCategory'])
+      return data
+    })
+  }
   checkMerchantIdInCart(inCart_product_info_id, add_product_info_id) {
     return this.knex("product_info")
       .where({ id: inCart_product_info_id })
@@ -288,10 +314,8 @@ class CustomerServices {
 }
 // test
 // let service = new CustomerServices(knex);
-// service.addToCart(18, 2);
-// service.addToCart(13, 2);
-// service.checkMerchantIdInCart(8, 11);
-// service.checkProductId(11, 1);
+// service.getMerchantProducts("Top");
 // console.log("got the data from the database");
+
 
 module.exports = CustomerServices;

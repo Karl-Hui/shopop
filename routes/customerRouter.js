@@ -135,7 +135,7 @@ class CustomerRouter {
       .then((data) => {
         console.log("checkout page");
         res.render("cart", {
-          layout: "customerLoggedIn",
+          layout: "customerCart",
           data: data,
         });
       })

@@ -1,6 +1,6 @@
 .cartBody {
     /* background: #ddd; */
-    min-height: 100vh;
+    min-height: 70vh;
     vertical-align: middle;
     display: flex;
     font-family: sans-serif;
@@ -8,9 +8,9 @@
     font-weight: bold
 }
 
-.title {
+/* .title {
     margin-bottom: 5vh
-}
+} */
 
 .card {
     margin: auto;

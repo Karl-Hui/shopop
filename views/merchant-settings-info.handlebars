@@ -1,0 +1,118 @@
+<link rel="stylesheet" href="/shop/merchant-settings.css" />
+<div class="container">
+  <div class="row gutters">
+    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="account-settings">
+            <div class="user-profile">
+              <div class="user-avatar">
+                <form
+                  action="/customer-settings"
+                  method="post"
+                  enctype="multipart/form-data"
+                >
+                  <input
+                    id="img"
+                    type="file"
+                    name="merchant-image"
+                    class="btn mt-3"
+                    style="display:none"
+                  />
+                  <label class="btn btn-dark" type="button" for="img">upload
+                    image</label>
+					
+                  <div ><img class="image" src="{{customerInfo.profilePic}}" alt="profilePic"></div>
+                  <button type="submit" class="btn btn-dark mt-5">save changes</button>
+                </form>
+
+              </div>
+              <h5 class="user-name form-label">{{customerInfo.merchantName}}</h5>
+              <h6 class="user-email form-label">{{customerInfo.email}}</h6>
+            </div>
+            <div class="about">
+              <h5 class="mb-2 form-label">Shop Description</h5>
+              <p>{{customerInfo.shopDescription}}</p>
+              <p>{{customerInfo.socialMediaURL}}</p>
+              <p>{{customerInfo.email}}</p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <h6 class="mb-3 form-label">Merchant Details</h6>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <label for="fullName"class="form-label">change merchant name:</label>
+                <input
+                  class="form-control"
+                  value="{{merchantInfo.merchantName}}"
+                  type="text"
+                  id="merchantName"
+                  placeholder="Enter Merchant name"
+                  required
+                />
+                <button
+                  id="updateMerchantName"
+                  type="submit"
+                  method="post"
+                  class="btn btn-dark mt-2"
+                >save changes</button>
+              </div>
+            </div>
+
+          </div>
+             <br>
+          <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <h6 class="mb-3 form-label">Shop Description</h6>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+             
+                {{!-- <label for="Street"class="form-label">building</label> --}}
+                <textarea
+                  type="name"
+                  class="form-control"
+                  id="updateShopDescription"
+                  placeholder="Shop Description"
+                  value="{{merchantInfo.shopDescription}}"
+                  required></textarea>
+              </div>
+            </div>
+    
+          <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div class="text-right">
+                <a
+                  role="button"
+                  type="submit"
+                  id="submit"
+                  class="btn btn-secondary"
+                  href="/shop/merchant-homepage"
+                >BACK</a>
+
+                <button
+                  id="updateMerchantShopDescription"
+                  type="submit"
+                  name="submit"
+                  class="btn btn-dark"
+                  method="post"
+                >Update</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/axios/merchant_axios.js"></script>
