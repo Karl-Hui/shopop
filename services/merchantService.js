@@ -140,9 +140,7 @@ class MerchantService {
   deleteProduct(id) {
     console.log("Deleting product");
     return knex("product_info")
-      .where({
-        id: id,
-      })
+      .where({ id: id })
       .del()
       .then(() => {
         console.log("deleted item");
