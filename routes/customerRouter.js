@@ -67,7 +67,6 @@ class CustomerRouter {
   customer_homepage(req, res) {
     this.customerServices.getAllCustomerInfo(customer_id)
     .then((customerName) => {
-      // CustomerDisplayProducts(req, res) {
     // console.log("display products", products)
     this.customerServices.getMerchantProducts()
     .then((products) => {
@@ -75,12 +74,7 @@ class CustomerRouter {
       res.render("customer-homepage", {
         layout: "customerLoggedIn",
         products: products,
-        customerName: customerName,
-      // console.log(customerName);
-      // res.render("customer-homepage", {
-        // layout: "customerLoggedIn",
-        
-        
+        customerName: customerName,   
       });
     });
   })
@@ -174,7 +168,7 @@ class CustomerRouter {
       .then((data) => {
         console.log("checkout page");
         res.render("cart", {
-          layout: "customerLoggedIn",
+          layout: "customerCart",
           data: data,
         });
       })

@@ -72,7 +72,11 @@ app.use("/merchant/stripe", require("./routes/stripe_route/stripe"));
 
 app.get("/", (req, res) => {
   // console.log("++++++++++++++++++++++", req.file);
-  res.send("Hello World");
+  res.render("homepage");
+});
+app.get("/homepage", (req, res) => {
+  // console.log("++++++++++++++++++++++", req.file);
+  res.render("homepage");
 });
 
 // Sign up for customers

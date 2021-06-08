@@ -1,4 +1,4 @@
-// console.log("linked to script axios");
+console.log("linked to script axios ADOFHA;KDSJFHSA;JDFH;ASHDF;AHFD;OAHDF;KAHSDF;LKAHSFD;LKAHSDLKFAHDLKFAHFLKAHS;LKDF");
 //button to update username
 let editbtn = document.querySelector("#updateUser")
 
@@ -37,20 +37,3 @@ editbtnAddress.addEventListener('click',() => {
     })
   });
 
-//button to update merchant username
-  let editMerchantbtn = document.querySelector("#updateMerchantName")
-
-editMerchantbtn.addEventListener('click',() => {
-    console.log("hello you clicked me")
-    let edit = {
-        merchantName:document.querySelector("#merchantName").value
-    }
-    console.log("this is edit", edit);
-    axios.put('/merchant-settings',edit)
-    .then(()=> {
-        console.log("edit from axios username")
-    })
-    .catch((error)=> {
-        console.log("error", error);
-    })
-});

@@ -31,6 +31,11 @@ class MerchantRouter {
     router.get("/product/:productId", isLoggedIn, this.productPage.bind(this))
     router.post("/api/create-product", isLoggedIn, upload.array("productPhoto", 10), this.createProduct.bind(this));
     router.delete("/api/delete/product/:id", isLoggedIn, this.delete.bind(this))
+
+    router.get("/merchant-settings", isLoggedIn, this.merchant_settings.bind(this))
+    router.put("/merchant-name", isLoggedIn, this.editMerchantName.bind(this))
+    router.put("/merchant-shopDescription", isLoggedIn, this.editMerchantDescription.bind(this))
+    router.post("/merchant-settings",isLoggedIn,upload.single("merchant-image"),this.post_shop_image.bind(this))
     return router;
   }
 
@@ -95,6 +100,54 @@ class MerchantRouter {
         res.redirect("/shop/merchant-homepage")
       })
   }
+
+//merchant settings
+merchant_settings(req, res) {
+  this.merchantService.getMerchantInfo(merchant_id).then((merchantInfo)  => {
+    res.render("merchant-settings-info", {
+      layout: "merchant-settings",
+      data: merchantInfo,
+    });
+  });
+}
+editMerchantName(req,res) {
+  let newMerchantName = req.body.merchantName;
+  // console.log("SADSADASDASDSADSADSAD",newInfo);
+  this.merchantService.editMerchantName(merchant_id,newMerchantName)
+  .then(() => {
+    res.redirect("/shop/merchant-settings");
+  })
+  .catch((err) => {
+    console.log("err", err);
+  });
+
+}
+
+editMerchantDescription(req, res) {
+  let newShopDescription = req.body.shopDescription;
+  this.merchantService.editMerchanDescription(merchant_id, newShopDescription)
+  .then(()=>{
+    res.redirect("/shop/merchant-settings");
+  })
+  .catch((err) =>{
+    console.log("err", err);
+  })
+}
+
+post_shop_image(req,res) {
+  let shopPictureURL =JSON.stringify(req.file.path);
+  this.merchantService
+  .postMerchantImage(merchant_id, shopPictureURL)
+  .then(()=> {
+    console.log("done")
+    res.redirect("/shop/merchant-settings")
+  })
+  .catch((err) =>{
+    console.log("err", err);
+  })
+}
+
+
 }
 
 module.exports = MerchantRouter;

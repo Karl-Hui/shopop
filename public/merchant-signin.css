@@ -2,7 +2,9 @@ body {
   background-image: url("./images/merchant-signin-bg.jpg") !important;
   background-repeat: no-repeat;
   background-size: cover;
+  
 }
+
 
 .signup-form {
   width: 50%;
@@ -42,6 +44,9 @@ body {
 .footer-background {
   background-color: #000;
   height: 4rem;
+  bottom: 0;
+  position: fixed;
+  
 }
 
 #footer-text {

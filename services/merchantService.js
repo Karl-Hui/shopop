@@ -70,7 +70,7 @@ class MerchantService {
                     shopDescription: info.shopDescription,
                     socialHandle: info.socialHandle
                 }));
-                // console.log(merchant_Information)
+                console.log("merchant info akdjfhakfdhqo",merchantInfo)
                 return merchant_Information;
             }).catch((error) => {
                 console.log(error, "error")
@@ -148,6 +148,20 @@ class MerchantService {
             })
     }
 //merchant settings
+// getMerchantName(id) {
+//     return knex("merchant")
+//     .select()
+//     .where({id: id})
+//     .then((data) => {
+//         console.log("data from merchant", data[0].email)
+//         return data
+//     })
+//     .catch((error)=> {
+//         console.log("error", error)
+//     });
+// }
+
+
 editMerchantUsername(merchantId,newMerchantName){
     return this.knex("merchant")
     .select()
@@ -158,16 +172,29 @@ editMerchantUsername(merchantId,newMerchantName){
 // editMerchantAddress(merchantId, newMerchantAddress){
 //     return this,knex("merchant")
 // }
-
+postMerchantImage(merchant_id, shopPictureURL) {
+    return knex ("merchant_info")
+    .update("profilePicture", shopPictureURL )
+    .where({merchant_id: merchant_id})
+    .then(()=> {
+        console.log("added shop pic")
+    })
+    .catch((err)=> {
+        console.log("err", err)
+    })
+}
 
 }
 
 module.exports = MerchantService;
 
-// let test = new MerchantService
+// 
 // test.getIndividualProduct(3, 2)
-// test.getMerchantInfo(1)
-// // // test.getAll()
+// let test = new MerchantService
+// test.editMerchantUsername(1,"CaptainJax")
+
+// console.log("merchant name updated")
+// // test.getAll()
 // test.createProduct('https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=649&q=80','new top', 'new top from hk', '1', '48', '10', 'M', 'Brand New', 'Top', 'unsold', '1')
 // // test.deleteProduct(3)
 // test.updateProduct(4, 'https://images.unsplash.com/photo-1497339100210-9e87df79c218?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80','Blazer', 'new blazer 9/10 condition', '1', '120', '10', 'L', 'Used', 'Top', 'unsold')
