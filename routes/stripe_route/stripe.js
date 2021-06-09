@@ -92,6 +92,35 @@ stripeRouter.get('/token', isLoggedIn, async (req, res, next) => {
   }
 });
 
+stripeRouter.post('/payout', isLoggedIn, async (req, res) => {
+  let merchant = req.user
+  try {
+    // get available balance in shop account
+    const balance = await stripe.balance.retrieve({
+      stripeAccount: merchant.stripeAccountId,
+    });
+    // destructure values in the object and apply it to amount and currency 
+    const {
+      amount,
+      currency
+    } = balance.available[0];
+
+    console.log("Current Balance in merchant's account is: ", amount, currency)
+    // console.log("this is the balance in payout route", balance)
+    const payout = await stripe.payouts.create({
+      amount: amount,
+      currency: currency,
+      statement_descriptor: process.env.appname,
+    }, {
+      stripeAccount: merchant.stripeAccountId
+    });
+    return res.redirect(loginLink.url);
+  } catch (error) {
+    console.log(err);
+    console.log('Failed to create a Stripe login link.');
+  }
+});
+
 /**
  * GET /pilots/stripe/dashboard
  *
@@ -130,70 +159,24 @@ stripeRouter.get('/dashboard', isLoggedIn, async (req, res) => {
 });
 
 stripeRouter.post('/payment', isLoggedIn, async (req, res, next) => {
-  let shop = req.user
-
-  // const paymentIntent = await stripe.paymentIntents.create({
-  //   payment_method_types: ['card'],
-  //   amount: 1000,
-  //   currency: 'usd',
-  // }, {
-  //   stripeAccount: shop.stripeAccountId,
-  // });
-  // console.log("================", paymentIntent)
-  // let charge = await stripe.charges.create({
-  //   amount: 100,
-  //   currency: hkd,
-  //   // The `transfer_group` parameter must be a unique id for the ride; it must also match between the charge and transfer
-  //   transfer_group: {ORDER10}
-  // });
-  // const transfer = await stripe.transfers.create({
-  //   amount: 100,
-  //   currency: 'usd',
-  //   destination: shop.stripeAccountId,
-  //   transfer_group: {ORDER10}
-  // })
-
-  // const paymentIntent = await stripe.paymentIntents.create({
-  //   payment_method_types: ['card'],
-  //   amount: 1000,
-  //   currency: 'hkd',
-  //   transfer_data: {
-  //     destination: shop.stripeAccountId,
-  //   },
-  // });
+  let merchant = req.user
 
   // ============
   const charge = await stripe.charges.create({
-    amount: 50000,
+    amount: 12600,
     currency: 'hkd',
     source: 'tok_visa',
-    on_behalf_of: shop.stripeAccountId,
-    transfer_group: '{ORDER10}',
+    on_behalf_of: merchant.stripeAccountId,
+    // transfer_group: '{ORDER10}',
   });
 
   // Create a Transfer to the connected account (later):
   const transfer = await stripe.transfers.create({
-    amount: 6000,
+    amount: 10000,
     currency: 'hkd',
-    destination: shop.stripeAccountId,
-    transfer_group: '{ORDER10}',
+    destination: merchant.stripeAccountId,
+    // transfer_group: '{ORDER10}',
   });
-
-  // ========
-//   const paymentIntent = await stripe.paymentIntents.create({
-//     payment_method_types: ['card'],
-//     amount: 50000,
-//     currency: 'hkd',
-//     // The destination parameter directs the transfer of funds from platform to pilot
-//     transfer_data: {
-//       // Send the amount for the pilot after collecting a 20% platform fee:
-//       // the `amountForPilot` method simply computes `ride.amount * 0.8`
-//       amount: 5000,
-//       // The destination of this Payment Intent is the pilot's Stripe account
-//       destination: shop.stripeAccountId,
-//     },
-// });
-// console.log(paymentIntent)
 })
 
 

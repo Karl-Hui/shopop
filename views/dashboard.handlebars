@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/dashboard.css">
 
 <section id="dashboard-section">
     <div class="container">
@@ -6,21 +7,25 @@
     </div>
     </div>
     <div class="container">
-        <h1>Dashboard</h1>
+        <h1 class="dashboard-title">Dashboard</h1>
     </div>
     <div class="container">
-        <div class="container stripe-dashboard-container">
+        <div id="stripe-dashboard-container">
             <div class="row">
-                <div class="col-7">
-                    <h5>{{shop}}</h5>
-                    <a href="/merchant/stripe/dashboard?account=true">View Stripe Account</a>
+                <div class="col-6">
+                    <h5>Hello {{shop}}</h5>
+                    <a class="link" href="/merchant/stripe/dashboard?account=true">View Stripe Account</a>
                 </div>
-                <div class="col-5 d-flex">
+                <div class="col-3 d-flex">
                     <div class="px-2">
                         <h5>Balance Available</h5>
-                        <p>{{balanceAvailable}} HKD</p>
+                        <p>{{balanceAvailable}}HKD</p>
                     </div>
-                    <a class="payout-btn"><a href="">Pay out now</a></a>
+                </div>
+                <div class="col-3 d-flex">
+                    <form action="/merchant/stripe/payout" method="POST" autocomplete="off">
+                    <button type='submit' class="btn-payout"value='Pay out now'>Pay out now</button>
+                    </form>
                 </div>
             </div>
         </div>
