@@ -124,7 +124,7 @@ class CustomerServices {
     return this.knex("product_info")
       .select("*")
       .table("product_info")
-      .orderBy("id")
+      .orderBy("id", "desc")
       .then((productData) => {
         // console.log("data from products table:", productData);
         return productData;
