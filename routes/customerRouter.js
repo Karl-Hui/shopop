@@ -163,7 +163,19 @@ class CustomerRouter {
   }
 
   async updateCart(req, res) {
-    console.log(req.body);
+    let cartItems = req.body;
+    console.log(cartItems);
+    await this.customerServices.clearCart(customer_id);
+    if (Object.keys(req.body).length > 0) {
+      for (const productId in cartItems) {
+        console.log(productId);
+        await this.customerServices.simpleAddToCart(
+          productId,
+          cartItems[productId],
+          customer_id
+        );
+      }
+    }
     res.end();
   }
 }

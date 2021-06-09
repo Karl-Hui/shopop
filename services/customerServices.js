@@ -312,10 +312,22 @@ class CustomerServices {
         console.log("err", err);
       });
   }
+
+  async clearCart(customerId) {
+    await knex("checkout_cart").del().where({ customer_info: customerId });
+  }
+
+  async simpleAddToCart(productId, quantity, customerId) {
+    await knex("checkout_cart").insert({
+      product_info_id: productId,
+      purchaseQuantity: quantity,
+      customer_info: customerId,
+    });
+  }
 }
 // test
 // let service = new CustomerServices(knex);
-// service.addToCart(11, 2);
+// service.simpleAddToCart(9, 10, 1);
 // console.log("got the data from the database");
 
 module.exports = CustomerServices;
