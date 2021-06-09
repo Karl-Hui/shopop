@@ -41,6 +41,7 @@ class CustomerRouter {
       this.post_image.bind(this)
     );
     router.get("/cart", isLoggedIn, this.checkOutPage.bind(this));
+    router.post("/cart", isLoggedIn, this.updateCart.bind(this));
     router.get("/product/:id", isLoggedIn, this.oneProductPage.bind(this));
     router.post("/product/:id", isLoggedIn, this.postToCart.bind(this));
     return router;
@@ -153,10 +154,17 @@ class CustomerRouter {
     });
   }
 
-  postToCart(req, res) {
+  async postToCart(req, res) {
     let productId = req.params.id;
     console.log("customer_id", customer_id);
     console.log("productId", productId);
+    await this.customerServices.addToCart(productId, customer_id);
+    res.end();
+  }
+
+  async updateCart(req, res) {
+    console.log(req.body);
+    res.end();
   }
 }
 
