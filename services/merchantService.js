@@ -138,16 +138,17 @@ class MerchantService {
   }
 
     getMerchantInfo(id) {
-        return knex.select("*").from("merchant").join("merchant_info", "merchant.id", "merchant_info.merchant_id")
+        return knex.select("*").from("merchant")
+        .join("merchant_info", "merchant.id", "merchant_info.merchant_id")
             .where(`merchant.id`, id)
             .then((merchantInfo) => {
                 let merchant_Information = merchantInfo.map((info) => ({
                     merchantName: info.merchantName,
                     profilePic: info.profilePic,
                     shopDescription: info.shopDescription,
-                    socialHandle: info.socialHandle
+                    socialHandle: info.socialHandle,
                 }));
-                console.log("merchant info akdjfhakfdhqo",merchantInfo)
+                console.log("merchant info akdjfhakfdhqo!!!",merchant_Information)
                 return merchant_Information;
             }).catch((error) => {
                 console.log(error, "error")
@@ -224,35 +225,18 @@ class MerchantService {
     //             console.log(error, "Cant update product")
     //         })
     // }
-//merchant settings
-// getMerchantName(id) {
-//     return knex("merchant")
-//     .select()
-//     .where({id: id})
-//     .then((data) => {
-//         console.log("data from merchant", data[0].email)
-//         return data
-//     })
-//     .catch((error)=> {
-//         console.log("error", error)
-//     });
-// }
-
 
 editMerchantUsername(merchantId,newMerchantName){
-    return this.knex("merchant")
+    return knex("merchant")
     .select()
     .where({id: merchantId})
     .update({merchantName:newMerchantName})
 }
 
-// editMerchantAddress(merchantId, newMerchantAddress){
-//     return this,knex("merchant")
-// }
-postMerchantImage(merchant_id, shopPictureURL) {
-    return knex ("merchant_info")
+postMerchantImage(id, shopPictureURL) {
+    return this.knex ("merchant_info")
     .update("profilePicture", shopPictureURL )
-    .where({merchant_id: merchant_id})
+    .where({merchant_id: id})
     .then(()=> {
         console.log("added shop pic")
     })
@@ -311,7 +295,13 @@ postMerchantImage(merchant_id, shopPictureURL) {
         console.log(error, "Cant update product");
       });
   }
+
+
+
 }
+
+// let test = new MerchantService(knex);
+// test.merchantSettings(0);
 
 module.exports = MerchantService;
 
@@ -326,3 +316,7 @@ module.exports = MerchantService;
 // // test.deleteProduct(3)
 // test.updateProduct(4, 'https://images.unsplash.com/photo-1497339100210-9e87df79c218?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80','Blazer', 'new blazer 9/10 condition', '1', '120', '10', 'L', 'Used', 'Top', 'unsold')
 // test.getMerchantProducts(1)
+
+
+
+// test.editMerchantUsername(1,"CaptainJax")

@@ -22,19 +22,19 @@
                   <label class="btn btn-dark" type="button" for="img">upload
                     image</label>
 					
-                  <div ><img class="image" src="{{customerInfo.profilePic}}" alt="profilePic"></div>
+                  <div ><img class="image" src="{{profilePic}}" alt="profilePic"></div>
                   <button type="submit" class="btn btn-dark mt-5">save changes</button>
                 </form>
 
               </div>
-              <h5 class="user-name form-label">{{customerInfo.merchantName}}</h5>
-              <h6 class="user-email form-label">{{customerInfo.email}}</h6>
+              <h5 class="user-name form-label">{{merchantInfo.merchantName}}</h5>
+              {{!-- <h6 class="user-email form-label">{{email}}</h6> --}}
             </div>
             <div class="about">
               <h5 class="mb-2 form-label">Shop Description</h5>
-              <p>{{customerInfo.shopDescription}}</p>
-              <p>{{customerInfo.socialMediaURL}}</p>
-              <p>{{customerInfo.email}}</p>
+              <p>{{shopDescription}}</p>
+              <p>{{socialHandle}}</p>
+              {{!-- <p>{{email}}</p> --}}
              
             </div>
           </div>

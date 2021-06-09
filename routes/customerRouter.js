@@ -40,11 +40,32 @@ class CustomerRouter {
       upload.single("customer-image"),
       this.post_image.bind(this)
     );
+    
     router.get("/cart", isLoggedIn, this.checkOutPage.bind(this));
     router.get("/product/:id", isLoggedIn, this.oneProductPage.bind(this));
     router.post("/product/:id", isLoggedIn, this.postToCart.bind(this));
     return router;
   }
+
+  // customer_homepage(req, res) {
+  //   this.customerServices
+  //     .getAllCustomerInfo(customer_id)
+  //     .then((customerName) => {
+  //       // CustomerDisplayProducts(req, res) {
+  //       // console.log("display products", products)
+  //       this.customerServices.getMerchantProducts().then((products) => {
+  //         // console.log("display products", products);
+  //         res.render("customer-homepage", {
+  //           layout: "customerLoggedIn",
+  //           products: products,
+  //           customerName: customerName,
+  //           // console.log(customerName);
+  //           // res.render("customer-homepage", {
+  //           // layout: "customerLoggedIn",
+  //         });
+  //       });
+  //     });
+  // }
 
   customer_homepage(req, res) {
     this.customerServices
@@ -52,7 +73,7 @@ class CustomerRouter {
       .then((customerName) => {
         // CustomerDisplayProducts(req, res) {
         // console.log("display products", products)
-        this.customerServices.getMerchantProducts().then((products) => {
+        this.customerServices.getMerchantNameAndProducts().then((products) => {
           // console.log("display products", products);
           res.render("customer-homepage", {
             layout: "customerLoggedIn",
@@ -66,6 +87,7 @@ class CustomerRouter {
       });
   }
 
+
   customer_settings(req, res) {
     console.log("kjasdhfkasdhfksahfdsah");
     this.customerServices.getCustomerInfo(customer_id).then((data) => {
@@ -76,6 +98,17 @@ class CustomerRouter {
       });
     });
   }
+  customer_cart_navBar(req, res) {
+    console.log("kjasdhfkasdhfksahfdsah");
+    this.customerServices.getCustomerInfo(customer_id).then((data) => {
+      console.log("customerCartNavBar", data);
+      res.render("CustomerCart", {
+        layout: "cart",
+        data: data,
+      });
+    });
+  }
+
   getAllCustomerData(req, res) {
     this.customerServices.getAllCustomerInfo(customer_id).then((data) => {
       res.render("customer-settings-info", {

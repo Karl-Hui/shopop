@@ -120,29 +120,47 @@ class CustomerServices {
   }
 
 //run this to get all products
-  getMerchantProducts(category) {
-    return this.knex("product_info")
-      .select("*")
-      .table("product_info")
-      .then((productData) => {
-        // console.log("data from products table:", productData);
-        return productData;
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  }
+getMerchantNameAndProducts() {
+  return this.knex("merchant")
+    .join("product_info", "merchant.id", "merchant_id")
+    .select("*")
+    // .where({ customer_id: customerId })
+    .then((data) => {
+      console.log("merchant info and product!!!!!!", data);
+      
+      return data;
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
+}
 
-  gerAllProduct() {
-    return this.knex("product_info")
-      .select()
-      .then((data) => {
-        return data;
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  }
+
+
+
+  // getMerchantProducts(category) {
+  //   return this.knex("product_info")
+  //     .select("*")
+  //     .table("product_info")
+  //     .then((productData) => {
+  //       // console.log("data from products table:", productData);
+  //       return productData;
+  //     })
+  //     .catch((error) => {
+  //       console.log("error", error);
+  //     });
+  // }
+
+  // getAllProduct() {
+  //   return this.knex("product_info")
+  //     .select()
+  //     .then((data) => {
+  //       return data;
+  //     })
+  //     .catch((err) => {
+  //       console.log("err", err);
+  //     });
+  // }
 
   getIndividualProduct(id) {
     return this.knex("product_info")
@@ -311,10 +329,12 @@ class CustomerServices {
         console.log("err", err);
       });
   }
+
+
 }
 // test
 // let service = new CustomerServices(knex);
-// service.getMerchantProducts("Top");
+// service. getMerchantNameAndProducts();
 // console.log("got the data from the database");
 
 
