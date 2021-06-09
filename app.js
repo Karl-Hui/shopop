@@ -1,7 +1,10 @@
 require("dotenv").config();
-
+const express = require("express"),
+  session = require("express-session"),
+  handlebars = require("express-handlebars");
 const passportMerchant = require("./passport_merchant");
 const passportCustomer = require("./passport_customer");
+// const methodOverride = require('method-override')
 const cookieParser = require("cookie-parser");
 const database = require("./knexfile").development;
 const knex = require("knex")(database);
@@ -25,10 +28,6 @@ const MerchantService = require("./services/merchantService");
 let merchantService = new MerchantService(knex);
 let merchantRoute = new MerchantRouters(merchantService);
 
-const express = require("express"),
-  session = require("express-session"),
-  handlebars = require("express-handlebars");
-
 const app = express();
 // middleware
 app.use(express.json());
@@ -48,6 +47,7 @@ app.engine(
 );
 
 app.use(cookieParser());
+// app.use(methodOverride('_method'))
 
 app.use(
   session({
@@ -154,9 +154,6 @@ app.post(
   })
 );
 
-// app.get("/cart", (req, res) => {
-//   res.render("cart");
-// });
 
 app.get("/select", (req, res) => {
   res.render("select");

@@ -84,21 +84,99 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form method="POST" action="/shop/api/product/edit/{{id}}" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="productName" class="col-form-label">Product name:</label>
-                    <input type="text" class="form-control" id="product-name" value="{{productName}}">
+                    <input type="text" class="form-control" id="product-name" name="productName" value="{{productName}}">
                 </div>
                 <div class="mb-3">
-                    <label for="message-text" class="col-form-label">Description:</label>
-                    <textarea class="form-control" id="message-text">{{productDescription}}</textarea>
+                    <label for="price" class="col-form-label">Price:</label>
+                    <input type="text" class="form-control" id="product-name" name="price" value="{{price}}">
                 </div>
-                </form>
+                <div class="mb-3">
+                    <label for="shippingPrice" class="col-form-label">Shipping Price:</label>
+                    <input type="text" class="form-control" id="product-name" name="shippingPrice" value="{{shippingPrice}}">
+                </div>
+                <div class="mb-3">
+                    <label for="productDescription" class="col-form-label">Description:</label>
+                    <textarea class="form-control" name="productDescription" id="productDescription">{{productDescription}}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="form_need">Size *</label> <select id="form_size" name="Size" class="form-control" required="required" data-error="Size" value="{{Size}}">
+                        <option value="" selected disabled>--Select Size--</option>
+                        <option>One Size</option>
+                        <option>XS</option>
+                        <option>S</option>
+                        <option>M</option>
+                        <option>L</option>
+                        <option>XL</option>
+                        <option>XXL</option>
+                        <option>4</option>
+                        <option>6</option>
+                        <option>8</option>
+                        <option>10</option>
+                        <option>12</option>
+                        <option>14</option>
+                        <option>16</option>
+                        <option>18</option>
+                        <option>20</option>
+                        <option>22</option>
+                        <option>24</option>
+                        <option>26</option>
+                        <option>28</option>
+                        <option>30</option>
+                        <option>32</option>
+                        <option>32</option>
+                        <option>UK 6</option>
+                        <option>UK 6.5</option>
+                        <option>UK 7</option>
+                        <option>UK 8</option>
+                        <option>UK 8.5</option>
+                        <option>UK 9</option>
+                        <option>UK 9.5</option>
+                        <option>UK 10</option>
+                        <option>UK 10.5</option>
+                        <option>UK 11</option>
+                        <option>UK 11.5</option>
+                        <option>UK 12</option>
+                        <option>UK 12.5</option>
+                        <option>UK 13</option>
+                        <option>UK 14</option>
+                        </select>
+                </div>
+                <div class="mb-3">
+                    <label for="form_condition">Category *</label> <select id="form_condition" name="productCategory" class="form-control" required="required" data-error="productCondition">
+                        <option selected disabled>--Select Category--</option>
+                        <option>Top</option>
+                        <option>Bottom</option>
+                        <option>Dresses</option>
+                        <option>Outerwear</option>
+                        <option>Shoes</option>
+                        <option>Accessories</option>
+                        <option>Others</option>
+                        </select>
+                </div>
+                <div class="mb-3">
+                    <label for="form_condition">Stock *</label>
+                    <input type="number" name="stock" min="1" max="10" value="{{stock}}">
+                </div>
+                <div class="mb-3">
+                    <label for="form_condition">Condition *</label> <select id="form_condition" name="productCondition" class="form-control" required="required" data-error="productCondition">
+                        <option value="" selected disabled>--Select Condition--</option>
+                        <option>Used</option>
+                        <option>Brand new</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <input type="file" name="productPhoto" multiple/>
+                </div>
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Edit product</button>
+                <button type="submit" class="btn btn-primary editBtn" data-target="{{id}}">Edit product</button>
             </div>
+            </form>
             </div>
         </div>
         </div>
