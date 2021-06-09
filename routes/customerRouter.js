@@ -1,7 +1,11 @@
 const express = require("express");
 const multer = require("multer");
-const { storage } = require("../cloudinary");
-const upload = multer({ storage });
+const {
+  storage
+} = require("../cloudinary");
+const upload = multer({
+  storage
+});
 // let currentCustomer;
 let customer_id;
 
@@ -42,6 +46,7 @@ class CustomerRouter {
     );
     
     router.get("/cart", isLoggedIn, this.checkOutPage.bind(this));
+    router.post("/cart", isLoggedIn, this.updateCart.bind(this));
     router.get("/product/:id", isLoggedIn, this.oneProductPage.bind(this));
     router.post("/product/:id", isLoggedIn, this.postToCart.bind(this));
     return router;
@@ -186,10 +191,29 @@ class CustomerRouter {
     });
   }
 
-  postToCart(req, res) {
+  async postToCart(req, res) {
     let productId = req.params.id;
     console.log("customer_id", customer_id);
     console.log("productId", productId);
+    await this.customerServices.addToCart(productId, customer_id);
+    res.end();
+  }
+
+  async updateCart(req, res) {
+    let cartItems = req.body;
+    console.log(cartItems);
+    await this.customerServices.clearCart(customer_id);
+    if (Object.keys(req.body).length > 0) {
+      for (const productId in cartItems) {
+        console.log(productId);
+        await this.customerServices.simpleAddToCart(
+          productId,
+          cartItems[productId],
+          customer_id
+        );
+      }
+    }
+    res.end();
   }
 }
 

@@ -1,4 +1,5 @@
 const express = require("express");
+const stripe = require('stripe')(process.env.STRIPE_KEY);
 const multer = require("multer");
 const {
   storage
@@ -28,8 +29,9 @@ class MerchantRouter {
   router() {
     const router = express.Router();
     router.get("/merchant-homepage", isLoggedIn, this.merchant_homepage.bind(this));
-    router.get("/product/:productId", isLoggedIn, this.productPage.bind(this))
-    router.post("/api/create-product", isLoggedIn, upload.array("productPhoto", 10), this.createProduct.bind(this));
+    router.get("/product/:productId", isLoggedIn, this.productPage.bind(this));
+    router.get("/dashboard", isLoggedIn, this.dashboard.bind(this));
+    router.post("/api/create-product", isLoggedIn, upload.array("productPhoto", 2), this.createProduct.bind(this));
     router.delete("/api/delete/product/:id", isLoggedIn, this.delete.bind(this))
 
     router.get("/merchant-settings", isLoggedIn, this.merchant_settings.bind(this))
@@ -40,9 +42,25 @@ class MerchantRouter {
       isLoggedIn,upload.single
       ("merchant-image",1),
       this.postShopImage.bind(this));
+    router.post("/api/product/edit/:id", isLoggedIn, upload.array("productPhoto", 2), this.update.bind(this))
     return router;
   }
 
+
+  async dashboard(req, res) {
+    const shop = req.user
+    const Balance = await stripe.balance.retrieve({
+      stripeAccount: req.user.stripeAccountId,
+    });
+    let balancePending = await (Balance.available[0].amount / 100).toFixed(2)
+    // console.log("amount", balancePending)
+    // console.log("user", shop)
+    res.render("dashboard", {
+      layout: "merchantLoggedIn",
+      shop: shop.merchantName,
+      balanceAvailable: balancePending
+    })
+  }
   merchant_homepage(req, res) {
     this.merchantService.getMerchantInfo(merchant_id).then((merchantInfo) => {
       this.merchantService.getMerchantProducts(merchant_id).then((product) => {
@@ -58,7 +76,7 @@ class MerchantRouter {
   }
 
   createProduct(req, res) {
-    console.log("req.file", req.files);
+    // console.log("req.file", req.files);
     let productName = req.body.productName;
     let productPhoto = [];
     for (let i of req.files) {
@@ -97,11 +115,15 @@ class MerchantRouter {
     })
   }
 
+
   delete(req, res) {
     let id = req.params.id
     this.merchantService.deleteProduct(id)
-      .then(() => {
-        res.redirect("/shop/merchant-homepage")
+      .then((deletedString) => {
+        console.log(deletedString)
+
+      }).then(() => {
+        res.redirect("/")
       })
   }
 
@@ -150,6 +172,30 @@ postShopImage(req,res) {
   })
 }
 
+  update(req, res) {
+    let id = req.params.id
+    let productName = req.body.productName;
+    let productPhoto = [];
+    for (let i of req.files) {
+      productPhoto.push(i.path)
+    }
+    let price = req.body.price;
+    let productDescription = req.body.productDescription;
+    let stock = req.body.stock;
+    let shippingPrice = req.body.shippingPrice;
+    let Size = req.body.Size;
+    let productCategory = req.body.productCategory;
+    let productCondition = req.body.productCondition;
+    let productStatus = "unsold"
+    // console.log("sup bro", id, productPhoto, productName, productDescription, stock, price, shippingPrice, Size, productCondtion, productCategory, productStatus, merchant_id)
+    this.merchantService.updateProduct(id, productPhoto, productName, productDescription, stock, price, shippingPrice, Size, productCondition, productCategory, productStatus, merchant_id)
+      .then(() => {
+        res.redirect('/shop/merchant-homepage')
+        console.log("updated")
+      }).catch((error) => {
+        console.log(error, "error creating product")
+      })
+  }
 
 }
 

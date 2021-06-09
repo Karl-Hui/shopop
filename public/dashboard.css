@@ -1,0 +1,42 @@
+h1{
+    font-size: 2rem;
+    color: rgb(29, 29, 29);
+}
+
+#stripe-dashboard-container{
+    height: 30vh;
+    background-color: #ededed;
+    padding: 2rem 2rem;
+    margin: 0rem 0 3rem 0;
+}
+
+.link{
+    font-size: 0.8rem;
+    color: #5a4ff3;
+}
+
+.link:hover{
+    font-size: 0.8rem;
+    color: #4d42e4;
+}
+
+.btn-payout{
+    background-color: #ED455D;
+    border: none;
+    color: white;
+    padding: 5px 12px;
+    border: none;
+}
+
+.btn-payout:hover{
+    background-color: #eb1e3d;
+    border: none;
+    color: white;
+    padding: 5px 12px;
+    border: none;
+}
+
+
+.dashboard-title{
+    margin: 1rem 0;
+}
