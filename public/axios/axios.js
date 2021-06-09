@@ -1,4 +1,4 @@
-// console.log("linked to script axios");
+console.log("linked to script axios ADOFHA;KDSJFHSA;JDFH;ASHDF;AHFD;OAHDF;KAHSDF;LKAHSFD;LKAHSDLKFAHDLKFAHFLKAHS;LKDF");
 //button to update username
 let editbtn = document.querySelector("#updateUser")
 
@@ -17,7 +17,7 @@ editbtn.addEventListener('click',() => {
     })
 });
 
-//button to update address
+//button to update customer address
 let editbtnAddress = document.querySelector("#updateAddress")
 
 editbtnAddress.addEventListener('click',() => {
@@ -36,3 +36,4 @@ editbtnAddress.addEventListener('click',() => {
       console.log("error", error);
     })
   });
+

@@ -8,9 +8,10 @@ const passportCustomer = require("./passport_customer");
 const cookieParser = require("cookie-parser");
 const database = require("./knexfile").development;
 const knex = require("knex")(database);
+const axios = require("axios");
 const multer = require("multer");
 const upload = multer({
-  dest: "uploads/"
+  dest: "uploads/",
 });
 
 //imported files
@@ -71,7 +72,11 @@ app.use("/merchant/stripe", require("./routes/stripe_route/stripe"));
 
 app.get("/", (req, res) => {
   // console.log("++++++++++++++++++++++", req.file);
-  res.send("Hello World");
+  res.render("homepage");
+});
+app.get("/homepage", (req, res) => {
+  // console.log("++++++++++++++++++++++", req.file);
+  res.render("homepage");
 });
 
 // Sign up for customers
@@ -129,7 +134,6 @@ app.get("/stripe-form", (req, res) => {
 app.get("/create-product", (req, res) => {
   res.render("create-product");
 });
-
 
 app.get("/merchant-signup", (req, res) => {
   res.render("merchant-signup");

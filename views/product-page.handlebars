@@ -1,3 +1,6 @@
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <link rel="stylesheet" href="/productPage.css">
 <div class="container button-container">
         <a class="back-btn" href="/shop/merchant-homepage"> <i class="fas fa-chevron-left"></i> Back</a>
@@ -63,8 +66,8 @@
                         <div class="flex-child"><p>{{productCondition}}</p></div>
                     </div>
                     <div class="button-container">
-                    <button class="flex-child product-btn edit" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit product</button>
-                    <button class="flex-child product-btn deleteBtn" data-target="{{id}}">Delete product</button>
+                    <button class="flex-child product-btn editBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" data-target="{{id}}">Edit product</button>
+                     <button class="flex-child product-btn deleteBtn" data-target="{{id}}" data-value="{{id}}">Delete product</button>
                 </div>
             {{/each}}
             </div>
@@ -180,4 +183,3 @@
          {{/each}}
 </section>
 <script src="/axios/shop-script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

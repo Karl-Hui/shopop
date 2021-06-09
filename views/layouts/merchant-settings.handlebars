@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="navBars.css">
+    <link rel="stylesheet" href="/navBars.css">
 </head>
 <body>  
 
@@ -24,8 +24,8 @@
     <a class="nav-link dropdown-toggle buttonBG accountButton" data-toggle="dropdown" href="/logout" role="button" aria-haspopup="true" aria-expanded="false">ACCOUNT</a>
     <div class="dropdown-menu accountdropDownBox ">
     
-      <a class="dropdown-item dropDownMenuFont" href="/customer-homepage">{{this.data.username}}</a>
-      <a class="dropdown-item dropDownMenuFont" href="/customer-settings">SETTINGS</a>
+      <a class="dropdown-item dropDownMenuFont" href="/shop/merchant-homepage">{{merchantInfo}}</a>
+      <a class="dropdown-item dropDownMenuFont" href="/shop/merchant-settings">SETTINGS</a>
       <a role="button"type="submit" class="logoutButton" href="/logout">Logout</a>
      
   </li>
