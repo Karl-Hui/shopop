@@ -45,6 +45,20 @@
   padding: 5px 12px;
 }
 
+.dashboard-btn{
+  background-color: #161616;
+  border-radius: 0;
+  border: none;
+  padding: 5px 12px;
+}
+
+.dashboard-btn:hover{
+  background-color: #020202;
+  border-radius: 0;
+  border: none;
+  padding: 5px 12px;
+}
+
 .shopDescription {
   margin: 2rem 0;
 }
