@@ -5,10 +5,10 @@ const passportCustomer = require("./passport_customer");
 const cookieParser = require("cookie-parser");
 const database = require("./knexfile").development;
 const knex = require("knex")(database);
-
+const axios = require("axios");
 const multer = require("multer");
 const upload = multer({
-  dest: "uploads/"
+  dest: "uploads/",
 });
 
 //imported files
@@ -134,7 +134,6 @@ app.get("/stripe-form", (req, res) => {
 app.get("/create-product", (req, res) => {
   res.render("create-product");
 });
-
 
 app.get("/merchant-signup", (req, res) => {
   res.render("merchant-signup");

@@ -116,14 +116,15 @@ class CustomerServices {
     //   .where({ customer_info: user_id })
     //   .then((data) => {
     //     console.log("the getCart", data);
-    //   }); 
+    //   });
   }
 
-//run this to get all products
+  //run this to get all products
   getMerchantProducts(category) {
     return this.knex("product_info")
       .select("*")
       .table("product_info")
+      .orderBy("id")
       .then((productData) => {
         // console.log("data from products table:", productData);
         return productData;
@@ -188,7 +189,7 @@ class CustomerServices {
   //   .table('product_info')
   //   .then((productData)=> {
   //     console.log(productData)
-      
+
   //     return productData
   //   })
   //   .catch((error)=> {
@@ -196,15 +197,15 @@ class CustomerServices {
   //   });
   // }
   //else then run this depending of filter selection
-  
-  getSelectedMerhcantProduct(category){
+
+  getSelectedMerhcantProduct(category) {
     return this.knex("product_info")
-    .select("*")
-    .where('productCategory', category)
-    .then((data)=> {
-      console.log(data[1]['productCategory'])
-      return data
-    })
+      .select("*")
+      .where("productCategory", category)
+      .then((data) => {
+        console.log(data[1]["productCategory"]);
+        return data;
+      });
   }
   checkMerchantIdInCart(inCart_product_info_id, add_product_info_id) {
     return this.knex("product_info")
@@ -249,9 +250,9 @@ class CustomerServices {
       .then((data) => {
         console.log("have item?", data);
         if (data.length > 0) {
-          // const quantity = data[0].purchaseQuantity + 1;
+          const quantity = data[0].purchaseQuantity + 1;
           return this.knex("checkout_cart")
-            .update("purchaseQuantity", 1)
+            .update("purchaseQuantity", quantity)
             .where({ customer_info: customer_id, product_info_id: product_id });
         } else {
           return this.knex("checkout_cart")
@@ -311,11 +312,22 @@ class CustomerServices {
         console.log("err", err);
       });
   }
+
+  async clearCart(customerId) {
+    await knex("checkout_cart").del().where({ customer_info: customerId });
+  }
+
+  async simpleAddToCart(productId, quantity, customerId) {
+    await knex("checkout_cart").insert({
+      product_info_id: productId,
+      purchaseQuantity: quantity,
+      customer_info: customerId,
+    });
+  }
 }
 // test
 // let service = new CustomerServices(knex);
-// service.getMerchantProducts("Top");
+// service.simpleAddToCart(9, 10, 1);
 // console.log("got the data from the database");
-
 
 module.exports = CustomerServices;
