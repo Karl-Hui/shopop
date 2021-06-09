@@ -9,7 +9,7 @@
     <div class="col-3 {{productCategory}} products" data-custom-type="{{productCategory}}" >
       <div class="card">
         <img
-          src="{{productPhoto}}"
+          src="{{productPhoto.[0]}}"
           class="card-img-top productPhoto"
           alt="{{productName}}"
         />
@@ -24,7 +24,6 @@
         </div>
       </div>
     </div>
-    
     {{/each}}
   </div>
   </div>

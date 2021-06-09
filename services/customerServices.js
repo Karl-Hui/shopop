@@ -120,19 +120,19 @@ class CustomerServices {
   }
 
   //run this to get all products
-  getMerchantProducts(category) {
-    return this.knex("product_info")
-      .select("*")
-      .table("product_info")
-      .orderBy("id")
-      .then((productData) => {
-        // console.log("data from products table:", productData);
-        return productData;
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  }
+  // getMerchantProducts(category) {
+  //   return this.knex("product_info")
+  //     .select("*")
+  //     .table("product_info")
+  //     .orderBy("id")
+  //     .then((productData) => {
+  //       // console.log("data from products table:", productData);
+  //       return productData;
+  //     })
+  //     .catch((error) => {
+  //       console.log("error", error);
+  //     });
+  // }
 
   gerAllProduct() {
     return this.knex("product_info")
@@ -207,6 +207,22 @@ class CustomerServices {
         return data;
       });
   }
+
+  getMerchantNameAndProducts() {
+    return this.knex("merchant")
+      .join("product_info", "merchant.id", "merchant_id")
+      .select("*")
+      // .where({ customer_id: customerId })
+      .then((data) => {
+        console.log("merchant info and product!!!!!!", data);
+  
+        return data;
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }
+  
   checkMerchantIdInCart(inCart_product_info_id, add_product_info_id) {
     return this.knex("product_info")
       .where({ id: inCart_product_info_id })
