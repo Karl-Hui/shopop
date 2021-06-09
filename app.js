@@ -154,9 +154,6 @@ app.post(
   })
 );
 
-// app.get("/cart", (req, res) => {
-//   res.render("cart");
-// });
 
 app.get("/select", (req, res) => {
   res.render("select");

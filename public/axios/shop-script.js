@@ -1,20 +1,35 @@
-"use strict";
 
-// console.log("loads");
-let deleteBtn = document.querySelector(".deleteBtn");
 
-deleteBtn.addEventListener("click", (e) => {
-  let id = deleteBtn.getAttribute("data-value");
-  axios({
-      method: "delete",
-      baseURL: `http://localhost:8080`,
-      url: `/shop/api/delete/product/${id}`,
-      // "Content-Type": "application/json",
-    })
-    .then((result) => {
-      console.log(result.data);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+$(".deleteBtn").click((e) => {
+    let id = e.target.dataset.target
+    $.ajax({
+        type: "DELETE",
+        url: `/shop/api/delete/product/${id}`,
+        success: function () {
+            console.log("delete success");
+        },
+    }).done(
+        setTimeout(() => {
+            window.location.replace("/shop/merchant-homepage");
+        }, 500)
+    );
 });
+
+// $(".editBtn").click((e) => {
+//     e.preventDefault();
+//     let id = e.target.dataset.target
+//     console.log("edit+++++++++")
+//     $.ajax({
+//         type: "post",
+//         url: `/shop/api/product/edit/${id}`,
+//         dataType: "json",
+//         success: function () {
+//             console.log("update success");
+//         },
+//     })
+//     //     .done(
+//     //         setTimeout(() => {
+//     //             window.location.reload();
+//     //         }, 500)
+//     //     );
+// });

@@ -18,7 +18,7 @@ function isLoggedIn(req, res, next) {
     console.log("logged in as id:", req.user.id);
     return next();
   }
-  res.redirect("/login");
+  res.redirect("/merchant-login");
 }
 
 class MerchantRouter {
@@ -131,10 +131,10 @@ class MerchantRouter {
     let shippingPrice = req.body.shippingPrice;
     let Size = req.body.Size;
     let productCategory = req.body.productCategory;
-    let productCondtion = req.body.productCondition;
+    let productCondition = req.body.productCondition;
     let productStatus = "unsold"
     // console.log("sup bro", id, productPhoto, productName, productDescription, stock, price, shippingPrice, Size, productCondtion, productCategory, productStatus, merchant_id)
-    this.merchantService.updateProduct(id, productPhoto, productName, productDescription, stock, price, shippingPrice, Size, productCondtion, productCategory, productStatus, merchant_id)
+    this.merchantService.updateProduct(id, productPhoto, productName, productDescription, stock, price, shippingPrice, Size, productCondition, productCategory, productStatus, merchant_id)
       .then(() => {
         res.redirect('/shop/merchant-homepage')
         console.log("updated")

@@ -45,13 +45,13 @@ h6 {
     padding: 10px 15px;
 }
 
-.edit{
+.editBtn{
     background-color: #5A4FF3;
     border: none;
     color: white;
 }
 
-.edit:hover{
+.editBtn:hover{
     background-color: #493ee0;
     border: none;
     color: white;
