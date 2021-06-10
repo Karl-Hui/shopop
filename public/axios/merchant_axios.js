@@ -8,7 +8,7 @@ editMerchantbtn.addEventListener('click',() => {
         merchantName:document.querySelector("#merchantName").value
     }
     console.log("this is edit", edit);
-    axios.put('/shop/merchant-settings',edit)
+    axios.put('/shop/merchant-name',edit)
     .then(()=> {
         console.log("edit from axios username")
     })
@@ -18,15 +18,15 @@ editMerchantbtn.addEventListener('click',() => {
 });
 
 
-let editMerchantDescriptionbtn = document.querySelector("#updateMerchantShopDescription")
+let editMerchantDescriptionbtn = document.querySelector("#Description")
 
 editMerchantDescriptionbtn.addEventListener('click',() => {
     console.log("hello you clicked me")
     let edit = {
-        updateShopDescription:document.querySelector("#updateShopDescription").value
+        shopDescription:document.querySelector("#updateShopDescription").value
     }
     console.log("this is edit", edit);
-    axios.put('/shop/merchant-settings',edit)
+    axios.put('/shop/merchant-Description',edit)
     .then(()=> {
         console.log("edit from axios shopUpdate description")
     })

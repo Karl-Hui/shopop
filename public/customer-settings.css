@@ -67,4 +67,7 @@
       height: 110px;
       object-fit: cover;
   }
+  .countryBox{
+    padding: .375rem .75rem;
+  }
    

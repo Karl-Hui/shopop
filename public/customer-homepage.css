@@ -27,4 +27,7 @@
   .product-container {
     margin: 2rem 0 15rem 0;
   }
-  
+  .categoryBox {
+    width: 15vw;
+    padding: .375rem .75rem;
+  }
