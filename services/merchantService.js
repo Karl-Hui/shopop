@@ -270,7 +270,7 @@ class MerchantService {
         id: id,
       })
       .update({
-        productPhoto: productPhoto,
+        productPhoto: JSON.stringify(productPhoto),
         productName: productName,
         productDescription: productDescription,
         stock: stock,
