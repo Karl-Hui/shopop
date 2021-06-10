@@ -16,18 +16,20 @@
                     <h5>Hello {{shop}}</h5>
                     <a class="link" href="/merchant/stripe/dashboard?account=true">View Stripe Account</a>
                 </div>
-                <div class="col-3 d-flex">
+                <div class="col-3 d-flex" id="balance-div">
                     <div class="px-2">
                         <h5>Balance Available</h5>
-                        <p>{{balanceAvailable}}HKD</p>
+                        <p id="balance">{{balanceAvailable}}HKD</p>
                     </div>
                 </div>
                 <div class="col-3 d-flex">
                     <form action="/merchant/stripe/payout" method="POST" autocomplete="off">
-                    <button type='submit' class="btn-payout"value='Pay out now'>Pay out now</button>
+                    <button type='submit' id="payout" class="btn-payout"value='Pay out now'>Pay out now</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script src="/dashboard/dashboard.js"></script>
