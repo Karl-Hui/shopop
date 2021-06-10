@@ -7,10 +7,12 @@ editbtn.addEventListener('click',() => {
     let edit = {
         username:document.querySelector("#username").value
     }
-    console.log("this is edit", edit);
     axios.put('/customer-settings',edit)
-    .then(()=> {
-        console.log("edit from axios username")
+    .then((data)=> {
+        console.log("this is edit", data);
+        // window.location.reload();
+        document.querySelector("#username-words").innerHTML=data.data
+        // console.log("edit from axios username")
     })
     .catch((error)=> {
         console.log("error", error);
@@ -27,10 +29,14 @@ editbtnAddress.addEventListener('click',() => {
         streetAddress:document.querySelector("#updateStreet").value,
         countryAddress:document.querySelector("#updateCountry").value
     }
-    console.log("this is edit address", editAddressData);
-    axios.put('/customer-address',editAddressData)
-    .then(()=> {
-      console.log("edit from axios address");
+    // console.log("this is edit address", editAddressData);
+    axios.put('/customer-setting',editAddressData)
+    .then((data)=> {
+       console.log("this is address hello",data.data);
+       document.querySelector("#customerAddressB-words").innerHTML=data.data.building_address,
+       document.querySelector("#customerAddressSA-words").innerHTML=data.data.street_address,
+        document.querySelector("#customerAddressC-words").innerHTML=data.data.country_address
+    //   console.log("edit from axios address");
     })
     .catch((error) => {
       console.log("error", error);

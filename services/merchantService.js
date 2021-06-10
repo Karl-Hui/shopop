@@ -253,6 +253,7 @@ class MerchantService {
       })
       .then(() => {
         console.log("updated merchant text area");
+        return "done";
       })
       .catch((error) => {
         console.log("error", error);

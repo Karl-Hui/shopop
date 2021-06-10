@@ -56,7 +56,7 @@ class MerchantRouter {
       this.editMerchantName.bind(this)
     );
     router.put(
-      "/merchant-Description",
+      "/merchant-setting",
       isLoggedIn,
       this.editMerchantDescription.bind(this)
     );
@@ -192,7 +192,7 @@ class MerchantRouter {
     // console.log(" you clicked editing the merchant name:",req.body.merchantName[0])
     this.merchantService
       .editMerchantUsername(merchant_id, newMerchantName)
-      .then((data) => {
+      .then(() => {
         // console.log("this is outcome: d", data);
         res.send("done");
       })
@@ -203,10 +203,12 @@ class MerchantRouter {
   //********************works*********************** */
   editMerchantDescription(req, res) {
     let newShopDescription = req.body.shopDescription;
+   console.log("got to back end")
     this.merchantService
+
       .editMerchantDes(merchant_id, newShopDescription)
       .then(() => {
-        res.redirect("/shop/merchant-settings");
+        res.send(newShopDescription);
       })
       .catch((err) => {
         console.log("err", err);

@@ -37,7 +37,7 @@ class CustomerRouter {
       this.getAllCustomerData.bind(this)
     );
     router.put("/customer-settings", isLoggedIn, this.editUsername.bind(this));
-    router.put("/customer-address", isLoggedIn, this.editAddress.bind(this));
+    router.put("/customer-setting", isLoggedIn, this.editAddress.bind(this));
     router.post(
       "/customer-settings",
       isLoggedIn,
@@ -128,7 +128,8 @@ class CustomerRouter {
     this.customerServices
       .editCustomerUsername(customer_id, newInfo)
       .then(() => {
-        res.redirect("customer-settings");
+        // res.redirect("customer-settings");
+        res.send(newInfo)
       })
       .catch((err) => {
         console.log("err", err);
@@ -145,8 +146,9 @@ class CustomerRouter {
         NewStreetName,
         NewCountryName
       )
-      .then(() => {
-        res.redirect("customer-settings");
+      .then((data) => {
+        console.log("asdasdasdasdsa",data)
+        res.send(data);
       })
       .catch((err) => {
         console.log("err", err);
