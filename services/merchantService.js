@@ -326,9 +326,9 @@ class MerchantService {
 
 }
 
-let test = new MerchantService(knex);
+// let test = new MerchantService(knex);
 
-test.getMerchantInfo(1);
+// test.getMerchantInfo(1);
 
 module.exports = MerchantService;
 
