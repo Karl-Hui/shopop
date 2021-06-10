@@ -253,12 +253,12 @@ class MerchantService {
       })
       .then(() => {
         console.log("updated merchant text area");
+        return "done";
       })
       .catch((error) => {
         console.log("error", error);
       });
   }
-
   editMerchantUsername(merchantId, newMerchantName) {
     return this.knex("merchant")
       .select("*")
@@ -347,7 +347,6 @@ class MerchantService {
 }
 
 // let test = new MerchantService(knex);
-
 // test.getMerchantInfo(1);
 
 module.exports = MerchantService;

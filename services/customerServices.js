@@ -89,6 +89,12 @@ class CustomerServices {
       })
       .then(() => {
         console.log("updated address");
+        let data = {
+          building_address: newBuildingAddress,
+          street_address: newStreetAddress,
+          country_address: newCountryAddress,
+        }
+        return data
       })
       .catch((error) => {
         console.log("error", error);
