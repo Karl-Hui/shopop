@@ -138,7 +138,7 @@ class CustomerRouter {
     this.customerServices
       .getCart(customer_id)
       .then((data) => {
-        console.log("checkout page");
+        // console.log("checkout page");
         res.render("cart", {
           layout: "customerCart",
           data: data,
@@ -160,8 +160,8 @@ class CustomerRouter {
 
   async postToCart(req, res) {
     let productId = req.params.id;
-    console.log("customer_id", customer_id);
-    console.log("productId", productId);
+    // console.log("customer_id", customer_id);
+    // console.log("productId", productId);
     await this.customerServices.addToCart(productId, customer_id);
     res.end();
   }
@@ -172,7 +172,7 @@ class CustomerRouter {
     await this.customerServices.clearCart(customer_id);
     if (Object.keys(req.body).length > 0) {
       for (const productId in cartItems) {
-        console.log(productId);
+        // console.log(productId);
         await this.customerServices.simpleAddToCart(
           productId,
           cartItems[productId],

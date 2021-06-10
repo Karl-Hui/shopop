@@ -6,7 +6,7 @@ const hashFunction = require("./hashFunction");
 const LocalStrategy = require("passport-local").Strategy;
 
 module.exports = new LocalStrategy(async (email, password, done) => {
-  console.log("lol");
+  // console.log("lol");
   try {
     let merchant = await knex("merchant").where({
       email: email,

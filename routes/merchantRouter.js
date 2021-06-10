@@ -15,7 +15,7 @@ function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     merchant_id = req.user.id;
     // console.log(req.user.id)
-    console.log("logged in as id:", req.user.id);
+    // console.log("logged in as id:", req.user.id);
     return next();
   }
   res.redirect("/merchant-login");

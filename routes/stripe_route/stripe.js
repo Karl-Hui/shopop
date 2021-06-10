@@ -114,7 +114,7 @@ stripeRouter.post('/payout', isLoggedIn, async (req, res) => {
     }, {
       stripeAccount: merchant.stripeAccountId
     });
-
+    res.redirect("/merchant/stripe/payout")
   } catch (error) {}
 });
 
@@ -157,46 +157,22 @@ stripeRouter.get('/dashboard', isLoggedIn, async (req, res) => {
 
 stripeRouter.post('/payment', isLoggedIn, async (req, res, next) => {
   let merchant = req.user
+  console.log("payment route")
 
-  // ============
-  const charge = await stripe.charges.create({
-    amount: 20000,
-    currency: 'hkd',
-    source: 'tok_visa',
-    // on_behalf_of: merchant.stripeAccountId,
-    // transfer_group: '{ORDER10}',
-  });
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 30000,
+    currency: "hkd",
+  })
 
-  // // Create a Transfer to the connected account (later):
-  const transfer = await stripe.transfers.create({
-    amount: 3000,
-    currency: 'hkd',
-    destination: merchant.stripeAccountId,
-    // transfer_group: '{ORDER10}',
-  });
-
-  
-
-  // const paymentIntent = await stripe.paymentIntents.create({
-  //   amount: 1099,
+  // const transfer = await stripe.transfers.create({
+  //   amount: 20000,
   //   currency: 'hkd',
-  //   payment_method_types: ['card'],
-  //   application_fee_amount: 200,
-  //   on_behalf_of: merchant.stripeAccountId,
-  //   transfer_data: {
-  //     destination: merchant.stripeAccountId,
-  //   },
+  //   destination: merchant.stripeAccountId,
   // });
 
-  // const paymentIntent = await stripe.paymentIntents.create({
-  //   amount: 50000,
-  //   currency: 'hkd',
-  //   payment_method_types: ['card'],
-
-  //   on_behalf_of: merchant.stripeAccountId
-  // }, {
-  //   stripeAccount: merchant.stripeAccountId,
-  // });
+  res.send({
+    clientSecret: paymentIntent.client_secret
+  });
 })
 
 
