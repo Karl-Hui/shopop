@@ -40,3 +40,14 @@ h1{
 .dashboard-title{
     margin: 1rem 0;
 }
+
+@media only screen and (max-width: 600px) {
+    #stripe-dashboard-container{
+        height: 40vh;
+    }
+
+    #balance-div{
+        margin: 2rem 0 0rem 0;
+        padding: 0 0;
+    }
+  }

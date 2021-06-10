@@ -114,11 +114,8 @@ stripeRouter.post('/payout', isLoggedIn, async (req, res) => {
     }, {
       stripeAccount: merchant.stripeAccountId
     });
-    return res.redirect(loginLink.url);
-  } catch (error) {
-    console.log(err);
-    console.log('Failed to create a Stripe login link.');
-  }
+
+  } catch (error) {}
 });
 
 /**
@@ -163,20 +160,43 @@ stripeRouter.post('/payment', isLoggedIn, async (req, res, next) => {
 
   // ============
   const charge = await stripe.charges.create({
-    amount: 12600,
+    amount: 20000,
     currency: 'hkd',
     source: 'tok_visa',
-    on_behalf_of: merchant.stripeAccountId,
+    // on_behalf_of: merchant.stripeAccountId,
     // transfer_group: '{ORDER10}',
   });
 
-  // Create a Transfer to the connected account (later):
+  // // Create a Transfer to the connected account (later):
   const transfer = await stripe.transfers.create({
-    amount: 10000,
+    amount: 3000,
     currency: 'hkd',
     destination: merchant.stripeAccountId,
     // transfer_group: '{ORDER10}',
   });
+
+  
+
+  // const paymentIntent = await stripe.paymentIntents.create({
+  //   amount: 1099,
+  //   currency: 'hkd',
+  //   payment_method_types: ['card'],
+  //   application_fee_amount: 200,
+  //   on_behalf_of: merchant.stripeAccountId,
+  //   transfer_data: {
+  //     destination: merchant.stripeAccountId,
+  //   },
+  // });
+
+  // const paymentIntent = await stripe.paymentIntents.create({
+  //   amount: 50000,
+  //   currency: 'hkd',
+  //   payment_method_types: ['card'],
+
+  //   on_behalf_of: merchant.stripeAccountId
+  // }, {
+  //   stripeAccount: merchant.stripeAccountId,
+  // });
 })
 
 
