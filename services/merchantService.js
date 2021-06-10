@@ -39,7 +39,10 @@ class MerchantService {
   }
 
   getMerchantProducts(id) {
-    return knex.select("*").from("merchant").join("product_info", "merchant.id", "product_info.merchant_id")
+    return knex
+      .select("*")
+      .from("merchant")
+      .join("product_info", "merchant.id", "product_info.merchant_id")
       .where(`merchant.id`, id)
       .then((products) => {
         let displayProduct = products.map((product) => ({
@@ -56,9 +59,10 @@ class MerchantService {
         }));
         // console.log("display product!!!!", products)
         return displayProduct;
-      }).catch((error) => {
-        console.log(error, "error")
       })
+      .catch((error) => {
+        console.log(error, "error");
+      });
   }
 
   getMerchantInfo(id) {
@@ -131,30 +135,47 @@ class MerchantService {
   }
 
   getMerchantInfo(id) {
-    return knex.select("*").from("merchant").join("merchant_info", "merchant.id", "merchant_info.merchant_id")
+    return knex
+      .select("*")
+      .from("merchant")
+      .join("merchant_info", "merchant.id", "merchant_info.merchant_id")
       .where(`merchant.id`, id)
       .then((merchantInfo) => {
         let merchant_Information = merchantInfo.map((info) => ({
           merchantName: info.merchantName,
           profilePic: info.profilePic,
           shopDescription: info.shopDescription,
-          socialHandle: info.socialHandle
+          socialHandle: info.socialHandle,
         }));
         return merchant_Information;
-      }).catch((error) => {
-        console.log(error, "error")
       })
+      .catch((error) => {
+        console.log(error, "error");
+      });
   }
 
-  createProduct(productPhoto, productName, productDescription, stock, price, shippingPrice, Size, productCondtion, productCategory, productStatus, merchant_id) {
+  createProduct(
+    productPhoto,
+    productName,
+    productDescription,
+    stock,
+    price,
+    shippingPrice,
+    Size,
+    productCondtion,
+    productCategory,
+    productStatus,
+    merchant_id
+  ) {
     return knex("product_info")
-      .max('id')
+      .max("id")
       .then((maxId) => {
         // console.log("Max product ID", maxId)
-        let currentMax = parseInt(maxId[0].max)
-        // let currentMax = 1
+        let currentMax = parseInt(maxId[0].max);
+        // let currentMax = 1;
         return currentMax;
-      }).then((currentMax) => {
+      })
+      .then((currentMax) => {
         let newId = currentMax + 1;
         let newProduct = {
           id: newId,
@@ -168,29 +189,32 @@ class MerchantService {
           productCondition: productCondtion,
           productCategory: productCategory,
           productStatus: productStatus,
-          merchant_id: merchant_id
-        }
+          merchant_id: merchant_id,
+        };
         // console.log("new product", newProduct)
-        return knex('product_info').insert(newProduct)
-      }).then(() => {
-        console.log('inserted')
-      }).catch((error) => {
-        console.log(error, "error creating new product")
+        return knex("product_info").insert(newProduct);
       })
+      .then(() => {
+        console.log("inserted");
+      })
+      .catch((error) => {
+        console.log(error, "error creating new product");
+      });
   }
 
   deleteProduct(id) {
-    console.log("Deleting product")
+    console.log("Deleting product");
     return knex("product_info")
       .where({
-        id: id
+        id: id,
       })
       .del()
       .then(() => {
-        console.log("deleted from backend")
-      }).catch((error) => {
-        console.log('error', error)
+        console.log("deleted from backend");
       })
+      .catch((error) => {
+        console.log("error", error);
+      });
   }
 
   //merchant settings
@@ -207,16 +231,15 @@ class MerchantService {
   //     });
   // }
 
-
   editMerchantUsername(merchantId, newMerchantName) {
     return this.knex("merchant")
       .select()
       .where({
-        id: merchantId
+        id: merchantId,
       })
       .update({
-        merchantName: newMerchantName
-      })
+        merchantName: newMerchantName,
+      });
   }
 
   // editMerchantAddress(merchantId, newMerchantAddress){
@@ -226,21 +249,21 @@ class MerchantService {
     return knex("merchant_info")
       .update("profilePicture", shopPictureURL)
       .where({
-        merchant_id: merchant_id
+        merchant_id: merchant_id,
       })
       .then(() => {
-        console.log("added shop pic")
+        console.log("added shop pic");
       })
       .catch((err) => {
-        console.log("err", err)
-      })
+        console.log("err", err);
+      });
   }
 
   deleteProduct(id) {
     console.log("Deleting product");
     return knex("product_info")
       .where({
-        id: id
+        id: id,
       })
       .del()
       .then(() => {
@@ -292,11 +315,23 @@ class MerchantService {
 
 module.exports = MerchantService;
 
-// let test = new MerchantService
+// let test = new MerchantService();
 // test.getIndividualProduct(3, 2)
 // test.getMerchantInfo(1)
 // // // test.getAll()
-// test.createProduct('https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=649&q=80','new top', 'new top from hk', '1', '48', '10', 'M', 'Brand New', 'Top', 'unsold', '1')
+// test.createProduct(
+//   "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=649&q=80",
+//   "new top",
+//   "new top from hk",
+//   "1",
+//   "48",
+//   "10",
+//   "M",
+//   "Brand New",
+//   "Top",
+//   "unsold",
+//   "1"
+// );
 // // test.deleteProduct(3)
 // test.updateProduct(6,'', 'Testing on99', 'testing', '1', '2000', '100', 'L', 'Used', 'Shoes', 'unsold')
 // test.getMerchantProducts(1)
