@@ -169,9 +169,6 @@ class MerchantService {
       .catch((err) => {
         console.log("err", err);
       });
-
-    
-    
   }
   // ********************************************************
 
@@ -239,8 +236,6 @@ class MerchantService {
       console.log("error", error);
     });
   }
-
-
   editMerchantUsername(merchantId, newMerchantName) {
     return this.knex("merchant")
       .select("*")
@@ -267,8 +262,6 @@ class MerchantService {
         console.log("err", err)
       })
   }
-
-  
 //******************************************** */
   deleteProduct(id) {
     console.log("Deleting product");
@@ -322,12 +315,9 @@ class MerchantService {
         console.log(error, "Cant update product");
       });
   }
-
-
 }
 
 // let test = new MerchantService(knex);
-
 // test.getMerchantInfo(1);
 
 module.exports = MerchantService;
