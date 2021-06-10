@@ -154,6 +154,10 @@ app.post(
   })
 );
 
+app.get("/pay", (req, res) => {
+  res.render("payment")
+})
+
 
 app.get("/select", (req, res) => {
   res.render("select");
