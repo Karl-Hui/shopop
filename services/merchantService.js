@@ -162,19 +162,15 @@ class MerchantService {
       .join("merchant_info", "merchant.id", "merchant_info.merchant_id")
       .where(`merchant.id`, id)
       .then((merchantInfo) => {
-        //  console.log("ijadfsajfdbsagfdadas", merchantInfo)
-        if (merchantInfo[0].profilePic == undefined) {
-          return this.knex("merchant_info").insert([{ profilePic: null }]);
-        } else {
-          let merchant_Information = {
-            merchantName: merchantInfo[0].merchantName,
-            profilePic: merchantInfo[0].profilePic,
-            shopDescription: merchantInfo[0].shopDescription,
-            socialHandle: merchantInfo[0].socialHandle,
-          };
-          console.log(merchant_Information);
-          return merchant_Information;
-        }
+        // console.log("ijadfsajfdbsagfdadas", merchantInfo);
+        let merchant_Information = {
+          merchantName: merchantInfo[0].merchantName,
+          profilePic: merchantInfo[0].profilePic,
+          shopDescription: merchantInfo[0].shopDescription,
+          socialHandle: merchantInfo[0].socialHandle,
+        };
+        console.log(merchant_Information);
+        return merchant_Information;
       })
       .catch((err) => {
         console.log("err", err);
@@ -271,6 +267,10 @@ class MerchantService {
       })
       .update({
         merchantName: newMerchantName,
+      })
+      .then(() => {
+        console.log("done");
+        return "done";
       })
       .catch((err) => {
         console.log("err", err);
