@@ -127,9 +127,9 @@ class CustomerRouter {
     let newInfo = req.body.username;
     this.customerServices
       .editCustomerUsername(customer_id, newInfo)
-      .then(() => {
+      .then((data) => {
         // res.redirect("customer-settings");
-        res.send(newInfo)
+        res.send(data)
       })
       .catch((err) => {
         console.log("err", err);

@@ -194,7 +194,7 @@ class MerchantRouter {
       .editMerchantUsername(merchant_id, newMerchantName)
       .then(() => {
         // console.log("this is outcome: d", data);
-        res.send("done");
+        res.send(newMerchantName);
       })
       .catch((err) => {
         console.log("err", err);
@@ -207,7 +207,7 @@ class MerchantRouter {
     this.merchantService
 
       .editMerchantDes(merchant_id, newShopDescription)
-      .then(() => {
+      .then((data) => {
         res.send(newShopDescription);
       })
       .catch((err) => {
