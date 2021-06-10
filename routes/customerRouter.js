@@ -1,20 +1,19 @@
 const express = require("express");
 const multer = require("multer");
-const {
-  storage
-} = require("../cloudinary");
+const { storage } = require("../cloudinary");
 const upload = multer({
-  storage
+  storage,
 });
 // let currentCustomer;
 let customer_id;
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
-    customer_id = req.user.id;
+    if (req.user.username) {
+      return next();
+    }
     // console.log(req.user.id)
     // console.log("logged in as id:", req.user.id);
-    return next();
   }
   res.redirect("/customer-login");
 }
@@ -44,7 +43,7 @@ class CustomerRouter {
       upload.single("customer-image"),
       this.post_image.bind(this)
     );
-    
+
     router.get("/cart", isLoggedIn, this.checkOutPage.bind(this));
     router.post("/cart", isLoggedIn, this.updateCart.bind(this));
     router.get("/product/:id", isLoggedIn, this.oneProductPage.bind(this));
@@ -91,7 +90,6 @@ class CustomerRouter {
         });
       });
   }
-
 
   customer_settings(req, res) {
     console.log("kjasdhfkasdhfksahfdsah");

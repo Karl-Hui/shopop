@@ -27,13 +27,12 @@ function serializeUser(user, done) {
 }
 
 function deserializeUser(obj, done) {
-  // console.log("+++++++++++", user);
   // console.log("Deserialize user!", id);
   if (obj.isMerchantName) {
     knex("merchant")
       .select("*")
       .where({
-        id: obj.userId
+        id: obj.userId,
       })
       .then((user) => {
         // console.log("deserializeUser: ", user[0]);
@@ -43,7 +42,7 @@ function deserializeUser(obj, done) {
     knex("customer")
       .select("*")
       .where({
-        id: obj.userId
+        id: obj.userId,
       })
       .then((user) => {
         // console.log("deserializeUser: ", user[0]);
