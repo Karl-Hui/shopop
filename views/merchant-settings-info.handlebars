@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/shop/merchant-settings.css" />
+<link rel="stylesheet" href="/merchant-settings.css" />
 <div class="container">
   <div class="row gutters">
     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
@@ -8,33 +8,33 @@
             <div class="user-profile">
               <div class="user-avatar">
                 <form
-                  action="/customer-settings"
+                  action="/shop/merchant-settings"
                   method="post"
                   enctype="multipart/form-data"
                 >
                   <input
                     id="img"
                     type="file"
-                    name="merchant-image"
+                    name="merchantImage"
                     class="btn mt-3"
                     style="display:none"
                   />
                   <label class="btn btn-dark" type="button" for="img">upload
                     image</label>
 					
-                  <div ><img class="image" src="{{customerInfo.profilePic}}" alt="profilePic"></div>
+                  <div ><img class="image" src="{{merchantInfo.profilePic}}" alt="profilePic"></div>
                   <button type="submit" class="btn btn-dark mt-5">save changes</button>
                 </form>
 
               </div>
-              <h5 class="user-name form-label">{{customerInfo.merchantName}}</h5>
-              <h6 class="user-email form-label">{{customerInfo.email}}</h6>
+              <h5 class="user-name form-label" id="merchant-words">{{merchantInfo.merchantName}}</h5>
+              {{!-- <h6 class="user-email form-label">{{email}}</h6> --}}
             </div>
             <div class="about">
               <h5 class="mb-2 form-label">Shop Description</h5>
-              <p>{{customerInfo.shopDescription}}</p>
-              <p>{{customerInfo.socialMediaURL}}</p>
-              <p>{{customerInfo.email}}</p>
+              <p id="shopDescription-words">{{merchantInfo.shopDescription}}</p>
+              {{!-- <p>{{merchantInfo.socialHandle}}</p> --}}
+              <p>{{merchantInfo.email}}</p>
              
             </div>
           </div>
@@ -56,7 +56,7 @@
                   value="{{merchantInfo.merchantName}}"
                   type="text"
                   id="merchantName"
-                  placeholder="Enter Merchant name"
+                  placeholder="{{merchantInfo.merchantName}}"
                   required
                 />
                 <button
@@ -67,6 +67,8 @@
                 >save changes</button>
               </div>
             </div>
+
+         
 
           </div>
              <br>
@@ -82,8 +84,9 @@
                   type="name"
                   class="form-control"
                   id="updateShopDescription"
-                  placeholder="Shop Description"
+                  placeholder="{{merchantInfo.shopDescription}}"
                   value="{{merchantInfo.shopDescription}}"
+                  maxlength="100"
                   required></textarea>
               </div>
             </div>
@@ -100,9 +103,9 @@
                 >BACK</a>
 
                 <button
-                  id="updateMerchantShopDescription"
+                  id="Description"
                   type="submit"
-                  name="submit"
+                  name="Description"
                   class="btn btn-dark"
                   method="post"
                 >Update</button>

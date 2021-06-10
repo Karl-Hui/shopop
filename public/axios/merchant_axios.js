@@ -1,4 +1,5 @@
 
+
 //button to update merchant username
   let editMerchantbtn = document.querySelector("#updateMerchantName")
 
@@ -7,10 +8,12 @@ editMerchantbtn.addEventListener('click',() => {
     let edit = {
         merchantName:document.querySelector("#merchantName").value
     }
-    console.log("this is edit", edit);
+    // console.log("this is edit", edit);
     axios.put('/shop/merchant-settings',edit)
-    .then(()=> {
-        console.log("edit from axios username")
+    .then((data)=> {
+        document.querySelector("#merchant-words").innerHTML=data.data
+        // window.location.reload();
+        // console.log("edit from axios username")
     })
     .catch((error)=> {
         console.log("error", error);
@@ -18,17 +21,20 @@ editMerchantbtn.addEventListener('click',() => {
 });
 
 
-let editMerchantDescriptionbtn = document.querySelector("#updateMerchantShopDescription")
+let editMerchantDescriptionbtn = document.querySelector("#Description")
 
 editMerchantDescriptionbtn.addEventListener('click',() => {
     console.log("hello you clicked me")
     let edit = {
-        updateShopDescription:document.querySelector("#updateShopDescription").value
+        shopDescription:document.querySelector("#updateShopDescription").value
     }
-    console.log("this is edit", edit);
-    axios.put('/shop/merchant-settings',edit)
-    .then(()=> {
-        console.log("edit from axios shopUpdate description")
+    console.log("this is the  edit data", edit);
+    axios.put('/shop/merchant-setting',edit)
+    .then((DATA)=> {
+        console.log(DATA)
+        document.querySelector("#shopDescription-words").innerHTML=DATA.data
+        // window.location.reload();
+        // console.log("edit from axios shopUpdate description")
     })
     .catch((error)=> {
         console.log("error", error);

@@ -89,6 +89,12 @@ class CustomerServices {
       })
       .then(() => {
         console.log("updated address");
+        let data = {
+          building_address: newBuildingAddress,
+          street_address: newStreetAddress,
+          country_address: newCountryAddress,
+        }
+        return data
       })
       .catch((error) => {
         console.log("error", error);
@@ -101,8 +107,8 @@ class CustomerServices {
       .where({
         customer_id: user_id
       })
-      .then(() => {
-        console.log("added profile Pic!");
+      .then((data,dataInfo) => {
+        console.log("added profile Pic!",data,dataInfo);
       })
       .catch((err) => {
         console.log("err", err);
@@ -150,16 +156,32 @@ class CustomerServices {
   //     });
   // }
 
-  gerAllProduct() {
-    return this.knex("product_info")
-      .select()
-      .then((data) => {
-        return data;
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  }
+
+
+
+  // getMerchantProducts(category) {
+  //   return this.knex("product_info")
+  //     .select("*")
+  //     .table("product_info")
+  //     .then((productData) => {
+  //       // console.log("data from products table:", productData);
+  //       return productData;
+  //     })
+  //     .catch((error) => {
+  //       console.log("error", error);
+  //     });
+  // }
+
+  // getAllProduct() {
+  //   return this.knex("product_info")
+  //     .select()
+  //     .then((data) => {
+  //       return data;
+  //     })
+  //     .catch((err) => {
+  //       console.log("err", err);
+  //     });
+  // }
 
   getIndividualProduct(id) {
     return this.knex("product_info")
@@ -374,8 +396,9 @@ class CustomerServices {
   }
 }
 // test
+// let info = JSON.stringify("https://res.cloudinary.com/dnq92mpxr/image/upload/v1623124318/pq4olhcuhhgf2jjswzae.jpg")
 // let service = new CustomerServices(knex);
-// service.simpleAddToCart(9, 10, 1);
+// service.postImage(1,info);
 // console.log("got the data from the database");
 
 module.exports = CustomerServices;
