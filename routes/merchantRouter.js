@@ -36,12 +36,8 @@ class MerchantRouter {
 
     router.get("/merchant-settings", isLoggedIn, this.merchant_settings.bind(this))
     router.put("/merchant-name", isLoggedIn, this.editMerchantName.bind(this))
-    router.put("/merchant-shopDescription", isLoggedIn, this.editMerchantDescription.bind(this))
-    router.post(
-      "/merchant-settings",
-      isLoggedIn,upload.single
-      ("merchant-image",1),
-      this.postShopImage.bind(this));
+    router.put("/merchant-Description", isLoggedIn, this.editMerchantDescription.bind(this))
+    router.post("/merchant-settings",isLoggedIn,upload.single("merchantImage"),this.postShopImage.bind(this));
     router.post("/api/product/edit/:id", isLoggedIn, upload.array("productPhoto", 2), this.update.bind(this))
     return router;
   }
@@ -126,21 +122,28 @@ class MerchantRouter {
         res.redirect("/")
       })
   }
-
+//*******************09/06 updated pic******************* */
 //merchant settings
 merchant_settings(req, res) {
-  this.merchantService.merchantSettings(merchant_id).then((merchantInfo)  => {
-    res.render("merchant-settings-info", {
-      layout: "merchant-settings",
-      merchantInfo: merchantInfo,
-    });
+  this.merchantService.getMerchantInfoSettings(merchant_id).then((merchantInfo)  => {
+  //  let parse = JSON.parse(merchantInfo.profilePic)
+  //  merchantInfo.profilePic = parse
+   let object = {
+    layout: "merchant-settings",
+    merchantInfo: merchantInfo,
+   } 
+  //  console.log(object,"this is merchant info APOJS ACIJEFRPOCAI HREPOWAIH EAH ")
+   res.render("merchant-settings-info", object);
+
   });
 }
+// **********************09/06 working*****************************
 editMerchantName(req,res) {
   let newMerchantName = req.body.merchantName;
-  // console.log("SADSADASDASDSADSADSAD",newInfo);
-  this.merchantService.editMerchantName(merchant_id,newMerchantName)
+  // console.log(" you clicked editing the merchant name:",req.body.merchantName[0])
+  this.merchantService.editMerchantUsername(merchant_id, newMerchantName)
   .then(() => {
+    // console.log("this is outcome: ", data)
     res.redirect("/shop/merchant-settings");
   })
   .catch((err) => {
@@ -148,10 +151,10 @@ editMerchantName(req,res) {
   });
 
 }
-
+//********************works*********************** */
 editMerchantDescription(req, res) {
   let newShopDescription = req.body.shopDescription;
-  this.merchantService.editMerchanDescription(merchant_id, newShopDescription)
+  this.merchantService.editMerchantDes(merchant_id, newShopDescription)
   .then(()=>{
     res.redirect("/shop/merchant-settings");
   })
@@ -159,10 +162,14 @@ editMerchantDescription(req, res) {
     console.log("err", err);
   })
 }
+//********************************************* */
 
 postShopImage(req,res) {
-  let shopPictureURL =JSON.stringify(req.file.path);
-  this.merchantService.postMerchantImage(merchant_id, shopPictureURL)
+  // console.log("THis is req adkfhasdkfjhaskfdhask",req)
+  let shopPictureURL = JSON.stringify(req.file.path);
+  
+  this.merchantService
+  .postMerchantImage(merchant_id, shopPictureURL)
   .then(()=> {
     console.log("done")
     res.redirect("/shop/merchant-settings")
@@ -171,32 +178,31 @@ postShopImage(req,res) {
     console.log("err", err);
   })
 }
-
-  update(req, res) {
-    let id = req.params.id
-    let productName = req.body.productName;
-    let productPhoto = [];
-    for (let i of req.files) {
-      productPhoto.push(i.path)
-    }
-    let price = req.body.price;
-    let productDescription = req.body.productDescription;
-    let stock = req.body.stock;
-    let shippingPrice = req.body.shippingPrice;
-    let Size = req.body.Size;
-    let productCategory = req.body.productCategory;
-    let productCondition = req.body.productCondition;
-    let productStatus = "unsold"
-    // console.log("sup bro", id, productPhoto, productName, productDescription, stock, price, shippingPrice, Size, productCondtion, productCategory, productStatus, merchant_id)
-    this.merchantService.updateProduct(id, productPhoto, productName, productDescription, stock, price, shippingPrice, Size, productCondition, productCategory, productStatus, merchant_id)
-      .then(() => {
-        res.redirect('/shop/merchant-homepage')
-        console.log("updated")
-      }).catch((error) => {
-        console.log(error, "error creating product")
-      })
+//***************************************************/
+update(req, res) {
+  let id = req.params.id
+  let productName = req.body.productName;
+  let productPhoto = [];
+  for (let i of req.files) {
+    productPhoto.push(i.path)
   }
-
+  let price = req.body.price;
+  let productDescription = req.body.productDescription;
+  let stock = req.body.stock;
+  let shippingPrice = req.body.shippingPrice;
+  let Size = req.body.Size;
+  let productCategory = req.body.productCategory;
+  let productCondition = req.body.productCondition;
+  let productStatus = "unsold"
+  // console.log("sup bro", id, productPhoto, productName, productDescription, stock, price, shippingPrice, Size, productCondtion, productCategory, productStatus, merchant_id)
+  this.merchantService.updateProduct(id, productPhoto, productName, productDescription, stock, price, shippingPrice, Size, productCondition, productCategory, productStatus, merchant_id)
+    .then(() => {
+      res.redirect('/shop/merchant-homepage')
+      console.log("updated")
+    }).catch((error) => {
+      console.log(error, "error creating product")
+    })
+}
 }
 
 module.exports = MerchantRouter;
