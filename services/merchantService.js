@@ -78,10 +78,6 @@ class MerchantService {
           shopDescription: info.shopDescription,
           socialHandle: info.socialHandle,
         }));
-        console.log(
-          "this is merchant info apdjnfapfdnpkj dfpsah fdpkajfdpkja dp ah: ",
-          merchant_Information
-        );
         return merchant_Information;
       })
       .catch((error) => {
@@ -169,7 +165,7 @@ class MerchantService {
           shopDescription: merchantInfo[0].shopDescription,
           socialHandle: merchantInfo[0].socialHandle,
         };
-        console.log(merchant_Information);
+        // console.log(merchant_Information);
         return merchant_Information;
       })
       .catch((err) => {
@@ -252,7 +248,7 @@ class MerchantService {
         shopDescription: newShopDescription,
       })
       .then(() => {
-        console.log("updated merchant text area");
+        // console.log("updated merchant text area");
         return "done";
       })
       .catch((error) => {
