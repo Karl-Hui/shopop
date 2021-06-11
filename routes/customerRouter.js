@@ -173,6 +173,7 @@ class CustomerRouter {
       .getCart(customer_id)
       .then((data) => {
         console.log("checkout page");
+        console.log("data", data);
         res.render("cart", {
           layout: "customerCart",
           data: data,
