@@ -12,9 +12,9 @@ let merchant_id;
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     merchant_id = req.user.id;
-    // console.log(req.user.id)
-    // console.log("logged in as id:", req.user.id);
-    return next();
+    if (req.user.merchantName) {
+      return next();
+    }
   }
   res.redirect("/merchant-login");
 }
