@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Login</title>
     <link rel="stylesheet" href="/cart.css">
+    <link rel="stylesheet" href="/stripe-cart.css">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="/cart_js/stripe-cart.js" defer></script> 
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
    
 </head>
@@ -19,11 +23,8 @@
                     <div class="col">
                         <h4><b>Shopping Cart</b></h4>
                     </div>
-                    <div class="col align-self-center text-right text-muted">3 items</div>
                 </div>
             </div>
-
-
             <div class="emptyCart" id="div1">
             {{#each data}}
             <div class="row cart-items" data-value="{{this.product_info_id}}">
@@ -63,13 +64,32 @@
                 <div class="col text-right total-price">$ 0</div>
             </div> 
             <br><br><br><br><br>
-            <button class="btn">CHECKOUT</button>
+            <button type="button" class="btn btn-primary checkout-Btn" data-bs-toggle="modal" data-bs-target="#exampleModal">CHECKOUT</button>
         </div>
     </div>
 </div>
 </div>
 
-
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <form id="payment-form">
+                <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+                <button  id="submit" class="checkoutBtn">
+                    <div class="spinner hidden" id="spinner"></div>
+                    <span id="button-text">Pay now</span>
+                </button>
+                <p id="card-error" role="alert"></p>
+                <p class="result-message hidden">
+                    Payment succeeded, see the result in your
+                    <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay
+                    again.
+                </p>
+            </form>
+    </div>
+  </div>
+</div>
 <script src="/cart_js/cart.js"></script> 
 <script src="/cart_js/updateBtn.js"></script> 
 

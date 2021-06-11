@@ -9,6 +9,7 @@ const cookieParser = require("cookie-parser");
 const database = require("./knexfile").development;
 const knex = require("knex")(database);
 const axios = require("axios");
+const stripe = require("stripe")
 const multer = require("multer");
 const upload = multer({
   dest: "uploads/",
@@ -153,10 +154,6 @@ app.post(
     },
   })
 );
-
-app.get("/pay", (req, res) => {
-  res.render("payment")
-})
 
 
 app.get("/select", (req, res) => {
