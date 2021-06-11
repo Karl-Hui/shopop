@@ -18,7 +18,7 @@ function ready() {
     // Disable the button until we have Stripe set up on the page
     // document.querySelector(".checkoutBtn").disabled = true;
 
-    let checkoutBtn = document.querySelector(".fuck123")
+    let checkoutBtn = document.querySelector(".checkout-Btn")
     checkoutBtn.addEventListener("click", () => {
         fetch("/merchant/stripe/payment", {
                 method: "POST",
@@ -90,6 +90,10 @@ function ready() {
                 } else {
                     // The payment succeeded!
                     orderComplete(result.paymentIntent.id);
+                    fetch("/merchant/stripe/checkInfo", {
+                        method: 'post'
+                    })
+                    // fetch.post("/merchant/stripe/checkInfo")
                 }
             });
     };
@@ -107,6 +111,7 @@ function ready() {
             );
         document.querySelector(".result-message").classList.remove("hidden");
         document.querySelector(".checkoutBtn").disabled = true;
+
     };
 
     // Show the customer the error from Stripe if their card fails to charge

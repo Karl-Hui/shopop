@@ -12,7 +12,7 @@ const knex = require("knex")(database);
 const stripeRouter = express.Router();
 
 let merchant_id;
-
+let something;
 // middleware to check if login
 function isLoggedIn(req, res, next) {
   merchant_id = req.user.id;
@@ -174,7 +174,7 @@ stripeRouter.post('/payment', isLoggedIn, async (req, res, next) => {
     productTotal = (parseInt(eachItem.price) * parseInt(eachItem.purchaseQuantity)) + productTotal + parseInt(eachItem.shippingPrice);
   }
   let finalCheckOut = productTotal * 100
-  console.log("productTotal", finalCheckOut)
+  // console.log("productTotal", finalCheckOut)
   // console.log("this is product total", productTotal)
   // console.log("merchantstripe", merchantStripeAccountId)
   // console.log("cartInfo", cartInfo)
@@ -189,10 +189,40 @@ stripeRouter.post('/payment', isLoggedIn, async (req, res, next) => {
     currency: 'hkd',
     destination: merchantStripeAccountId,
   });
+  something = paymentIntent.id
 
+  const intent = await stripe.paymentIntents.retrieve(something);
+  const charges = intent.charges.data;
+  // if (intent.status === 'succeeded') {
+  //   console.log("succeeded")
+  // }
   res.send({
     clientSecret: paymentIntent.client_secret
   });
+})
+
+stripeRouter.post('/checkInfo', async (req, res, next) => {
+
+  const intent = await stripe.paymentIntents.retrieve(something);
+  const charges = intent.charges.data;
+  if (intent.status === 'succeeded') {
+    console.log("succeeded")
+    let cartInfo = await knex.select().from('checkout_cart')
+      .join("product_info", "product_info.id", "checkout_cart.product_info_id")
+      .where({
+        customer_info: req.user.id
+      })
+
+    for (let eachItem of cartInfo) {
+      let newStock = 0;
+      newStock = eachItem.stock - eachItem.purchaseQuantity
+      await knex("product_info").select().where({
+        id: eachItem.product_info_id
+      }).update({
+        stock: newStock
+      })
+    }
+  }
 })
 
 
