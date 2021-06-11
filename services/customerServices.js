@@ -9,19 +9,6 @@ class CustomerServices {
     this.knex = knex;
   }
 
-  // getCustomerName(customerId) {
-  //   return this.knex("customer")
-  //     .select()
-  //     .where({ id: customerId })
-  //     .then((data) => {
-  //       console.log("this is customer data:", data[0].username);
-  //       return data[0].username;
-  //     })
-  //     .catch((error) => {
-  //       console.log("error", error);
-  //     });
-  // }
-
   getCustomerInfo(customerId) {
     return this.knex("customer_info")
       .select()
@@ -172,16 +159,7 @@ class CustomerServices {
   //     });
   // }
 
-  // getAllProduct() {
-  //   return this.knex("product_info")
-  //     .select()
-  //     .then((data) => {
-  //       return data;
-  //     })
-  //     .catch((err) => {
-  //       console.log("err", err);
-  //     });
-  // }
+  
 
   getIndividualProduct(id) {
     return this.knex("product_info")
@@ -225,20 +203,7 @@ class CustomerServices {
     });
   }
 
-  // getMerchantProducts(category) {
-  //   return this.knex("product_info")
-  //   .select("*")
-  //   .table('product_info')
-  //   .then((productData)=> {
-  //     console.log(productData)
-
-  //     return productData
-  //   })
-  //   .catch((error)=> {
-  //     console.log("error", error)
-  //   });
-  // }
-  //else then run this depending of filter selection
+  
 
   getSelectedMerhcantProduct(category) {
     return this.knex("product_info")
@@ -396,11 +361,28 @@ class CustomerServices {
       customer_info: customerId,
     });
   }
+
+
+
+  //******************11/06******************** */
+//   SortProductPrice(price, compare) {
+//     return knex("product_info")
+//     .select("*")
+//     .where('price', compare, price)
+//     .then((data) =>{
+//       console.log(data)
+//     }) 
+//   }
+
 }
+
+
+
+
 // test
 // let info = JSON.stringify("https://res.cloudinary.com/dnq92mpxr/image/upload/v1623124318/pq4olhcuhhgf2jjswzae.jpg")
 // let service = new CustomerServices(knex);
-// service.postImage(1,info);
+// service.SortProductPrice(50,'');
 // console.log("got the data from the database");
 
 module.exports = CustomerServices;
