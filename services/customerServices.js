@@ -359,11 +359,28 @@ class CustomerServices {
       customer_info: customerId,
     });
   }
+
+
+
+  //******************11/06******************** */
+//   SortProductPrice(price, compare) {
+//     return knex("product_info")
+//     .select("*")
+//     .where('price', compare, price)
+//     .then((data) =>{
+//       console.log(data)
+//     }) 
+//   }
+
 }
+
+
+
+
 // test
 // let info = JSON.stringify("https://res.cloudinary.com/dnq92mpxr/image/upload/v1623124318/pq4olhcuhhgf2jjswzae.jpg")
-let service = new CustomerServices(knex);
-service.getAllCustomerInfo(1);
+// let service = new CustomerServices(knex);
+// service.SortProductPrice(50,'');
 // console.log("got the data from the database");
 
 module.exports = CustomerServices;
