@@ -256,8 +256,7 @@ class CustomerServices {
       .select("*")
       // .where({ customer_id: customerId })
       .then((data) => {
-        console.log("merchant info and product!!!!!!", data);
-
+        // console.log("merchant info and product!!!!!!", data);
         return data;
       })
       .catch((error) => {

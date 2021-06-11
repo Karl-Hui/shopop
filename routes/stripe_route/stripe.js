@@ -114,7 +114,7 @@ stripeRouter.post('/payout', isLoggedIn, async (req, res) => {
     }, {
       stripeAccount: merchant.stripeAccountId
     });
-    res.redirect("/merchant/stripe/payout")
+    res.redirect("/shop/dashboard")
   } catch (error) {}
 });
 
@@ -156,19 +156,39 @@ stripeRouter.get('/dashboard', isLoggedIn, async (req, res) => {
 });
 
 stripeRouter.post('/payment', isLoggedIn, async (req, res, next) => {
-  let merchant = req.user
-  console.log("payment route")
+  console.log("========== payment =============")
+  let cartInfo = await knex.select().from('checkout_cart')
+    .join("product_info", "product_info.id", "checkout_cart.product_info_id")
+    .where({
+      customer_info: req.user.id
+    });
+
+  let merchantInfo = await knex("merchant").select().where({
+    id: cartInfo[0].merchant_id
+  })
+  // get merchant stripe id 
+  let merchantStripeAccountId = merchantInfo[0].stripeAccountId
+  // total amount = total product + total shipping
+  let productTotal = 0;
+  for (let eachItem of cartInfo) {
+    productTotal = (parseInt(eachItem.price) * parseInt(eachItem.purchaseQuantity)) + productTotal + parseInt(eachItem.shippingPrice);
+  }
+  let finalCheckOut = productTotal * 100
+  console.log("productTotal", finalCheckOut)
+  // console.log("this is product total", productTotal)
+  // console.log("merchantstripe", merchantStripeAccountId)
+  // console.log("cartInfo", cartInfo)
 
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: 30000,
+    amount: finalCheckOut,
     currency: "hkd",
   })
 
-  // const transfer = await stripe.transfers.create({
-  //   amount: 20000,
-  //   currency: 'hkd',
-  //   destination: merchant.stripeAccountId,
-  // });
+  const transfer = await stripe.transfers.create({
+    amount: finalCheckOut * 0.8,
+    currency: 'hkd',
+    destination: merchantStripeAccountId,
+  });
 
   res.send({
     clientSecret: paymentIntent.client_secret
