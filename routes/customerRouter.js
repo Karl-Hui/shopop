@@ -10,6 +10,7 @@ let customer_id;
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     if (req.user.username) {
+      customer_id = req.user.id;
       return next();
     }
     // console.log(req.user.id)
@@ -127,7 +128,9 @@ class CustomerRouter {
       .editCustomerUsername(customer_id, newInfo)
       .then(() => {
         // res.redirect("customer-settings");
+
         res.send(newInfo)
+
       })
       .catch((err) => {
         console.log("err", err);
@@ -145,7 +148,7 @@ class CustomerRouter {
         NewCountryName
       )
       .then((data) => {
-        console.log("asdasdasdasdsa",data)
+        console.log("asdasdasdasdsa", data);
         res.send(data);
       })
       .catch((err) => {
@@ -172,6 +175,7 @@ class CustomerRouter {
       .getCart(customer_id)
       .then((data) => {
         console.log("checkout page");
+        console.log("data", data);
         res.render("cart", {
           layout: "customerCart",
           data: data,
