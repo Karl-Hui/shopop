@@ -1,6 +1,8 @@
 const express = require("express");
 const multer = require("multer");
-const { storage } = require("../cloudinary");
+const {
+  storage
+} = require("../cloudinary");
 const upload = multer({
   storage,
 });
@@ -80,6 +82,7 @@ class CustomerRouter {
         // console.log("display products", products)
         this.customerServices.getMerchantNameAndProducts().then((products) => {
           // console.log("display products", products);
+          console.log("customerName", customerName)
           res.render("customer-homepage", {
             layout: "customerLoggedIn",
             products: products,
