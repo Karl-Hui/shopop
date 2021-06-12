@@ -1,6 +1,8 @@
 const express = require("express");
 const multer = require("multer");
-const { storage } = require("../cloudinary");
+const {
+  storage
+} = require("../cloudinary");
 const upload = multer({
   storage,
 });
@@ -93,7 +95,7 @@ class CustomerRouter {
   }
 
   customer_settings(req, res) {
-    console.log("kjasdhfkasdhfksahfdsah");
+    // console.log("kjasdhfkasdhfksahfdsah");
     this.customerServices.getCustomerInfo(customer_id).then((data) => {
       // console.log("customersettings-info", data);
       res.render("customer-settings-info", {
@@ -103,7 +105,7 @@ class CustomerRouter {
     });
   }
   customer_cart_navBar(req, res) {
-    console.log("kjasdhfkasdhfksahfdsah");
+    // console.log("kjasdhfkasdhfksahfdsah");
     this.customerServices.getCustomerInfo(customer_id).then((data) => {
       console.log("customerCartNavBar", data);
       res.render("CustomerCart", {
@@ -136,6 +138,8 @@ class CustomerRouter {
         console.log("err", err);
       });
   }
+
+
   editAddress(req, res) {
     let NewBuildingName = req.body.buildingAddress;
     let NewStreetName = req.body.streetAddress;
@@ -196,8 +200,8 @@ class CustomerRouter {
 
   async postToCart(req, res) {
     let productId = req.params.id;
-    // console.log("customer_id", customer_id);
-    // console.log("productId", productId);
+    console.log("customer_id", customer_id);
+    console.log("productId", typeof productId);
     await this.customerServices.addToCart(productId, customer_id);
     res.end();
   }

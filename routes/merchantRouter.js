@@ -81,14 +81,17 @@ class MerchantRouter {
       stripeAccount: req.user.stripeAccountId,
     });
     let balancePending = await (Balance.available[0].amount / 100).toFixed(2);
-    // console.log("amount", balancePending)
-    // console.log("user", shop)
-    res.render("dashboard", {
-      layout: "merchantLoggedIn",
-      shop: shop.merchantName,
-      balanceAvailable: balancePending,
-    });
-  }
+    this.merchantService.getSoldProducts(merchant_id).then((soldProducts) => {
+      console.log("what is sold product", soldProducts)
+      res.render("dashboard", {
+        layout: "merchantLoggedIn",
+        shop: shop.merchantName,
+        balanceAvailable: balancePending,
+        soldProducts: soldProducts
+      });
+    })
+  };
+
   merchant_homepage(req, res) {
     this.merchantService.getMerchantInfo(merchant_id).then((merchantInfo) => {
       this.merchantService.getMerchantProducts(merchant_id).then((product) => {
@@ -101,7 +104,7 @@ class MerchantRouter {
         });
       });
     });
-  }
+  };
 
   createProduct(req, res) {
     // console.log("req.file", req.files);

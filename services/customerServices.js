@@ -222,8 +222,7 @@ class CustomerServices {
         .select("*")
         // .where({ customer_id: customerId })
         .then((data) => {
-          console.log("merchant info and product!!!!!!", data);
-
+          // console.log("merchant info and product!!!!!!", data);
           return data;
         })
         .catch((error) => {
@@ -382,6 +381,7 @@ class CustomerServices {
 // test
 // let info = JSON.stringify("https://res.cloudinary.com/dnq92mpxr/image/upload/v1623124318/pq4olhcuhhgf2jjswzae.jpg")
 // let service = new CustomerServices(knex);
+// service.addToCart(10,2)
 // service.SortProductPrice(50,'');
 // console.log("got the data from the database");
 
