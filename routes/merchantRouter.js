@@ -1,7 +1,9 @@
 const express = require("express");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
 const multer = require("multer");
-const { storage } = require("../cloudinary");
+const {
+  storage
+} = require("../cloudinary");
 const upload = multer({
   storage,
 });
@@ -72,7 +74,32 @@ class MerchantRouter {
       upload.array("productPhoto", 2),
       this.update.bind(this)
     );
+    router.get(
+      "/api/getSoldCategory", isLoggedIn, this.getSoldInfo.bind(this)
+    );
     return router;
+  }
+
+  async getSoldInfo(req, res) {
+    const soldCategory = await {
+      Top: 0,
+      Bottom: 0,
+      Dresses: 0,
+      Outerwear: 0,
+      Shoes: 0,
+      Accessories: 0,
+      Others: 0
+    }
+    this.merchantService.getSoldProducts(merchant_id)
+      .then((data) => {
+        for (let itemCat of data) {
+          if (itemCat.productCategory in soldCategory) {
+            soldCategory[itemCat.productCategory]++
+          }
+        }
+        console.log("soldCategory inside loop", soldCategory)
+        res.send(soldCategory);
+      })
   }
 
   async dashboard(req, res) {
@@ -206,7 +233,7 @@ class MerchantRouter {
   //********************works*********************** */
   editMerchantDescription(req, res) {
     let newShopDescription = req.body.shopDescription;
-   console.log("got to back end")
+    console.log("got to back end")
     this.merchantService
 
       .editMerchantDes(merchant_id, newShopDescription)

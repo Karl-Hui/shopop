@@ -53,7 +53,7 @@ class MerchantService {
         customerName: customerInfo[0].username,
         customerEmail: customerInfo[0].email
       }
-      console.log("this is purchaseInfo", purchaseInfo)
+      // console.log("this is purchaseInfo", purchaseInfo)
       soldArr.push(purchaseInfo)
     }
     return soldArr
@@ -389,8 +389,8 @@ class MerchantService {
 
 module.exports = MerchantService;
 
-let test = new MerchantService();
-test.getSoldProducts(2)
+// let test = new MerchantService();
+// test.getSoldProducts(2)
 // test.getIndividualProduct(3, 2)
 // test.getMerchantInfo(1)
 // // // test.getAll()
