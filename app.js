@@ -25,6 +25,9 @@ let customerRoute = new CustomerRouters(customerService);
 // merchant import files
 const MerchantRouters = require("./routes/merchantRouter");
 const MerchantService = require("./services/merchantService");
+const {
+  pass
+} = require("./passport_merchant/signup_merchant");
 
 let merchantService = new MerchantService(knex);
 let merchantRoute = new MerchantRouters(merchantService);
@@ -165,6 +168,17 @@ app.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/customer-signup");
 });
+
+app.get("/auth/facebook/callback", passportCustomer.authenticate("facebook", {
+  failureRedirect: "/customer-login"
+}), function (req, res) {
+  // Successful authentication, redirect home.
+  res.redirect("/customer-homepage")
+})
+
+app.get('/auth/facebook', passportCustomer.authenticate('facebook', {
+  scope: "email"
+}));
 
 app.use("/", customerRoute.router());
 app.use("/shop", merchantRoute.router());

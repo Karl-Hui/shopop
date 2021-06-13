@@ -82,6 +82,7 @@ class CustomerRouter {
         // console.log("display products", products)
         this.customerServices.getMerchantNameAndProducts().then((products) => {
           // console.log("display products", products);
+          console.log("customerName", customerName)
           res.render("customer-homepage", {
             layout: "customerLoggedIn",
             products: products,
