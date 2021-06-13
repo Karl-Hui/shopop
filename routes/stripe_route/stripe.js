@@ -212,15 +212,25 @@ stripeRouter.post('/checkInfo', async (req, res, next) => {
       .where({
         customer_info: req.user.id
       })
-
+    // looping through each item inside the cart and updating the stock to minus one
+    // adding sold item into purchases table  
     for (let eachItem of cartInfo) {
+      // console.log("after each purchase", eachItem)
       let newStock = 0;
       newStock = eachItem.stock - eachItem.purchaseQuantity
       await knex("product_info").select().where({
         id: eachItem.product_info_id
       }).update({
         stock: newStock
-      })
+      });
+      // adding sold item into purchases table
+      let soldProduct = {
+        customer_id: eachItem.customer_info,
+        product_info_id: eachItem.product_info_id,
+        merchant_id: eachItem.merchant_id,
+      }  
+      // console.log("what is sold product?", soldProduct)
+      await knex("purchases").insert(soldProduct)
     }
   }
 })

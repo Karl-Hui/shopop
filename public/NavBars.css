@@ -1,6 +1,7 @@
 .mainNavContainer {
     padding: 15px;
     border-bottom: 2px solid black;
+    background: white;
 }
 
 div ul li a {
