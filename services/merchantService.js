@@ -36,7 +36,7 @@ class MerchantService {
           id: eachItem.product_info_id
         })
       // console.log("what they bought?", productBought)
-        
+
       // which customer bought it
       let customerInfo = await knex.select().from("customer")
         .where({
@@ -47,12 +47,13 @@ class MerchantService {
         id: eachItem.id,
         productName: productBought[0].productName,
         price: productBought[0].price,
+        productCategory: productBought[0].productCategory,
         shippingPrice: productBought[0].shippingPrice,
         dataSold: eachItem.created_at,
         customerName: customerInfo[0].username,
-        customerEmail: customerInfo[0].email 
+        customerEmail: customerInfo[0].email
       }
-      // console.log("this is purchaseInfo", purchaseInfo)
+      console.log("this is purchaseInfo", purchaseInfo)
       soldArr.push(purchaseInfo)
     }
     return soldArr
@@ -388,8 +389,8 @@ class MerchantService {
 
 module.exports = MerchantService;
 
-// let test = new MerchantService();
-// test.getSoldProducts(2)
+let test = new MerchantService();
+test.getSoldProducts(2)
 // test.getIndividualProduct(3, 2)
 // test.getMerchantInfo(1)
 // // // test.getAll()

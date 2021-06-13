@@ -1,6 +1,6 @@
 body{
     background-color: #f3f3f3;
-    height: 100vh;
+    height: 90vh;
 }
 h1{
     font-size: 2rem;
@@ -17,6 +17,14 @@ h1{
     padding: 3rem 2rem;
     background-color: #ffffff;
     margin: 0rem 0 8rem 0;
+}
+
+.table-header{
+    font-size: 0.75rem;
+}
+
+.table-data{
+    font-size: 1rem;
 }
 
 .link{
@@ -52,10 +60,6 @@ h1{
 
 #Email:hover{
     color: #5a4ff3;
-}
-
-.dashboard-title{
-    margin: 1rem 0;
 }
 
 @media only screen and (max-width: 600px) {

@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/dashboard.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js"></script>
 <section id="dashboard-section">
     <div class="container">
     <div class="button-container">
@@ -38,25 +39,25 @@
         <table class="table">
         <thead>
             <tr>
-            <th scope="col">#</th>
-            <th scope="col">Product name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Shipping price</th>
-            <th scope="col">Date sold</th>
-            <th scope="col">Customer name</th>
-            <th scope="col">Customer email</th>
+            <th class="table-header" scope="col">#</th>
+            <th class="table-header" scope="col">Product name</th>
+            <th class="table-header" scope="col">Price</th>
+            <th class="table-header" scope="col">Shipping price</th>
+            <th class="table-header" scope="col">Date sold</th>
+            <th class="table-header" scope="col">Customer name</th>
+            <th class="table-header" scope="col">Customer email</th>
             </tr>
         </thead>
         <tbody>
             {{#each soldProducts}}
             <tr>
             <th scope="row">{{id}}</th>
-            <td>{{productName}}</td>
-            <td>{{price}}</td>
-            <td>{{shippingPrice}}</td>
-            <td>{{dataSold}}</td>
-            <td>{{customerName}}</td>
-            <td><a id="Email" href = "mailto: {{customerEmail}}"><center><i class="fas fa-envelope"></i></center></a></td>
+            <td class="table-data">{{productName}}</td>
+            <td class="table-data">{{price}}</td>
+            <td class="table-data">{{shippingPrice}}</td>
+            <td class="table-data">{{dataSold}}</td>
+            <td class="table-data">{{customerName}}</td>
+            <td class="table-data"><a id="Email" href = "mailto: {{customerEmail}}"><center><i class="fas fa-envelope"></i></center></a></td>
             </tr>
             {{/each}}
         </tbody>
@@ -64,5 +65,46 @@
    </div>
 </table>
 </section>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+            <div>
+            <canvas id="myChart" width="100px" height="100px"></canvas>
+            </div>
+            </div>
+            <div class="col">
+            2 of 2
+            </div>
+        </div>
+    </div>
+</section>
 
 <script src="/dashboard/dashboard.js"></script>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Tops', 'Bottom', 'Dresses', 'Outerwear', 'Shoes', 'Accessories', 'Others'],
+        datasets: [{
+            label: 'Product Category Sold',
+            data: [0, 1, 3, 5, 0, 2],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
