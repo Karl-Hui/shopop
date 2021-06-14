@@ -143,9 +143,53 @@ function ready() {
 }
 
 function updateCart() {
-  let removeCartItemButtons = document.getElementsByClassName("close");
-  for (let i = 0; i < removeCartItemButtons.length; i++) {
-    let button = removeCartItemButtons[i];
-    button.parentElement.parentElement.parentElement.remove();
+  let theCart1s = document.getElementsByClassName("cart-items");
+  for (let i = 0; i < theCart1s.length; i++) {
+    let theCart1 = theCart1s[0];
+    theCart1.remove();
+    console.log("asdadsasd", theCart1);
   }
+  // console.log(removeCartItemButtons);
+  theCart1s[0].remove();
+  console.log(theCart1s);
+}
+
+function updateCarTotal() {
+  let cartItemContainers = document.getElementsByClassName("cart-items");
+  // console.log("cartItemContainer", cartItemContainer);
+  // let cartRows = cartItemContainer.getElementsByClassName("cart-row");
+  // console.log("cartRows", cartRows);
+  let total = 0;
+  let finalQuantity = 0;
+  let totalShippingPrice = 0;
+  for (let i = 0; i < cartItemContainers.length; i++) {
+    let cartItemContainer = cartItemContainers[i];
+    let priceElement =
+      cartItemContainer.getElementsByClassName("cart-price")[0];
+    let quantityElement = cartItemContainer.getElementsByClassName(
+      "cart-quantity-input"
+    )[0];
+    let price = parseFloat(priceElement.innerText.replace("$", ""));
+    quantity = quantityElement.value;
+    finalQuantity = parseInt(finalQuantity) + parseInt(quantity);
+    total = total + price * quantity;
+    let eachShippingPrice = document
+      .getElementsByClassName("eachShippingPrice")
+      [i].getAttribute("data-value");
+    totalShippingPrice =
+      parseInt(eachShippingPrice) * parseInt(quantity) +
+      parseInt(totalShippingPrice);
+  }
+  console.log(totalShippingPrice);
+  document.querySelector(".shippingPrice").innerHTML =
+    "Shipping-$ " + totalShippingPrice;
+  document.getElementsByClassName("item-quantity")[0].innerHTML =
+    "Total Items: " + finalQuantity;
+  // console.log("finalQuantity", finalQuantity);
+  total = Math.round(total * 100) / 100;
+  document.getElementsByClassName("cart-total-price")[0].innerText =
+    "$ " + total;
+  document.getElementsByClassName("total-price")[0].innerText =
+    parseInt(total) + parseInt(totalShippingPrice);
+  theEmptyCart();
 }
