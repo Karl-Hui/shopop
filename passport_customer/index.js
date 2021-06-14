@@ -2,9 +2,9 @@ const passportCustomer = require("passport");
 
 const customerSignupStrategy = require("./signup_customer");
 
-const customerSerialize = require("./customerSerilize");
+// const customerSerialize = require("./customerSerilize");
 const customerLogin = require("./login_customer");
-const facebookStrategy = require("./facebook").facebook
+const facebookStrategy = require("./facebook").facebook;
 
 passportCustomer.use("local-customerSignup", customerSignupStrategy);
 passportCustomer.use("local-customerLogin", customerLogin);

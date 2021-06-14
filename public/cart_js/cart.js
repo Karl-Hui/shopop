@@ -40,6 +40,7 @@ function updateCarTotal() {
   // console.log("cartRows", cartRows);
   let total = 0;
   let finalQuantity = 0;
+  let totalShippingPrice = 0;
   for (let i = 0; i < cartItemContainers.length; i++) {
     let cartItemContainer = cartItemContainers[i];
     let priceElement =
@@ -51,8 +52,14 @@ function updateCarTotal() {
     quantity = quantityElement.value;
     finalQuantity = parseInt(finalQuantity) + parseInt(quantity);
     total = total + price * quantity;
-    // console.log("priceElement", priceElement);
+    let eachShippingPrice = document
+      .getElementsByClassName("eachShippingPrice")
+      [i].getAttribute("data-value");
+    totalShippingPrice =
+      parseInt(eachShippingPrice) * parseInt(quantity) +
+      parseInt(totalShippingPrice);
   }
+  console.log(totalShippingPrice);
   document.getElementsByClassName("item-quantity")[0].innerHTML =
     "Total Items: " + finalQuantity;
   // console.log("finalQuantity", finalQuantity);
@@ -60,7 +67,7 @@ function updateCarTotal() {
   document.getElementsByClassName("cart-total-price")[0].innerText =
     "$ " + total;
   document.getElementsByClassName("total-price")[0].innerText =
-    "$ " + (total + 5);
+    parseInt(total) + parseInt(totalShippingPrice);
   theEmptyCart();
 }
 

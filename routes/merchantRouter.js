@@ -1,9 +1,7 @@
 const express = require("express");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
 const multer = require("multer");
-const {
-  storage
-} = require("../cloudinary");
+const { storage } = require("../cloudinary");
 const upload = multer({
   storage,
 });
@@ -74,9 +72,7 @@ class MerchantRouter {
       upload.array("productPhoto", 2),
       this.update.bind(this)
     );
-    router.get(
-      "/api/getSoldCategory", isLoggedIn, this.getSoldInfo.bind(this)
-    );
+    router.get("/api/getSoldCategory", isLoggedIn, this.getSoldInfo.bind(this));
     return router;
   }
 
@@ -88,18 +84,16 @@ class MerchantRouter {
       Outerwear: 0,
       Shoes: 0,
       Accessories: 0,
-      Others: 0
-    }
-    this.merchantService.getSoldProducts(merchant_id)
-      .then((data) => {
-        for (let itemCat of data) {
-          if (itemCat.productCategory in soldCategory) {
-            soldCategory[itemCat.productCategory]++
-          }
+      Others: 0,
+    };
+    this.merchantService.getSoldProducts(merchant_id).then((data) => {
+      for (let itemCat of data) {
+        if (itemCat.productCategory in soldCategory) {
+          soldCategory[itemCat.productCategory]++;
         }
-        // console.log("soldCategory inside loop", soldCategory)
-        res.send(soldCategory);
-      })
+      }
+      res.send(soldCategory);
+    });
   }
 
   async dashboard(req, res) {
@@ -109,15 +103,14 @@ class MerchantRouter {
     });
     let balancePending = await (Balance.available[0].amount / 100).toFixed(2);
     this.merchantService.getSoldProducts(merchant_id).then((soldProducts) => {
-      console.log("what is sold product", soldProducts)
       res.render("dashboard", {
         layout: "merchantLoggedIn",
         shop: shop.merchantName,
         balanceAvailable: balancePending,
-        soldProducts: soldProducts
+        soldProducts: soldProducts,
       });
-    })
-  };
+    });
+  }
 
   merchant_homepage(req, res) {
     this.merchantService.getMerchantInfo(merchant_id).then((merchantInfo) => {
@@ -131,7 +124,7 @@ class MerchantRouter {
         });
       });
     });
-  };
+  }
 
   createProduct(req, res) {
     // console.log("req.file", req.files);
@@ -233,11 +226,11 @@ class MerchantRouter {
   //********************works*********************** */
   editMerchantDescription(req, res) {
     let newShopDescription = req.body.shopDescription;
-    console.log("got to back end")
+    // console.log("got to back end")
     this.merchantService
 
       .editMerchantDes(merchant_id, newShopDescription)
-      .then((data) => {
+      .then(() => {
         res.send(newShopDescription);
       })
       .catch((err) => {
@@ -251,7 +244,7 @@ class MerchantRouter {
     let shopPictureURL = JSON.stringify(req.file.path);
 
     await this.merchantService.postMerchantImage(merchant_id, shopPictureURL);
-    console.log("done");
+    // console.log("done");
     await res.redirect("/shop/merchant-settings");
   }
   //***************************************************/
@@ -270,7 +263,6 @@ class MerchantRouter {
     let productCategory = req.body.productCategory;
     let productCondition = req.body.productCondition;
     let productStatus = "unsold";
-    // console.log("sup bro", id, productPhoto, productName, productDescription, stock, price, shippingPrice, Size, productCondtion, productCategory, productStatus, merchant_id)
     this.merchantService
       .updateProduct(
         id,
@@ -288,7 +280,6 @@ class MerchantRouter {
       )
       .then(() => {
         res.redirect("/shop/merchant-homepage");
-        console.log("updated");
       })
       .catch((error) => {
         console.log(error, "error creating product");

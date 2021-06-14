@@ -21,27 +21,24 @@ class MerchantService {
   // }
 
   async getSoldProducts(merchant_id) {
-    let purchases = await knex.select().from("purchases")
-      .where({
-        merchant_id: merchant_id
-      })
+    let purchases = await knex.select().from("purchases").where({
+      merchant_id: merchant_id,
+    });
 
     let purchaseInfo = {};
-    let soldArr = []
+    let soldArr = [];
     // loop through purchases and look for item and which customer bought it;
     for (let eachItem of purchases) {
       // check what they bought
-      let productBought = await knex.select().from("product_info")
-        .where({
-          id: eachItem.product_info_id
-        })
+      let productBought = await knex.select().from("product_info").where({
+        id: eachItem.product_info_id,
+      });
       // console.log("what they bought?", productBought)
 
       // which customer bought it
-      let customerInfo = await knex.select().from("customer")
-        .where({
-          id: eachItem.customer_id
-        })
+      let customerInfo = await knex.select().from("customer").where({
+        id: eachItem.customer_id,
+      });
       // console.log("who bought it?", customerInfo)
 
       let customerDetail = await knex.select().from("customer_info")
@@ -63,11 +60,11 @@ class MerchantService {
         customerBuilding: customerDetail[0].building_address,
         customerCountry: customerDetail[0].country_address
       }
+      };
       // console.log("this is purchaseInfo", purchaseInfo)
-      soldArr.push(purchaseInfo)
+      soldArr.push(purchaseInfo);
     }
-    return soldArr
-
+    return soldArr;
   }
 
   getIndividualProduct(id, merchant_id) {
@@ -80,7 +77,7 @@ class MerchantService {
         merchant_id: merchant_id,
       })
       .then((item) => {
-        console.log(item);
+        // console.log(item);
         return item;
       })
       .catch((error) => {
@@ -148,39 +145,41 @@ class MerchantService {
     productStatus,
     merchant_id
   ) {
-    return knex("product_info")
-      .max("id")
-      .then((maxId) => {
-        // console.log("Max product ID", maxId)
-        let currentMax = parseInt(maxId[0].max);
-        // let currentMax = 1;
-        return currentMax;
-      })
-      .then((currentMax) => {
-        let newId = currentMax + 1;
-        let newProduct = {
-          id: newId,
-          productPhoto: JSON.stringify(productPhoto),
-          productName: productName,
-          productDescription: productDescription,
-          stock: stock,
-          price: price,
-          shippingPrice: shippingPrice,
-          Size: Size,
-          productCondition: productCondtion,
-          productCategory: productCategory,
-          productStatus: productStatus,
-          merchant_id: merchant_id,
-        };
-        // console.log("new product", newProduct)
-        return knex("product_info").insert(newProduct);
-      })
-      .then(() => {
-        console.log("inserted");
-      })
-      .catch((error) => {
-        console.log(error, "error creating new product");
-      });
+    return (
+      knex("product_info")
+        .max("id")
+        .then((maxId) => {
+          // console.log("Max product ID", maxId)
+          let currentMax = parseInt(maxId[0].max);
+          // let currentMax = 1;
+          return currentMax;
+        })
+        .then((currentMax) => {
+          let newId = currentMax + 1;
+          let newProduct = {
+            id: newId,
+            productPhoto: JSON.stringify(productPhoto),
+            productName: productName,
+            productDescription: productDescription,
+            stock: stock,
+            price: price,
+            shippingPrice: shippingPrice,
+            Size: Size,
+            productCondition: productCondtion,
+            productCategory: productCategory,
+            productStatus: productStatus,
+            merchant_id: merchant_id,
+          };
+          // console.log("new product", newProduct)
+          return knex("product_info").insert(newProduct);
+        })
+        // .then(() => {
+        //   console.log("inserted");
+        // })
+        .catch((error) => {
+          console.log(error, "error creating new product");
+        })
+    );
   }
   //************************works for one user*************************** */
   // getMerchantInfoSettings(id) {
@@ -237,54 +236,62 @@ class MerchantService {
     productStatus,
     merchant_id
   ) {
-    return knex("product_info")
-      .max("id")
-      .then((maxId) => {
-        // console.log("Max product ID", maxId)
-        let currentMax = parseInt(maxId[0].max);
-        // let currentMax = 1;
-        return currentMax;
-      })
-      .then((currentMax) => {
-        let newId = currentMax + 1;
-        let newProduct = {
-          id: newId,
-          productPhoto: JSON.stringify(productPhoto),
-          productName: productName,
-          productDescription: productDescription,
-          stock: stock,
-          price: price,
-          shippingPrice: shippingPrice,
-          Size: Size,
-          productCondition: productCondition,
-          productCategory: productCategory,
-          productStatus: productStatus,
-          merchant_id: merchant_id,
-        };
-        // console.log("new product", newProduct)
-        return knex("product_info").insert(newProduct);
-      })
-      .then(() => {
-        console.log("inserted");
-      })
-      .catch((error) => {
-        console.log(error, "error creating new product");
-      });
+    return (
+      knex("product_info")
+        .max("id")
+        .then((maxId) => {
+          // console.log("Max product ID", maxId);
+          let currentMax;
+          if (maxId[0].max) {
+            currentMax = parseInt(maxId[0].max);
+          } else {
+            currentMax = 1;
+          }
+          return currentMax;
+        })
+        .then((currentMax) => {
+          let newId = currentMax + 1;
+          let newProduct = {
+            id: newId,
+            productPhoto: JSON.stringify(productPhoto),
+            productName: productName,
+            productDescription: productDescription,
+            stock: stock,
+            price: price,
+            shippingPrice: shippingPrice,
+            Size: Size,
+            productCondition: productCondition,
+            productCategory: productCategory,
+            productStatus: productStatus,
+            merchant_id: merchant_id,
+          };
+          // console.log("new product", newProduct)
+          return knex("product_info").insert(newProduct);
+        })
+        // .then(() => {
+        //   console.log("inserted");
+        // })
+        .catch((error) => {
+          console.log(error, "error creating new product");
+        })
+    );
   }
 
   deleteProduct(id) {
-    console.log("Deleting product");
-    return knex("product_info")
-      .where({
-        id: id,
-      })
-      .del()
-      .then(() => {
-        console.log("deleted from backend");
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
+    // console.log("Deleting product");
+    return (
+      knex("product_info")
+        .where({
+          id: id,
+        })
+        .del()
+        // .then(() => {
+        //   console.log("deleted from backend");
+        // })
+        .catch((error) => {
+          console.log("error", error);
+        })
+    );
   }
 
   // ***************10/06*********************
@@ -315,7 +322,7 @@ class MerchantService {
         merchantName: newMerchantName,
       })
       .then(() => {
-        console.log("done");
+        // console.log("done");
         return "done";
       })
       .catch((err) => {
@@ -324,22 +331,24 @@ class MerchantService {
   }
   //************************************** */
   postMerchantImage(merchant_id, shopPictureURL) {
-    return this.knex("merchant_info")
-      .update("profilePic", shopPictureURL)
-      .where({
-        merchant_id: merchant_id,
-      })
-      .then((data, dataSite) => {
-        console.log("added shop pic", data, dataSite);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
+    return (
+      this.knex("merchant_info")
+        .update("profilePic", shopPictureURL)
+        .where({
+          merchant_id: merchant_id,
+        })
+        // .then((data, dataSite) => {
+        //   console.log("added shop pic", data, dataSite);
+        // })
+        .catch((err) => {
+          console.log("err", err);
+        })
+    );
   }
 
   //******************************************** */
   deleteProduct(id) {
-    console.log("Deleting product");
+    // console.log("Deleting product");
     return knex("product_info")
       .where({
         id: id,
@@ -366,33 +375,33 @@ class MerchantService {
     productCategory,
     productStatus
   ) {
-    console.log("updating product");
-    return knex("product_info")
-      .where({
-        id: id,
-      })
-      .update({
-        productPhoto: JSON.stringify(productPhoto),
-        productName: productName,
-        productDescription: productDescription,
-        stock: stock,
-        price: price,
-        shippingPrice: shippingPrice,
-        Size: Size,
-        productCondition: productCondition,
-        productCategory: productCategory,
-        productStatus: productStatus,
-      })
-      .then(() => {
-        console.log("Updated product");
-      })
-      .catch((error) => {
-        console.log(error, "Cant update product");
-      });
+    // console.log("updating product");
+    return (
+      knex("product_info")
+        .where({
+          id: id,
+        })
+        .update({
+          productPhoto: JSON.stringify(productPhoto),
+          productName: productName,
+          productDescription: productDescription,
+          stock: stock,
+          price: price,
+          shippingPrice: shippingPrice,
+          Size: Size,
+          productCondition: productCondition,
+          productCategory: productCategory,
+          productStatus: productStatus,
+        })
+        // .then(() => {
+        //   console.log("Updated product");
+        // })
+        .catch((error) => {
+          console.log(error, "Cant update product");
+        })
+    );
   }
 }
-
-
 
 // let test = new MerchantService(knex);
 // test.getMerchantInfo(1);
