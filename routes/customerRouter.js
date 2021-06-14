@@ -1,8 +1,10 @@
 const express = require("express");
 const multer = require("multer");
-const { storage } = require("../cloudinary");
+const {
+  storage
+} = require("../cloudinary");
 const upload = multer({
-  storage,
+  storage
 });
 // let currentCustomer;
 let customer_id;
@@ -15,6 +17,7 @@ function isLoggedIn(req, res, next) {
     }
     // console.log(req.user.id)
     // console.log("logged in as id:", req.user.id);
+    return next();
   }
   res.redirect("/customer-login");
 }
@@ -44,7 +47,7 @@ class CustomerRouter {
       upload.single("customer-image"),
       this.post_image.bind(this)
     );
-
+    
     router.get("/cart", isLoggedIn, this.checkOutPage.bind(this));
     router.post("/cart", isLoggedIn, this.updateCart.bind(this));
     router.get("/product/:id", isLoggedIn, this.oneProductPage.bind(this));
@@ -80,18 +83,20 @@ class CustomerRouter {
         // console.log("display products", products)
         this.customerServices.getMerchantNameAndProducts().then((products) => {
           // console.log("display products", products);
+          console.log("hitting customer homepage",products[0].productCondition);
           console.log("customerName", customerName);
           res.render("customer-homepage", {
             layout: "customerLoggedIn",
             products: products,
             customerName: customerName,
-            // console.log(customerName);
+            
             // res.render("customer-homepage", {
             // layout: "customerLoggedIn",
           });
         });
       });
   }
+
 
   customer_settings(req, res) {
     // console.log("kjasdhfkasdhfksahfdsah");
@@ -175,6 +180,7 @@ class CustomerRouter {
     this.customerServices
       .getCart(customer_id)
       .then((data) => {
+        console.log("checkout page", data);
         // console.log("checkout page");
         res.render("cart", {
           layout: "customerCart",
