@@ -12,7 +12,7 @@ const knex = require("knex")(database);
 const stripeRouter = express.Router();
 
 let merchant_id;
-
+let something;
 // middleware to check if login
 function isLoggedIn(req, res, next) {
   merchant_id = req.user.id;
@@ -114,7 +114,7 @@ stripeRouter.post('/payout', isLoggedIn, async (req, res) => {
     }, {
       stripeAccount: merchant.stripeAccountId
     });
-
+    res.redirect("/shop/dashboard")
   } catch (error) {}
 });
 
@@ -156,47 +156,83 @@ stripeRouter.get('/dashboard', isLoggedIn, async (req, res) => {
 });
 
 stripeRouter.post('/payment', isLoggedIn, async (req, res, next) => {
-  let merchant = req.user
+  console.log("========== payment =============")
+  let cartInfo = await knex.select().from('checkout_cart')
+    .join("product_info", "product_info.id", "checkout_cart.product_info_id")
+    .where({
+      customer_info: req.user.id
+    });
 
-  // ============
-  const charge = await stripe.charges.create({
-    amount: 20000,
-    currency: 'hkd',
-    source: 'tok_visa',
-    // on_behalf_of: merchant.stripeAccountId,
-    // transfer_group: '{ORDER10}',
-  });
+  let merchantInfo = await knex("merchant").select().where({
+    id: cartInfo[0].merchant_id
+  })
+  // get merchant stripe id 
+  let merchantStripeAccountId = merchantInfo[0].stripeAccountId
+  // total amount = total product + total shipping
+  let productTotal = 0;
+  for (let eachItem of cartInfo) {
+    productTotal = (parseInt(eachItem.price) * parseInt(eachItem.purchaseQuantity)) + productTotal + parseInt(eachItem.shippingPrice);
+  }
+  let finalCheckOut = productTotal * 100
+  // console.log("productTotal", finalCheckOut)
+  // console.log("this is product total", productTotal)
+  // console.log("merchantstripe", merchantStripeAccountId)
+  // console.log("cartInfo", cartInfo)
 
-  // // Create a Transfer to the connected account (later):
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: finalCheckOut,
+    currency: "hkd",
+  })
+
   const transfer = await stripe.transfers.create({
-    amount: 3000,
+    amount: finalCheckOut * 0.8,
     currency: 'hkd',
-    destination: merchant.stripeAccountId,
-    // transfer_group: '{ORDER10}',
+    destination: merchantStripeAccountId,
   });
+  something = paymentIntent.id
 
-  
+  const intent = await stripe.paymentIntents.retrieve(something);
+  const charges = intent.charges.data;
+  // if (intent.status === 'succeeded') {
+  //   console.log("succeeded")
+  // }
+  res.send({
+    clientSecret: paymentIntent.client_secret
+  });
+})
 
-  // const paymentIntent = await stripe.paymentIntents.create({
-  //   amount: 1099,
-  //   currency: 'hkd',
-  //   payment_method_types: ['card'],
-  //   application_fee_amount: 200,
-  //   on_behalf_of: merchant.stripeAccountId,
-  //   transfer_data: {
-  //     destination: merchant.stripeAccountId,
-  //   },
-  // });
+stripeRouter.post('/checkInfo', async (req, res, next) => {
 
-  // const paymentIntent = await stripe.paymentIntents.create({
-  //   amount: 50000,
-  //   currency: 'hkd',
-  //   payment_method_types: ['card'],
-
-  //   on_behalf_of: merchant.stripeAccountId
-  // }, {
-  //   stripeAccount: merchant.stripeAccountId,
-  // });
+  const intent = await stripe.paymentIntents.retrieve(something);
+  const charges = intent.charges.data;
+  if (intent.status === 'succeeded') {
+    console.log("succeeded")
+    let cartInfo = await knex.select().from('checkout_cart')
+      .join("product_info", "product_info.id", "checkout_cart.product_info_id")
+      .where({
+        customer_info: req.user.id
+      })
+    // looping through each item inside the cart and updating the stock to minus one
+    // adding sold item into purchases table  
+    for (let eachItem of cartInfo) {
+      // console.log("after each purchase", eachItem)
+      let newStock = 0;
+      newStock = eachItem.stock - eachItem.purchaseQuantity
+      await knex("product_info").select().where({
+        id: eachItem.product_info_id
+      }).update({
+        stock: newStock
+      });
+      // adding sold item into purchases table
+      let soldProduct = {
+        customer_id: eachItem.customer_info,
+        product_info_id: eachItem.product_info_id,
+        merchant_id: eachItem.merchant_id,
+      }  
+      // console.log("what is sold product?", soldProduct)
+      await knex("purchases").insert(soldProduct)
+    }
+  }
 })
 
 

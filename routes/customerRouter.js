@@ -11,7 +11,14 @@ let customer_id;
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
+<<<<<<< HEAD
     customer_id = req.user.id;
+=======
+    if (req.user.username) {
+      customer_id = req.user.id;
+      return next();
+    }
+>>>>>>> 4edc8a19c1884d34f4436b8a78e9088242144ff7
     // console.log(req.user.id)
     // console.log("logged in as id:", req.user.id);
     return next();
@@ -81,6 +88,7 @@ class CustomerRouter {
         this.customerServices.getMerchantNameAndProducts().then((products) => {
           // console.log("display products", products);
           console.log("hitting customer homepage",products[0].productCondition);
+          console.log("customerName", customerName);
           res.render("customer-homepage", {
             layout: "customerLoggedIn",
             products: products,
@@ -130,12 +138,15 @@ class CustomerRouter {
       .editCustomerUsername(customer_id, newInfo)
       .then(() => {
         // res.redirect("customer-settings");
-        res.send(newInfo)
+
+        res.send(newInfo);
       })
       .catch((err) => {
         console.log("err", err);
       });
   }
+
+
   editAddress(req, res) {
     let NewBuildingName = req.body.buildingAddress;
     let NewStreetName = req.body.streetAddress;
@@ -148,7 +159,6 @@ class CustomerRouter {
         NewCountryName
       )
       .then((data) => {
-        console.log("asdasdasdasdsa",data)
         res.send(data);
       })
       .catch((err) => {
@@ -175,6 +185,7 @@ class CustomerRouter {
       .getCart(customer_id)
       .then((data) => {
         console.log("checkout page", data);
+        // console.log("checkout page");
         res.render("cart", {
           layout: "customerCart",
           data: data,
@@ -197,7 +208,7 @@ class CustomerRouter {
   async postToCart(req, res) {
     let productId = req.params.id;
     console.log("customer_id", customer_id);
-    console.log("productId", productId);
+    console.log("productId", typeof productId);
     await this.customerServices.addToCart(productId, customer_id);
     res.end();
   }
@@ -208,7 +219,7 @@ class CustomerRouter {
     await this.customerServices.clearCart(customer_id);
     if (Object.keys(req.body).length > 0) {
       for (const productId in cartItems) {
-        console.log(productId);
+        // console.log(productId);
         await this.customerServices.simpleAddToCart(
           productId,
           cartItems[productId],

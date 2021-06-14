@@ -1,5 +1,5 @@
 require("dotenv").config({
-  path: "../.env"
+  path: "../.env",
 });
 const database = require("../knexfile").development;
 const knex = require("knex")(database);
@@ -13,7 +13,7 @@ class CustomerServices {
     return this.knex("customer_info")
       .select()
       .where({
-        customer_id: customerId
+        customer_id: customerId,
       })
       .then((data) => {
         console.log("This data belongs to customer:", data);
@@ -29,7 +29,7 @@ class CustomerServices {
       .join("customer_info", "customer.id", "customer_id")
       .select()
       .where({
-        customer_id: customerId
+        customer_id: customerId,
       })
       .then((data) => {
         // console.log("customerInfo here blach", data);
@@ -43,10 +43,13 @@ class CustomerServices {
     return this.knex("customer")
       .select()
       .where({
-        id: customerId
+        id: customerId,
       })
       .update({
-        username: newUsername
+        username: newUsername,
+      })
+      .then(() => {
+        return newUsername;
       })
       .catch((err) => {
         console.log("err", err);
@@ -67,7 +70,7 @@ class CustomerServices {
     return this.knex("customer_info")
       .select()
       .where({
-        customer_id: customerId
+        customer_id: customerId,
       })
       .update({
         building_address: newBuildingAddress,
@@ -80,8 +83,8 @@ class CustomerServices {
           building_address: newBuildingAddress,
           street_address: newStreetAddress,
           country_address: newCountryAddress,
-        }
-        return data
+        };
+        return data;
       })
       .catch((error) => {
         console.log("error", error);
@@ -92,10 +95,10 @@ class CustomerServices {
     return this.knex("customer_info")
       .update("profilePicture", imageURL)
       .where({
-        customer_id: user_id
+        customer_id: user_id,
       })
-      .then((data,dataInfo) => {
-        console.log("added profile Pic!",data,dataInfo);
+      .then((data, dataInfo) => {
+        console.log("added profile Pic!", data, dataInfo);
       })
       .catch((err) => {
         console.log("err", err);
@@ -112,7 +115,7 @@ class CustomerServices {
       )
       .select()
       .where({
-        customer_info: user_id
+        customer_info: user_id,
       })
       .then((data) => {
         console.log("the getCart", data);
@@ -128,12 +131,42 @@ class CustomerServices {
     //   });
   }
 
+<<<<<<< HEAD
+=======
+  //run this to get all products
+  // getMerchantProducts(category) {
+  //   return this.knex("product_info")
+  //     .select("*")
+  //     .table("product_info")
+  //     .orderBy("id", "desc")
+  //     .then((productData) => {
+  //       // console.log("data from products table:", productData);
+  //       return productData;
+  //     })
+  //     .catch((error) => {
+  //       console.log("error", error);
+  //     });
+  // }
+
+  // getMerchantProducts(category) {
+  //   return this.knex("product_info")
+  //     .select("*")
+  //     .table("product_info")
+  //     .then((productData) => {
+  //       // console.log("data from products table:", productData);
+  //       return productData;
+  //     })
+  //     .catch((error) => {
+  //       console.log("error", error);
+  //     });
+  // }
+>>>>>>> 4edc8a19c1884d34f4436b8a78e9088242144ff7
 
   getIndividualProduct(id) {
     return this.knex("product_info")
       .select()
       .where({
-        id: id
+        id: id,
       })
       .then((data) => {
         return data;
@@ -147,7 +180,7 @@ class CustomerServices {
     return this.knex("checkout_cart")
       .select()
       .where({
-        customer_info: customer_id
+        customer_info: customer_id,
       })
       .orderBy("id")
       .then((data) => {
@@ -171,25 +204,37 @@ class CustomerServices {
     });
   }
 
-  getMerchantNameAndProducts() {
-    return this.knex("merchant")
-      .join("product_info", "merchant.id", "merchant_id")
+  getSelectedMerhcantProduct(category) {
+    return this.knex("product_info")
       .select("*")
-      // .where({ customer_id: customerId })
+      .where("productCategory", category)
       .then((data) => {
-        // console.log("merchant info and product!!!!!!", data);
-
+        console.log(data[1]["productCategory"]);
         return data;
-      })
-      .catch((error) => {
-        console.log("error", error);
       });
+  }
+
+  getMerchantNameAndProducts() {
+    return (
+      this.knex("merchant")
+        .join("product_info", "merchant.id", "merchant_id")
+        .select("*")
+        .orderBy("product_info.id", "desc")
+        // .where({ customer_id: customerId })
+        .then((data) => {
+          console.log("merchant info and product!!!!!!", data);
+          return data;
+        })
+        .catch((error) => {
+          console.log("error", error);
+        })
+    );
   }
 
   checkMerchantIdInCart(inCart_product_info_id, add_product_info_id) {
     return this.knex("product_info")
       .where({
-        id: inCart_product_info_id
+        id: inCart_product_info_id,
       })
       .then((inCart) => {
         const inCartId = inCart[0].merchant_id;
@@ -198,7 +243,7 @@ class CustomerServices {
       .then((inCartId) => {
         return this.knex("product_info")
           .where({
-            id: add_product_info_id
+            id: add_product_info_id,
           })
           .then((addProduct) => {
             const addId = addProduct[0].merchant_id;
@@ -231,7 +276,7 @@ class CustomerServices {
       .select()
       .where({
         product_info_id: product_id,
-        customer_info: customer_id
+        customer_info: customer_id,
       })
       .then((data) => {
         console.log("have item?", data);
@@ -241,7 +286,7 @@ class CustomerServices {
             .update("purchaseQuantity", quantity)
             .where({
               customer_info: customer_id,
-              product_info_id: product_id
+              product_info_id: product_id,
             });
         } else {
           return this.knex("checkout_cart")
@@ -304,7 +349,7 @@ class CustomerServices {
 
   async clearCart(customerId) {
     await knex("checkout_cart").del().where({
-      customer_info: customerId
+      customer_info: customerId,
     });
   }
 
@@ -316,44 +361,22 @@ class CustomerServices {
     });
   }
 
-
-
   //******************11/06******************** */
-  // SortProductPrice(selectedPrice) {
-  //   return knex("product_info")
-  //   .select("price")
-  //   // .where({price})
-  //   .then((data) => {
-  //     console.log("this is all price data", data[0])
-  //     if (data.price <= 50){
-  //       return knex("product_info")
-  //       .select("price" <= 50)
-  //       .then((lessthan50) =>
-  //       console.log("less than 50: ", lessthan50))
-  //     } else {
-    
-  //     }
-      
-  //     // if (data <= 50){
-  //     //   return knex("product_info")
-  //     //   .select('price' <= 50)
-  //     //   .then((under200)=>{
-  //     //     console.log("prices that is lessor eqaul to 200: ",under200)
-  //     //   })
-  //     // }
-  //     // console.log(data)
-  //   }) 
-  // }
-
+  //   SortProductPrice(price, compare) {
+  //     return knex("product_info")
+  //     .select("*")
+  //     .where('price', compare, price)
+  //     .then((data) =>{
+  //       console.log(data)
+  //     })
+  //   }
 }
-
-
-
 
 // test
 // let info = JSON.stringify("https://res.cloudinary.com/dnq92mpxr/image/upload/v1623124318/pq4olhcuhhgf2jjswzae.jpg")
 // let service = new CustomerServices(knex);
-// service.SortProductPrice(50);
+// service.addToCart(10,2)
+// service.SortProductPrice(50,'');
 // console.log("got the data from the database");
 
 module.exports = CustomerServices;
