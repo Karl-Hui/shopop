@@ -1,14 +1,32 @@
+body{
+    background-color: #f3f3f3;
+    height: 90vh;
+}
 h1{
     font-size: 2rem;
     color: rgb(29, 29, 29);
 }
 
 #stripe-dashboard-container{
-    height: 30vh;
-    background-color: #ededed;
+    background-color: #ffffff;
     padding: 2rem 2rem;
-    margin: 0rem 0 3rem 0;
+    margin: 0rem 0 2rem 0;
 }
+
+.table-container{
+    padding: 3rem 2rem;
+    background-color: #ffffff;
+    margin: 0rem 0 2rem 0;
+}
+
+.table-header{
+    font-size: 0.75rem;
+}
+
+.table-data{
+    font-size: 1rem;
+}
+
 
 .link{
     font-size: 0.8rem;
@@ -21,7 +39,7 @@ h1{
 }
 
 .btn-payout{
-    background-color: #ED455D;
+    background-image: linear-gradient(134deg, #0540c8 0%, #8a3ffc 100%);
     border: none;
     color: white;
     padding: 5px 12px;
@@ -29,16 +47,24 @@ h1{
 }
 
 .btn-payout:hover{
-    background-color: #eb1e3d;
+    background-image: linear-gradient(134deg, #0638ad 0%, #8a3ffc 100%);
     border: none;
     color: white;
     padding: 5px 12px;
     border: none;
 }
 
+#Email{
+    color: black;
+    font-size: 1.5rem;
+}
 
-.dashboard-title{
-    margin: 1rem 0;
+#Email:hover{
+    color: #5a4ff3;
+}
+
+.chart-cat-container{
+    background: white;
 }
 
 @media only screen and (max-width: 600px) {

@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/dashboard.css">
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js"></script>
 <section id="dashboard-section">
     <div class="container">
     <div class="button-container">
@@ -10,13 +10,14 @@
         <h1 class="dashboard-title">Dashboard</h1>
     </div>
     <div class="container">
-        <div id="stripe-dashboard-container">
+        <div class="wrapper">
+            <div id="stripe-dashboard-container">
             <div class="row">
                 <div class="col-6">
                     <h5>Hello {{shop}}</h5>
                     <a class="link" href="/merchant/stripe/dashboard?account=true">View Stripe Account</a>
                 </div>
-                <div class="col-3 d-flex" id="balance-div">
+                <div class="col-3 d-flex" id="">
                     <div class="px-2">
                         <h5>Balance Available</h5>
                         <p id="balance">{{balanceAvailable}}HKD</p>
@@ -27,6 +28,53 @@
                     <button type='submit' id="payout" class="btn-payout"value='Pay out now'>Pay out now</button>
                     </form>
                 </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+<section id="recent-purchase-table">
+   <div class="container">
+       <div class="table-container"> 
+        <table class="table">
+        <thead>
+            <tr>
+            <th class="table-header" scope="col">#</th>
+            <th class="table-header" scope="col">Product name</th>
+            <th class="table-header" scope="col">Price</th>
+            <th class="table-header" scope="col">Shipping price</th>
+            <th class="table-header" scope="col">Date sold</th>
+            <th class="table-header" scope="col">Customer name</th>
+            <th class="table-header" scope="col">Customer email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each soldProducts}}
+            <tr>
+            <th scope="row">{{id}}</th>
+            <td class="table-data">{{productName}}</td>
+            <td class="table-data">{{price}}</td>
+            <td class="table-data">{{shippingPrice}}</td>
+            <td class="table-data">{{dataSold}}</td>
+            <td class="table-data">{{customerName}}</td>
+            <td class="table-data"><a id="Email" href = "mailto: {{customerEmail}}"><center><i class="fas fa-envelope"></i></center></a></td>
+            </tr>
+            {{/each}}
+        </tbody>
+        </div>
+   </div>
+</table>
+</section>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col chart-cat-container">
+            <div>
+            <canvas id="myChart" width="100px" height="100px"></canvas>
+            </div>
+            </div>
+            <div class="col">
+            2 of 2
             </div>
         </div>
     </div>

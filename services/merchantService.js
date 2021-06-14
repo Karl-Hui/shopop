@@ -20,6 +20,46 @@ class MerchantService {
   //         })
   // }
 
+  async getSoldProducts(merchant_id) {
+    let purchases = await knex.select().from("purchases")
+      .where({
+        merchant_id: merchant_id
+      })
+
+    let purchaseInfo = {};
+    let soldArr = []
+    // loop through purchases and look for item and which customer bought it;
+    for (let eachItem of purchases) {
+      // check what they bought
+      let productBought = await knex.select().from("product_info")
+        .where({
+          id: eachItem.product_info_id
+        })
+      // console.log("what they bought?", productBought)
+
+      // which customer bought it
+      let customerInfo = await knex.select().from("customer")
+        .where({
+          id: eachItem.customer_id
+        })
+      // console.log("who bought it?", customerInfo)
+      purchaseInfo = {
+        id: eachItem.id,
+        productName: productBought[0].productName,
+        price: productBought[0].price,
+        productCategory: productBought[0].productCategory,
+        shippingPrice: productBought[0].shippingPrice,
+        dataSold: eachItem.created_at,
+        customerName: customerInfo[0].username,
+        customerEmail: customerInfo[0].email
+      }
+      // console.log("this is purchaseInfo", purchaseInfo)
+      soldArr.push(purchaseInfo)
+    }
+    return soldArr
+
+  }
+
   getIndividualProduct(id, merchant_id) {
     // get single product based on the shop's id
     return knex
@@ -342,16 +382,19 @@ class MerchantService {
   }
 }
 
+
+
 // let test = new MerchantService(knex);
 // test.getMerchantInfo(1);
 
 module.exports = MerchantService;
 
 // let test = new MerchantService();
+// test.getSoldProducts(2)
 // test.getIndividualProduct(3, 2)
 // test.getMerchantInfo(1)
 // // // test.getAll()
-// test.createProduct('https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=649&q=80', 'new top', 'new top from hk', '1', '48', '10', 'M', 'Brand New', 'Top', 'unsold', '1')
+// test.createProduct('https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80', 'new top', 'new top from hk', '1', '48', '10', 'M', 'Brand New', 'Top', 'unsold', '1')
 // // test.deleteProduct(3)
 // test.updateProduct(6,'', 'Testing on99', 'testing', '1', '2000', '100', 'L', 'Used', 'Shoes', 'unsold')
 // test.getMerchantProducts(1)

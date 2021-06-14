@@ -2,6 +2,8 @@ exports.up = function (knex) {
   return knex.schema.createTable("purchases", (table) => {
     table.increments().primary();
     table.string("shopReview");
+    table.integer("customer_id").unsigned();
+    table.foreign("customer_id").references("customer.id");
     table.integer("product_info_id").unsigned();
     table.foreign("product_info_id").references("product_info.id");
     table.integer("merchant_id").unsigned();
