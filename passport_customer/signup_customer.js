@@ -43,6 +43,9 @@ module.exports = new LocalStrategy(
         street_address: req.body.address,
         country_address: req.body.country,
         customer_id: customerId[0],
+        profilePicture: JSON.stringify(
+          "https://res.cloudinary.com/dnq92mpxr/image/upload/v1623309657/en3txlr0tb3eyhb11zqy.png"
+        ),
       };
       //   customer_info[customer_id] = customerId[0];
       let customer_infomation = await knex("customer_info").insert(
