@@ -60,6 +60,8 @@ function updateCarTotal() {
       parseInt(totalShippingPrice);
   }
   console.log(totalShippingPrice);
+  document.querySelector(".shippingPrice").innerHTML =
+    "Shipping-$ " + totalShippingPrice;
   document.getElementsByClassName("item-quantity")[0].innerHTML =
     "Total Items: " + finalQuantity;
   // console.log("finalQuantity", finalQuantity);
