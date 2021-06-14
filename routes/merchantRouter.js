@@ -97,7 +97,7 @@ class MerchantRouter {
             soldCategory[itemCat.productCategory]++
           }
         }
-        console.log("soldCategory inside loop", soldCategory)
+        // console.log("soldCategory inside loop", soldCategory)
         res.send(soldCategory);
       })
   }

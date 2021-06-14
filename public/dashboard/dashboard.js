@@ -49,7 +49,7 @@ async function getSoldProduct() {
                 label: 'Product Category Sold',
                 data: productData,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(90, 79, 243, 0.8)',
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -68,4 +68,3 @@ async function getSoldProduct() {
 }
 
 getSoldProduct()
-

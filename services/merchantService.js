@@ -43,6 +43,13 @@ class MerchantService {
           id: eachItem.customer_id
         })
       // console.log("who bought it?", customerInfo)
+
+      let customerDetail = await knex.select().from("customer_info")
+        .where({
+          id: eachItem.customer_id
+        })
+
+      // console.log("customerDetail", customerDetail)
       purchaseInfo = {
         id: eachItem.id,
         productName: productBought[0].productName,
@@ -51,7 +58,10 @@ class MerchantService {
         shippingPrice: productBought[0].shippingPrice,
         dataSold: eachItem.created_at,
         customerName: customerInfo[0].username,
-        customerEmail: customerInfo[0].email
+        customerEmail: customerInfo[0].email,
+        customerStreetName: customerDetail[0].street_address,
+        customerBuilding: customerDetail[0].building_address,
+        customerCountry: customerDetail[0].country_address
       }
       // console.log("this is purchaseInfo", purchaseInfo)
       soldArr.push(purchaseInfo)

@@ -7,12 +7,11 @@
     </div>
     </div>
     <div class="container">
-        <h1 class="dashboard-title">Dashboard</h1>
-    </div>
-    <div class="container">
         <div class="wrapper">
             <div id="stripe-dashboard-container">
+                <h3 class="dashboard-title mb-3">Dashboard</h3>
             <div class="row">
+                
                 <div class="col-6">
                     <h5>Hello {{shop}}</h5>
                     <a class="link" href="/merchant/stripe/dashboard?account=true">View Stripe Account</a>
@@ -36,6 +35,7 @@
 <section id="recent-purchase-table">
    <div class="container">
        <div class="table-container"> 
+        <h3 class="dashboard-title mb-3">Customer Info</h3>
         <table class="table">
         <thead>
             <tr>
@@ -46,6 +46,7 @@
             <th class="table-header" scope="col">Date sold</th>
             <th class="table-header" scope="col">Customer name</th>
             <th class="table-header" scope="col">Customer email</th>
+            <th class="table-header" scope="col">Shipping Address</th>
             </tr>
         </thead>
         <tbody>
@@ -57,6 +58,7 @@
             <td class="table-data">{{shippingPrice}}</td>
             <td class="table-data">{{dataSold}}</td>
             <td class="table-data">{{customerName}}</td>
+            <td class="table-data">{{customerStreetName}}, {{customerBuilding}}, {{customerCountry}}</td>
             <td class="table-data"><a id="Email" href = "mailto: {{customerEmail}}"><center><i class="fas fa-envelope"></i></center></a></td>
             </tr>
             {{/each}}
@@ -74,8 +76,48 @@
             </div>
             </div>
             <div class="col">
-            2 of 2
+            <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    How to view your current balance and payout
+                </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Inside the shop dashboard, you can view your current balance by looking at the value below <strong>Balance Available</strong>. 
+                    In order to send money from our platform into your bank account, simply click on the payout button.
+                    Funds will be sent to the given bank account you registered with.
+                </div>
+                </div>
             </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Accordion Item #2
+                </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Accordion Item #3
+                </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                </div>
+                </div>
+            </div>
+            </div>
+            </div>
+        </div>
         </div>
     </div>
 </section>
