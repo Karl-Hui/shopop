@@ -56,7 +56,7 @@ module.exports = new LocalStrategy(
         ...customer_info,
         id: customerId[0],
       };
-      console.log("newCustomer", newCustomer);
+      // console.log("newCustomer", newCustomer);
       done(null, newCustomer);
     } catch (err) {
       console.log(err);

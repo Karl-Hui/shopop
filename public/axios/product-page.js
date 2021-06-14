@@ -1,6 +1,6 @@
-console.log("Link to p page")
+// console.log("Link to p page");
 
-const addBtn = document.querySelector(".addBtn")
-const test = document.querySelector(".test")
+const addBtn = document.querySelector(".addBtn");
+const test = document.querySelector(".test");
 
-console.log(test)
+// console.log(test)
