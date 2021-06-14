@@ -10,7 +10,7 @@ function hashPassword(realPassword) {
           if (err) {
             reject(err);
           } else {
-            console.log(hash);
+            // console.log(hash);
             resolve(hash);
           }
         });
@@ -21,13 +21,13 @@ function hashPassword(realPassword) {
 
 function checkPassword(realPassword, hashPassword) {
   return new Promise((resolve, reject) => {
-    console.log("checking password");
+    // console.log("checking password");
     bcrypt.compare(realPassword, hashPassword, (err, match) => {
       if (err) {
         console.log("err", err);
         reject(err);
       } else {
-        console.log(match);
+        // console.log(match);
         resolve(match);
       }
     });

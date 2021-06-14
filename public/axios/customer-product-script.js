@@ -1,14 +1,15 @@
 let addToCartBtn = document.querySelector(".addBtn");
 
-console.log(addToCartBtn);
+// console.log(addToCartBtn);
 
 addToCartBtn.addEventListener("click", (e) => {
   let id = addToCartBtn.getAttribute("data-value");
   fetch(`/product/${id}`, {
     method: "post",
-  }).then((data) => {
-    console.log(data);
   });
+  // .then((data) => {
+  //   console.log(data);
+  // });
 });
 
 const addBtn = document.querySelector(".addBtn");

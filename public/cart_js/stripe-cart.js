@@ -149,34 +149,3 @@ function updateCart() {
     button.parentElement.parentElement.parentElement.remove();
   }
 }
-
-function updateCarTotal() {
-  let cartItemContainers = document.getElementsByClassName("cart-items");
-  // console.log("cartItemContainer", cartItemContainer);
-  // let cartRows = cartItemContainer.getElementsByClassName("cart-row");
-  // console.log("cartRows", cartRows);
-  let total = 0;
-  let finalQuantity = 0;
-  for (let i = 0; i < cartItemContainers.length; i++) {
-    let cartItemContainer = cartItemContainers[i];
-    let priceElement =
-      cartItemContainer.getElementsByClassName("cart-price")[0];
-    let quantityElement = cartItemContainer.getElementsByClassName(
-      "cart-quantity-input"
-    )[0];
-    let price = parseFloat(priceElement.innerText.replace("$", ""));
-    quantity = quantityElement.value;
-    finalQuantity = parseInt(finalQuantity) + parseInt(quantity);
-    total = total + price * quantity;
-    // console.log("priceElement", priceElement);
-  }
-  document.getElementsByClassName("item-quantity")[0].innerHTML =
-    "Total Items: " + finalQuantity;
-  // console.log("finalQuantity", finalQuantity);
-  total = Math.round(total * 100) / 100;
-  document.getElementsByClassName("cart-total-price")[0].innerText =
-    "$ " + total;
-  document.getElementsByClassName("total-price")[0].innerText =
-    "$ " + (total + 5);
-  theEmptyCart();
-}

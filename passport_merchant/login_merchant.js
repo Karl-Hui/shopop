@@ -18,7 +18,7 @@ module.exports = new LocalStrategy(async (email, password, done) => {
     }
     // // console.log(user[0].hash);
     let result = await hashFunction.checkPassword(password, merchant[0].hash);
-    console.log("merchant", merchant);
+    // console.log("merchant", merchant);
     // console.log("password", result);
     if (result) {
       return done(null, merchant);

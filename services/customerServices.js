@@ -16,7 +16,7 @@ class CustomerServices {
         customer_id: customerId,
       })
       .then((data) => {
-        console.log("This data belongs to customer:", data);
+        // console.log("This data belongs to customer:", data);
         return data;
       })
       .catch((error) => {
@@ -78,7 +78,7 @@ class CustomerServices {
         country_address: newCountryAddress,
       })
       .then(() => {
-        console.log("updated address");
+        // console.log("updated address");
         let data = {
           building_address: newBuildingAddress,
           street_address: newStreetAddress,
@@ -92,17 +92,19 @@ class CustomerServices {
   }
 
   postImage(user_id, imageURL) {
-    return this.knex("customer_info")
-      .update("profilePicture", imageURL)
-      .where({
-        customer_id: user_id,
-      })
-      .then((data, dataInfo) => {
-        console.log("added profile Pic!", data, dataInfo);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
+    return (
+      this.knex("customer_info")
+        .update("profilePicture", imageURL)
+        .where({
+          customer_id: user_id,
+        })
+        // .then((data, dataInfo) => {
+        //   console.log("added profile Pic!", data, dataInfo);
+        // })
+        .catch((err) => {
+          console.log("err", err);
+        })
+    );
   }
 
   getCart(user_id) {
@@ -118,7 +120,7 @@ class CustomerServices {
         customer_info: user_id,
       })
       .then((data) => {
-        console.log("the getCart", data);
+        // console.log("the getCart", data);
         return data;
       })
       .catch((err) => {
@@ -206,7 +208,7 @@ class CustomerServices {
       .select("*")
       .where("productCategory", category)
       .then((data) => {
-        console.log(data[1]["productCategory"]);
+        // console.log(data[1]["productCategory"]);
         return data;
       });
   }
@@ -219,7 +221,7 @@ class CustomerServices {
         .orderBy("product_info.id", "desc")
         // .where({ customer_id: customerId })
         .then((data) => {
-          console.log("merchant info and product!!!!!!", data);
+          // console.log("merchant info and product!!!!!!", data);
           return data;
         })
         .catch((error) => {
@@ -244,8 +246,8 @@ class CustomerServices {
           })
           .then((addProduct) => {
             const addId = addProduct[0].merchant_id;
-            console.log("inCartId", inCartId);
-            console.log("addId", addId);
+            // console.log("inCartId", inCartId);
+            // console.log("addId", addId);
             return new Promise((resolve, reject) => {
               if (inCartId === addId) {
                 resolve(true);
@@ -253,7 +255,7 @@ class CustomerServices {
                 resolve(false);
               }
             }).then((data) => {
-              console.log("id isSame?", data);
+              // console.log("id isSame?", data);
               return data;
             });
           });
@@ -276,7 +278,7 @@ class CustomerServices {
         customer_info: customer_id,
       })
       .then((data) => {
-        console.log("have item?", data);
+        // console.log("have item?", data);
         if (data.length > 0) {
           const quantity = data[0].purchaseQuantity + 1;
           return this.knex("checkout_cart")
@@ -286,11 +288,10 @@ class CustomerServices {
               product_info_id: product_id,
             });
         } else {
-          return this.knex("checkout_cart")
-            .insert(newProduct)
-            .then(() => {
-              console.log("added to cart yoyoyo");
-            });
+          return this.knex("checkout_cart").insert(newProduct);
+          // .then(() => {
+          //   console.log("added to cart yoyoyo");
+          // });
         }
       })
       .catch((err) => {
@@ -309,11 +310,10 @@ class CustomerServices {
         this.checkCartIsEmpty(allCartItems).then((isEmpty) => {
           // check if item exist in check out cart
           if (isEmpty === true) {
-            return this.knex("checkout_cart")
-              .insert(newProduct)
-              .then(() => {
-                console.log("inserted");
-              });
+            return this.knex("checkout_cart").insert(newProduct);
+            // .then(() => {
+            //   console.log("inserted");
+            // });
           } else {
             //check if the first in cart merchant id is same as new append merchant id
             this.checkMerchantIdInCart(
@@ -327,13 +327,14 @@ class CustomerServices {
                   })
                   .del()
                   .then(() => {
-                    console.log("add other merchant items");
+                    // console.log("add other merchant items");
                     return this.knex("checkout_cart").insert(newProduct);
                   });
               } else {
-                this.checkProductId(product_id, customer_id).then(() => {
-                  console.log("you did it!");
-                });
+                this.checkProductId(product_id, customer_id);
+                // .then(() => {
+                //   console.log("you did it!");
+                // });
               }
             });
           }

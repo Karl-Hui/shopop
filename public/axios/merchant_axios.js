@@ -2,7 +2,7 @@
 let editMerchantbtn = document.querySelector("#updateMerchantName");
 
 editMerchantbtn.addEventListener("click", () => {
-  console.log("hello you clicked me");
+  //   console.log("hello you clicked me");
   let edit = {
     merchantName: document.querySelector("#merchantName").value,
   };
@@ -19,15 +19,15 @@ editMerchantbtn.addEventListener("click", () => {
 let editMerchantDescriptionbtn = document.querySelector("#Description");
 
 editMerchantDescriptionbtn.addEventListener("click", () => {
-  console.log("hello you clicked me");
+  //   console.log("hello you clicked me");
   let edit = {
     shopDescription: document.querySelector("#updateShopDescription").value,
   };
-  console.log("this is the  edit data", edit);
+  //   console.log("this is the  edit data", edit);
   axios
     .put("/shop/merchant-setting", edit)
     .then((DATA) => {
-      console.log(DATA);
+      //   console.log(DATA);
       document.querySelector("#shopDescription-words").innerHTML = DATA.data;
     })
     .catch((error) => {
