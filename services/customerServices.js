@@ -159,8 +159,6 @@ class CustomerServices {
   //     });
   // }
 
-  
-
   getIndividualProduct(id) {
     return this.knex("product_info")
       .select()
@@ -203,8 +201,6 @@ class CustomerServices {
     });
   }
 
-  
-
   getSelectedMerhcantProduct(category) {
     return this.knex("product_info")
       .select("*")
@@ -220,9 +216,10 @@ class CustomerServices {
       this.knex("merchant")
         .join("product_info", "merchant.id", "merchant_id")
         .select("*")
+        .orderBy("product_info.id", "desc")
         // .where({ customer_id: customerId })
         .then((data) => {
-          // console.log("merchant info and product!!!!!!", data);
+          console.log("merchant info and product!!!!!!", data);
           return data;
         })
         .catch((error) => {
@@ -361,22 +358,16 @@ class CustomerServices {
     });
   }
 
-
-
   //******************11/06******************** */
-//   SortProductPrice(price, compare) {
-//     return knex("product_info")
-//     .select("*")
-//     .where('price', compare, price)
-//     .then((data) =>{
-//       console.log(data)
-//     }) 
-//   }
-
+  //   SortProductPrice(price, compare) {
+  //     return knex("product_info")
+  //     .select("*")
+  //     .where('price', compare, price)
+  //     .then((data) =>{
+  //       console.log(data)
+  //     })
+  //   }
 }
-
-
-
 
 // test
 // let info = JSON.stringify("https://res.cloudinary.com/dnq92mpxr/image/upload/v1623124318/pq4olhcuhhgf2jjswzae.jpg")
