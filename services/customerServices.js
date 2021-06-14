@@ -131,8 +131,6 @@ class CustomerServices {
     //   });
   }
 
-<<<<<<< HEAD
-=======
   //run this to get all products
   // getMerchantProducts(category) {
   //   return this.knex("product_info")
@@ -160,7 +158,6 @@ class CustomerServices {
   //       console.log("error", error);
   //     });
   // }
->>>>>>> 4edc8a19c1884d34f4436b8a78e9088242144ff7
 
   getIndividualProduct(id) {
     return this.knex("product_info")

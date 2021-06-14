@@ -11,14 +11,10 @@ let customer_id;
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
-<<<<<<< HEAD
-    customer_id = req.user.id;
-=======
     if (req.user.username) {
       customer_id = req.user.id;
       return next();
     }
->>>>>>> 4edc8a19c1884d34f4436b8a78e9088242144ff7
     // console.log(req.user.id)
     // console.log("logged in as id:", req.user.id);
     return next();
