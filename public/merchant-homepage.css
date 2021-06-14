@@ -27,6 +27,14 @@
   text-decoration: none;
 }
 
+.viewMore {
+  color: black;
+  font-size: 1.2rem;
+}
+.viewMore:hover {
+  color: black;
+}
+
 .create-product-btn a:hover {
   text-decoration: none;
 }

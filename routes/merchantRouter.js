@@ -207,7 +207,7 @@ class MerchantRouter {
     this.merchantService
 
       .editMerchantDes(merchant_id, newShopDescription)
-      .then((data) => {
+      .then(() => {
         res.send(newShopDescription);
       })
       .catch((err) => {

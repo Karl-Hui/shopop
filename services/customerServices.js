@@ -128,38 +128,6 @@ class CustomerServices {
     //   });
   }
 
-  //run this to get all products
-  // getMerchantProducts(category) {
-  //   return this.knex("product_info")
-  //     .select("*")
-  //     .table("product_info")
-  //     .orderBy("id", "desc")
-  //     .then((productData) => {
-  //       // console.log("data from products table:", productData);
-  //       return productData;
-  //     })
-  //     .catch((error) => {
-  //       console.log("error", error);
-  //     });
-  // }
-
-
-
-
-  // getMerchantProducts(category) {
-  //   return this.knex("product_info")
-  //     .select("*")
-  //     .table("product_info")
-  //     .then((productData) => {
-  //       // console.log("data from products table:", productData);
-  //       return productData;
-  //     })
-  //     .catch((error) => {
-  //       console.log("error", error);
-  //     });
-  // }
-
-  
 
   getIndividualProduct(id) {
     return this.knex("product_info")
@@ -203,25 +171,13 @@ class CustomerServices {
     });
   }
 
-  
-
-  getSelectedMerhcantProduct(category) {
-    return this.knex("product_info")
-      .select("*")
-      .where("productCategory", category)
-      .then((data) => {
-        console.log(data[1]["productCategory"]);
-        return data;
-      });
-  }
-
   getMerchantNameAndProducts() {
     return this.knex("merchant")
       .join("product_info", "merchant.id", "merchant_id")
       .select("*")
       // .where({ customer_id: customerId })
       .then((data) => {
-        console.log("merchant info and product!!!!!!", data);
+        // console.log("merchant info and product!!!!!!", data);
 
         return data;
       })
@@ -363,14 +319,31 @@ class CustomerServices {
 
 
   //******************11/06******************** */
-//   SortProductPrice(price, compare) {
-//     return knex("product_info")
-//     .select("*")
-//     .where('price', compare, price)
-//     .then((data) =>{
-//       console.log(data)
-//     }) 
-//   }
+  // SortProductPrice(selectedPrice) {
+  //   return knex("product_info")
+  //   .select("price")
+  //   // .where({price})
+  //   .then((data) => {
+  //     console.log("this is all price data", data[0])
+  //     if (data.price <= 50){
+  //       return knex("product_info")
+  //       .select("price" <= 50)
+  //       .then((lessthan50) =>
+  //       console.log("less than 50: ", lessthan50))
+  //     } else {
+    
+  //     }
+      
+  //     // if (data <= 50){
+  //     //   return knex("product_info")
+  //     //   .select('price' <= 50)
+  //     //   .then((under200)=>{
+  //     //     console.log("prices that is lessor eqaul to 200: ",under200)
+  //     //   })
+  //     // }
+  //     // console.log(data)
+  //   }) 
+  // }
 
 }
 
@@ -380,7 +353,7 @@ class CustomerServices {
 // test
 // let info = JSON.stringify("https://res.cloudinary.com/dnq92mpxr/image/upload/v1623124318/pq4olhcuhhgf2jjswzae.jpg")
 // let service = new CustomerServices(knex);
-// service.SortProductPrice(50,'');
+// service.SortProductPrice(50);
 // console.log("got the data from the database");
 
 module.exports = CustomerServices;

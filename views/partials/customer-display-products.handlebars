@@ -6,7 +6,7 @@
   <h4 class="section-title">Products</h4>
   <div class="row">
     {{#each products}}
-    <div class="col-3 {{productCategory}} products" data-custom-type="{{productCategory}}" >
+    <div class="col-3 {{productCategory}} products" condition-data-type="{{productCondition}}" data-custom-type="{{productCategory}}" >
       <div class="card">
         <img
           src="{{productPhoto.[0]}}"
@@ -14,14 +14,14 @@
           alt="{{productName}}"
         />
         <div class="card-body">
-          <h5 class="card-title">product name: {{this.productName}}</h5>
-          <h5 class="card-title">shop name: {{this.merchantName}}</h5>
+          <h5 class="card-title productName"> {{this.productName}}</h5>
+          <h5 class="card-title shopName"> {{this.merchantName}}</h5>
           <p class="card-text ">
-            ${{this.price}}
+           <p data-type="{{this.price}}"> ${{this.price}}</p>
             {{!-- {{productCategory}} --}}
 
           </p>
-          <a href="/product/{{id}}" class="">view more</a>
+          <a href="/product/{{id}}" class="viewMore">view more</a>
         </div>
       </div>
     </div>
