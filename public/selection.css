@@ -55,9 +55,7 @@
    }
    
    @media (max-width: 600px){
-    .borderLine{
-      display: none;
-     }
+   
      .selection-form {
       margin: 0 auto;
       padding: 0px;
