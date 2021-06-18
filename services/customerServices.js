@@ -133,33 +133,6 @@ class CustomerServices {
     //   });
   }
 
-  //run this to get all products
-  // getMerchantProducts(category) {
-  //   return this.knex("product_info")
-  //     .select("*")
-  //     .table("product_info")
-  //     .orderBy("id", "desc")
-  //     .then((productData) => {
-  //       // console.log("data from products table:", productData);
-  //       return productData;
-  //     })
-  //     .catch((error) => {
-  //       console.log("error", error);
-  //     });
-  // }
-
-  // getMerchantProducts(category) {
-  //   return this.knex("product_info")
-  //     .select("*")
-  //     .table("product_info")
-  //     .then((productData) => {
-  //       // console.log("data from products table:", productData);
-  //       return productData;
-  //     })
-  //     .catch((error) => {
-  //       console.log("error", error);
-  //     });
-  // }
 
   getIndividualProduct(id) {
     return this.knex("product_info")
